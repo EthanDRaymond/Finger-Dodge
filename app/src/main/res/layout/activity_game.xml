@@ -1,0 +1,70 @@
+<RelativeLayout
+    android:id="@+id/mainLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.edr.fingerdodge.ui.pages.GameActivity">
+
+    <com.edr.fingerdodge.ui.views.GameView
+        android:id="@+id/gameView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.edr.fingerdodge.ui.views.ScoreView
+        android:id="@+id/timeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"/>
+
+    <com.edr.fingerdodge.ui.views.HighScoreView
+        android:id="@+id/highScoreView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10sp"/>
+
+    <RelativeLayout
+        android:id="@+id/preGameMessageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="70sp"
+        android:background="#55222222"
+        android:padding="5sp">
+
+        <TextView
+            android:id="@+id/gameMessageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Touch the Circle"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"/>
+
+    </RelativeLayout>
+
+    <com.edr.fingerdodge.ui.views.EndOfGameView
+        android:id="@+id/endOfGameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+
+    </com.edr.fingerdodge.ui.views.EndOfGameView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true">
+
+        <com.edr.fingerdodge.ui.views.InfoView
+            android:id="@+id/infoView"
+            android:layout_width="30sp"
+            android:layout_height="30sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
