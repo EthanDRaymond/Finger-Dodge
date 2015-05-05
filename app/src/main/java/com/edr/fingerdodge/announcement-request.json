@@ -1,0 +1,9 @@
+{
+	"message-type":"announcement-request",
+	"client-api":3,
+	"conversation-id":120529,
+	"user-id":584399493,
+	"content":{
+		"last-check":1000000000
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"message-type":"statistics-submision",
+	"client-api":3,
+	"conversation-id":120529,
+	"user-id":584399493,
+	"content":{
+		"statistics":[
+			{
+				"type":"game-play",
+				"log-time":1000000000,
+				"start-time":10000000000,
+				"end-time":1000001000
+			},
+			{
+				"type":"game-play",
+				"log-time":1100000000,
+				"start-time":11000000000,
+				"end-time":1100001000
+			}
+		]
+	}
+}
