@@ -111,7 +111,14 @@ public class StatisticsService extends Service {
         if (input.length() > 0){
             JSONArray jsonArray = new JSONArray(input);
             for(int i = 0; i < jsonArray.length(); i++){
-                unwrittenStatistics.add(jsonArray.getJSONObject(i).toString());
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                try {
+                    long logTime = jsonObject.getLong(JSON_KEY_STATISTIC_START_TIME);
+                    if (System.currentTimeMillis() - logTime > 2628000000L) {
+                        continue;
+                    }
+                } catch (Exception e){}
+                unwrittenStatistics.add(jsonObject.toString());
             }
         }
     }
