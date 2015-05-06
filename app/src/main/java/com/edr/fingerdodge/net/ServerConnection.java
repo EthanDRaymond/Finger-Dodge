@@ -1,5 +1,7 @@
 package com.edr.fingerdodge.net;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -143,6 +145,7 @@ public class ServerConnection extends Thread {
      * @return                      true if the data is send successfully, false if the data is not
      */
     public boolean sendData(String data, Runnable onRecievedResponse){
+        Log.i("NET", "Attempting to send Data: \"" + data + "\"");
         try {
             if (getConnectionState() == STATE_CONNECTED) {
                 JSONObject message = new JSONObject();
@@ -153,12 +156,15 @@ public class ServerConnection extends Thread {
                     message.put("CONVERSATION_ID", conversationID);
                 }
                 message.put("CONTENT", data);
+                Log.i("NET", "Succesfully sent data: \"" + data + "\"");
                 return true;
             } else {
+                Log.i("NET", "Failed to send data, no connection: \"" + data + "\"");
                 return false;
             }
         } catch (Exception e){
             e.printStackTrace();
+            Log.i("NET", "Failed to send data, exception thrown: \"" + data + "\"");
             return false;
         }
     }

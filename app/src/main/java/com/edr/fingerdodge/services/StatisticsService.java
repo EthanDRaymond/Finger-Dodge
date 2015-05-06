@@ -75,6 +75,17 @@ public class StatisticsService extends Service {
         return super.onUnbind(intent);
     }
 
+    private void onAddNewStatistic(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (sendStatisticsToServer()){
+                    unwrittenStatistics.clear();
+                }
+            }
+        }).start();
+    }
+
     /**
      * Adds a game play statistic to the statistics list.
      * @param startTime     the time the game starts
@@ -88,21 +99,9 @@ public class StatisticsService extends Service {
             statistic.put(JSON_KEY_STATISTIC_START_TIME, startTime);
             statistic.put(JSON_KEY_STATISTIC_END_TIME, endTime);
             unwrittenStatistics.add(statistic.toString());
+            onAddNewStatistic();
         } catch (Exception e){
             e.printStackTrace();
-        }
-        try {
-            //if (isNetworkAvailable()){
-            //    sendStatisticsToServer();
-            //} else {
-                saveStatisticsToFile();
-            //}
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.i("STATISTICS", "Failed to save statistics to file. Reason: IOException");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.i("STATISTICS", "Failed to save statistics to file. Reason: JSONException");
         }
     }
 
@@ -152,12 +151,27 @@ public class StatisticsService extends Service {
     }
 
     /**
-     * [INCOMPLETE]
      * Sends the statistics to the server and then clears the statistics from memory if they were
      * send successfully.
+     * @return  true if the data is successfully send, false if the data is not.e
+     * TODO:    Make this method actually send the data. It currently just pretends to and fails every time.
      */
-    private void sendStatisticsToServer(){
+    private boolean  sendStatisticsToServer() {
         Log.i("STATISTICS", "Sending Statistics To Server.");
+        return false;
+        /*
+        try {
+            String output = getAllStatisticsDataString();
+            ServerConnection connection = new ServerConnection();
+            connection.start();
+            boolean outcome = connection.sendData(output, null);
+            connection.end();
+            return outcome;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        */
     }
 
     /**
@@ -169,6 +183,14 @@ public class StatisticsService extends Service {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private String getAllStatisticsDataString() throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < unwrittenStatistics.size(); i++){
+            jsonArray.put(new JSONObject(unwrittenStatistics.get(i)));
+        }
+        return jsonArray.toString();
     }
 
     public class LocalBinder extends Binder {
