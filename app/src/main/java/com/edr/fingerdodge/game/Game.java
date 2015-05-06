@@ -1,6 +1,7 @@
 package com.edr.fingerdodge.game;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.util.Xml;
 import android.view.View;
 
@@ -50,10 +51,10 @@ public class Game {
     private long endTime;
     private float highScore;
     private long score;
-    private OnGameStartedListener onGameStartedListener;
-    private OnGamePausedListener onGamePausedListener;
-    private OnGameEndedListener onGameEndedListener;
-    private OnGameRestartListener onGameRestartListener;
+    private ArrayList<OnGameStartedListener> onGameStartedListeners;
+    private ArrayList<OnGamePausedListener> onGamePausedListeners;
+    private ArrayList<OnGameEndedListener> onGameEndedListeners;
+    private ArrayList<OnGameRestartListener> onGameRestartListeners;
 
     private SharedPreferences settings;
 
@@ -70,6 +71,10 @@ public class Game {
         this.endTime = 0;
         this.highScore = -1;
         this.score = 0;
+        this.onGameStartedListeners = new ArrayList<>();
+        this.onGamePausedListeners = new ArrayList<>();
+        this.onGameEndedListeners = new ArrayList<>();
+        this.onGameRestartListeners = new ArrayList<>();
         handleRectangleCount();
     }
 
@@ -209,10 +214,13 @@ public class Game {
      * This begins the game. The game state is changed and the start timestamp is set.
      */
     public void startGame(){
+        Log.i("GAME", "Starting game.");
         this.gameState = STATE_PLAYING;
         this.startTime = System.currentTimeMillis();
-        if (onGameStartedListener != null){
-            onGameStartedListener.startGame();
+        if (onGameStartedListeners.size() > 0){
+            for (int i = 0; i < onGameStartedListeners.size(); i++){
+                onGameStartedListeners.get(i).startGame();
+            }
         }
         new Thread(new Runnable() {
             @Override
@@ -229,15 +237,20 @@ public class Game {
     }
 
     public void pauseGame(){
+        Log.i("GAME", "Pausing game.");
         this.gameState = STATE_PAUSED;
-        if (onGamePausedListener != null){
-            onGamePausedListener.pauseGame(this);
+        if (onGamePausedListeners.size() > 0){
+            for (int i = 0; i < onGamePausedListeners.size(); i++){
+                onGamePausedListeners.get(i).pauseGame(this);
+            }
         }
     }
 
     public void unPauseGame(){
-        if (onGamePausedListener != null){
-            onGamePausedListener.unPauseGame(this);
+        if (onGamePausedListeners.size() > 0){
+            for (int i = 0; i < onGamePausedListeners.size(); i++){
+                onGamePausedListeners.get(i).unPauseGame(this);
+            }
         }
         startGame();
     }
@@ -246,13 +259,16 @@ public class Game {
      * This ends the game.
      */
     public void endGame(String message){
+        Log.i("GAME", "Ending game.");
         this.gameState = STATE_END;
         this.endTime = System.currentTimeMillis();
         if (getScore() > getHighScore()){
             setHighScore(getScore());
         }
-        if (onGameEndedListener != null){
-            onGameEndedListener.endGame(message, System.currentTimeMillis());
+        if (onGameEndedListeners.size() > 0){
+            for (int i = 0; i < onGameEndedListeners.size(); i++){
+                onGameEndedListeners.get(i).endGame(message, System.currentTimeMillis());
+            }
         }
     }
 
@@ -264,8 +280,10 @@ public class Game {
         this.finger.getCenter().y = gameView.getHeight() / 2.0f;
         this.rectangles.clear();
         this.score = 0;
-        if (onGameRestartListener != null){
-            onGameRestartListener.restartGame(this);
+        if (onGameRestartListeners.size() > 0){
+            for (int i = 0; i < onGameRestartListeners.size(); i++){
+                onGameRestartListeners.get(i).restartGame(this);
+            }
         }
     }
 
@@ -384,12 +402,12 @@ public class Game {
      * @param onGameStartedListener     this listener
      * @see     com.edr.fingerdodge.game.listeners.OnGameStartedListener
      */
-    public void setOnGameStartedListener(OnGameStartedListener onGameStartedListener) {
-        this.onGameStartedListener = onGameStartedListener;
+    public void registerOnGameStartedListener(OnGameStartedListener onGameStartedListener) {
+        this.onGameStartedListeners.add(onGameStartedListener);
     }
 
-    public void setOnGamePausedListener(OnGamePausedListener onGamePausedListener){
-        this.onGamePausedListener = onGamePausedListener;
+    public void registerOnGamePausedListener(OnGamePausedListener onGamePausedListener){
+        this.onGamePausedListeners.add(onGamePausedListener);
     }
 
     /**
@@ -397,12 +415,12 @@ public class Game {
      * @param onGameEndedListener     this listener
      * @see     com.edr.fingerdodge.game.listeners.OnGameEndedListener
      */
-    public void setOnGameEndedListener(OnGameEndedListener onGameEndedListener) {
-        this.onGameEndedListener = onGameEndedListener;
+    public void registerOnGameEndedListener(OnGameEndedListener onGameEndedListener) {
+        this.onGameEndedListeners.add(onGameEndedListener);
     }
 
-    public void setOnGameRestartListener(OnGameRestartListener onGameRestartListener){
-        this.onGameRestartListener = onGameRestartListener;
+    public void registerOnGameRestartListener(OnGameRestartListener onGameRestartListener){
+        this.onGameRestartListeners.add(onGameRestartListener);
     }
 
     public void setHighScore(float highScore){
@@ -511,30 +529,6 @@ public class Game {
             setHighScore(highScore);
         }
         return highScore;
-    }
-
-    /**
-     * Gets the OnGameStartedListener.
-     * @return  what do you think
-     */
-    public OnGameStartedListener getOnGameStartedListener() {
-        return onGameStartedListener;
-    }
-
-    public OnGamePausedListener getOnGamePausedListener(){
-        return onGamePausedListener;
-    }
-
-    /**
-     * Gets the OnGameEndedListener.
-     * @return  what do you think
-     */
-    public OnGameEndedListener getOnGameEndedListener() {
-        return onGameEndedListener;
-    }
-
-    public OnGameRestartListener getOnGameRestartListener(){
-        return onGameRestartListener;
     }
 
 }

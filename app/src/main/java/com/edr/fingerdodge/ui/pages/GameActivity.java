@@ -1,9 +1,14 @@
 package com.edr.fingerdodge.ui.pages;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -17,6 +22,7 @@ import com.edr.fingerdodge.game.listeners.OnGameEndedListener;
 import com.edr.fingerdodge.game.listeners.OnGamePausedListener;
 import com.edr.fingerdodge.game.listeners.OnGameRestartListener;
 import com.edr.fingerdodge.game.listeners.OnGameStartedListener;
+import com.edr.fingerdodge.services.StatisticsService;
 import com.edr.fingerdodge.ui.views.EndOfGameView;
 import com.edr.fingerdodge.ui.views.GameView;
 import com.edr.fingerdodge.ui.views.HighScoreView;
@@ -37,6 +43,10 @@ public class GameActivity extends ActionBarActivity {
     private TextView gameMessageView;
 
     private Game game;
+
+    private StatisticsService statisticsService;
+    private ServiceConnection statisticsServiceConnection;
+    private boolean isBound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,25 +76,26 @@ public class GameActivity extends ActionBarActivity {
         mainLayout.removeView(endOfGameView);
         game = new Game(gameView);
         game.setSettingsFile(getSharedPreferences(Files.FILE_BASIC, MODE_MULTI_PROCESS));
-        game.setOnGameStartedListener(new OnGameStartedListener() {
+        game.registerOnGameStartedListener(new OnGameStartedListener() {
             @Override
             public void onGameStarted(long startTime) {
                 mainLayout.removeView(endOfGameView);
                 mainLayout.removeView(preGameMessageView);
             }
         });
-        game.setOnGamePausedListener(new OnGamePausedListener() {
+        game.registerOnGamePausedListener(new OnGamePausedListener() {
             @Override
             public void onGamePaused(Game game) {
                 mainLayout.addView(preGameMessageView);
                 gameMessageView.setText("Paused.");
             }
+
             @Override
             public void onGameUnPaused(Game game) {
                 mainLayout.removeView(preGameMessageView);
             }
         });
-        game.setOnGameEndedListener(new OnGameEndedListener() {
+        game.registerOnGameEndedListener(new OnGameEndedListener() {
             @Override
             public void onGameEnded(String message, long endTime) {
                 runOnUiThread(new Runnable() {
@@ -97,7 +108,7 @@ public class GameActivity extends ActionBarActivity {
                 endOfGameView.getScoreView().setText(timeView.getScore());
             }
         });
-        game.setOnGameRestartListener(new OnGameRestartListener() {
+        game.registerOnGameRestartListener(new OnGameRestartListener() {
             @Override
             public void onGameRestarted(Game game) {
                 mainLayout.removeView(endOfGameView);
@@ -108,13 +119,43 @@ public class GameActivity extends ActionBarActivity {
         gameView.setGame(game);
         timeView.setGame(game);
         highScoreView.setGame(game);
+        statisticsServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName className,
+                                           IBinder service) {
+                // We've bound to LocalService, cast the IBinder and get LocalService instance
+                StatisticsService.LocalBinder binder = (StatisticsService.LocalBinder) service;
+                statisticsService = binder.getService();
+                isBound = true;
+            }
+            @Override
+            public void onServiceDisconnected(ComponentName arg0) {
+                isBound = false;
+            }
+        };
+        isBound = false;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_game, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, StatisticsService.class);
+        bindService(intent, statisticsServiceConnection, Context.BIND_AUTO_CREATE);
+        game.registerOnGameEndedListener(new OnGameEndedListener() {
+            @Override
+            public void onGameEnded(String message, long endTime) {
+                if (isBound){
+                    long startTime = endTime - (long) game.getScore();
+                    statisticsService.addStatisticGameplay(startTime, endTime);
+                }
+            }
+        });
     }
 
     @Override
@@ -133,6 +174,7 @@ public class GameActivity extends ActionBarActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        unbindService(statisticsServiceConnection);
     }
 
     @Override
