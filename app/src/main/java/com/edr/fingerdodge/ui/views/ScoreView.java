@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.edr.fingerdodge.game.Game;
 
+/**
+ * @author Ethan Raymond
+ */
 public class ScoreView extends RelativeLayout {
 
     private TextView clockView;

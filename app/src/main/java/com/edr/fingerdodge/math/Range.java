@@ -3,7 +3,6 @@ package com.edr.fingerdodge.math;
 /**
  * This represents a range of numbers.
  * @author Ethan Raymond
- * @version 1.0
  */
 public class Range {
 

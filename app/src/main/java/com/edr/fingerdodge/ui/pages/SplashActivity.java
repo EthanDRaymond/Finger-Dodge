@@ -6,15 +6,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.util.Files;
-import com.edr.fingerdodge.util.XML;
 
 import java.io.File;
 
+/**
+ * @author Ethan Raymond
+ */
 public class SplashActivity extends ActionBarActivity {
 
     private TextView textView;

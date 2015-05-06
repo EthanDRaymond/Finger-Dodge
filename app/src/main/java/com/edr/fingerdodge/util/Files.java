@@ -1,15 +1,14 @@
 package com.edr.fingerdodge.util;
 
-import android.content.Context;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by ethanraymond on 1/30/15.
+ * This is a static class used for simplifying reading, writing, and appending to files. It contains
+ * methods that simplify the process.
+ * @author Ethan Raymond
  */
 public class Files {
 
@@ -19,6 +18,12 @@ public class Files {
 
     public static final String KEY_SETTINGS_HIGHSCORE = "highscore";
 
+    /**
+     * Reads and returns the data from the given file if it is available.
+     * @param file          the file that will be read from
+     * @return              the data in the given file
+     * @throws IOException  thrown if there is an error finding or opening the file
+     */
     public static String readFile(File file) throws IOException {
         int length = (int) file.length();
         FileInputStream fileInputStream = new FileInputStream(file);
@@ -27,11 +32,25 @@ public class Files {
         return new String(bytes);
     }
 
+    /**
+     * Writes the given string of data to the given file.
+     * @param data          the data that will be written to the file.
+     * @param file          the file that will be opened and written to
+     * @throws IOException  thrown if the file cannot be opened or the data cannot be written to it
+     */
     public static void writeToFile(String data, File file) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         fileOutputStream.write(data.getBytes());
     }
 
+    /**
+     * This appends the given string of data to the given file. It does this by reading the existing
+     * data from the file and concatenates the new data to that string and rewrites it back out to
+     * the file.
+     * @param data          the new data to be appended
+     * @param file          the file to append the data to
+     * @throws IOException  thrown if the file cannot be opened or the data cannot be written to it
+     */
     public static void appendToFile(String data, File file) throws IOException {
         writeToFile(readFile(file) + data, file);
     }

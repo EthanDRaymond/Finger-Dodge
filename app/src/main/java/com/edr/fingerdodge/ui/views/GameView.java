@@ -17,6 +17,9 @@ import com.edr.fingerdodge.math.geo.Rectangle;
 
 import java.util.ArrayList;
 
+/**
+ * @author Ethan Raymond
+ */
 public class GameView extends View implements View.OnTouchListener{
 
     private static final float SHADOW_OFFSET = 10.0f;

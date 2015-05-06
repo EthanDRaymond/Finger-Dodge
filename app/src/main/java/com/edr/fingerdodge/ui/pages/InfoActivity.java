@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.edr.fingerdodge.R;
 
+/**
+ * @author Ethan Raymond
+ */
 public class InfoActivity extends ActionBarActivity {
 
     private TextView blurb;

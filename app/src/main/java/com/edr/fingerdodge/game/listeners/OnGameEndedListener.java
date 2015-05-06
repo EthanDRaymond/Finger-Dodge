@@ -3,7 +3,6 @@ package com.edr.fingerdodge.game.listeners;
 /**
  * This is the listener used when a game ends.
  * @author  Ethan Raymond
- * @version 1.0
  */
 public abstract class OnGameEndedListener {
 

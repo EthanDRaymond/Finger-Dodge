@@ -28,10 +28,16 @@ public class Circle {
                 center.x - radius, center.x + radius);
     }
 
+    /**
+     * Returns the center point of the circle.
+     */
     public Point getCenter() {
         return center;
     }
 
+    /**
+     * Returns the radius of the circle.
+     */
     public float getRadius() {
         return radius;
     }

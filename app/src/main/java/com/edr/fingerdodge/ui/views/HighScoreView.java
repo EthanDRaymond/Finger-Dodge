@@ -14,6 +14,9 @@ import com.edr.fingerdodge.util.Files;
 
 import java.io.File;
 
+/**
+ * @author Ethan Raymond
+ */
 public class HighScoreView extends RelativeLayout {
 
     private TextView clockView;

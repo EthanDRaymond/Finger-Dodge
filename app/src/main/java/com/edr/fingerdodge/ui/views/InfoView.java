@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 
+/**
+ * @author Ethan Raymond
+ */
 public class InfoView extends IconView {
 
     public InfoView(Context context){

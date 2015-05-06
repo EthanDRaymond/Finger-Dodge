@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.game.Game;
 
+/**
+ * @author Ethan Raymond
+ */
 public class EndOfGameView extends LinearLayout {
 
     private Game game;

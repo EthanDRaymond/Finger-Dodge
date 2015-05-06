@@ -7,6 +7,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * @author Ethan Raymond
+ */
 public class IconView extends View {
 
     private Paint bgPaint;

@@ -3,20 +3,37 @@ package com.edr.fingerdodge.game.listeners;
 import com.edr.fingerdodge.game.Game;
 
 /**
- * Created by ethanraymond on 3/22/15.
+ * This is a listener used for when the game is paused and un-paused.
+ * @author Ethan Raymond
  */
 public abstract class OnGamePausedListener {
 
+    /**
+     * Call this when the game is paused.
+     * @param game  the game that is paused
+     */
     public void pauseGame(Game game){
         onGamePaused(game);
     }
 
+    /**
+     * Call this when the game is un-paused.
+     * @param game  the game that is un-paused
+     */
     public void unPauseGame(Game game) {
         onGameUnPaused(game);
     }
 
+    /**
+     * This is called whenever the game is paused.
+     * @param game  the game that is paused
+     */
     public abstract void onGamePaused(Game game);
 
+    /**
+     * This is called whenever the game is un-paused.
+     * @param game  the game that is un-paused
+     */
     public abstract void onGameUnPaused(Game game);
 
 }

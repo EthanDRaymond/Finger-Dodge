@@ -30,7 +30,9 @@ import com.edr.fingerdodge.ui.views.InfoView;
 import com.edr.fingerdodge.ui.views.ScoreView;
 import com.edr.fingerdodge.util.Files;
 
-
+/**
+ * @author Ethan Raymond
+ */
 public class GameActivity extends ActionBarActivity {
 
     private RelativeLayout mainLayout;

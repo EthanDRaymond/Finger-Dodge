@@ -1,7 +1,5 @@
 package com.edr.fingerdodge.net;
 
-import com.edr.fingerdodge.util.Encryptor;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -12,6 +10,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Ethan Raymond
+ */
 public class ServerConnection extends Thread {
 
     public static final String SERVER_ADDRESS = "";
@@ -35,7 +36,6 @@ public class ServerConnection extends Thread {
         onRecievedResponseIDs = new ArrayList<>();
         this.state = STATE_IDLE;
     }
-
     @Override
     public synchronized void start() {
         super.start();

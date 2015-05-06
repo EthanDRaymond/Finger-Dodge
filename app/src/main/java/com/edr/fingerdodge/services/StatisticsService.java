@@ -20,6 +20,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This service handles the following tasks:
+ * <ol>
+ *     <li>Collecting and Saving statistics to a file.</li>
+ *     <li>Deleting statistics older than one month.</li>
+ *     <li>Sending statistics to the server when an internet connection is availible.</li>
+ * </ol>
+ * @author Ethan Raymond
+ */
 public class StatisticsService extends Service {
 
     private static final String JSON_KEY_STATISTIC_TYPE = "type";
@@ -41,6 +50,9 @@ public class StatisticsService extends Service {
         return mBinder;
     }
 
+    /**
+     * Initializes the service and all of the properties.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -63,6 +75,11 @@ public class StatisticsService extends Service {
         return super.onUnbind(intent);
     }
 
+    /**
+     * Adds a game play statistic to the statistics list.
+     * @param startTime     the time the game starts
+     * @param endTime       the time the game ends
+     */
     public void addStatisticGameplay(long startTime, long endTime){
         Log.i("STATISTICS", "Added new Gameplay Statistic.");
         try {
@@ -89,6 +106,12 @@ public class StatisticsService extends Service {
         }
     }
 
+    /**
+     * Saves the statistics in JSON format to a file called saved_statistics.txt in the root
+     * directory of the internal file system for the app.
+     * @throws JSONException    thrown if the JSON code is improper
+     * @throws IOException      thrown if the file cannot be opened
+     */
     private void saveStatisticsToFile() throws JSONException, IOException {
         Log.i("STATISTICS", "Saving Statistics To File.");
         if (unwrittenStatistics.size() > 0) {
@@ -103,6 +126,11 @@ public class StatisticsService extends Service {
         }
     }
 
+    /**
+     * This reads and imports the statistics from the JSON file.
+     * @throws IOException      thrown if the file cannot be located or opened
+     * @throws JSONException    thrown if the JSON code is incorrect.
+     */
     private void readStatisticsFromFile() throws IOException, JSONException {
         Log.i("STATISTICS", "Reading Statistics From File.");
         unwrittenStatistics.clear();
@@ -123,10 +151,19 @@ public class StatisticsService extends Service {
         }
     }
 
+    /**
+     * [INCOMPLETE]
+     * Sends the statistics to the server and then clears the statistics from memory if they were
+     * send successfully.
+     */
     private void sendStatisticsToServer(){
         Log.i("STATISTICS", "Sending Statistics To Server.");
     }
 
+    /**
+     * Checks to see if there is an internet connection.
+     * @return  true if there is a network connection, false if there is not.
+     */
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

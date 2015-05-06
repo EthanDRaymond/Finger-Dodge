@@ -1,7 +1,8 @@
 package com.edr.fingerdodge.util;
 
 /**
- * Created by ethanraymond on 2/27/15.
+ * This class exists for one reason: to offer an API code.
+ * @author Ethan Raymond
  */
 public class Version {
 
