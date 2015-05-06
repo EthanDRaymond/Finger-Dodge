@@ -17,6 +17,8 @@ import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.game.Game;
 
 /**
+ * This view appears when a game is complete. It displays the score from the game and a button
+ * to restart the game.
  * @author Ethan Raymond
  */
 public class EndOfGameView extends LinearLayout {

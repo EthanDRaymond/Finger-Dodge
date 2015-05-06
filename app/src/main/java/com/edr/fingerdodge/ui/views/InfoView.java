@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 
 /**
+ * This is subclass of IconView that displays the information icon.
  * @author Ethan Raymond
+ * @see IconView
  */
 public class InfoView extends IconView {
 

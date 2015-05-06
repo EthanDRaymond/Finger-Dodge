@@ -18,6 +18,8 @@ import com.edr.fingerdodge.math.geo.Rectangle;
 import java.util.ArrayList;
 
 /**
+ * This view displays the visuals of the game and handles any touch information to interact with
+ * the game.
  * @author Ethan Raymond
  */
 public class GameView extends View implements View.OnTouchListener{
@@ -210,6 +212,47 @@ public class GameView extends View implements View.OnTouchListener{
     }
 
 
+    /**
+     * This handles all of the touch input from the user. The algorithm in this method is a follows:
+     * <ul>
+     *     <li>If the game has not started yet...</li>
+     *     <ul>
+     *         <li>If the user is placing their finger on the screen...</li>
+     *         <ul>
+     *             <li>If the finger is touching the dot...</li>
+     *             <ul>
+     *                  <li>The game is started.</li>
+     *                  <li>The dot is moved where the user's finger is.</li>
+     *             </ul>
+     *         </ul>
+     *     </ul>
+     *     <li>If the game is currently playing...</li>
+     *     <ul>
+     *         <li>If the user is moving their finger across the screen...</li>
+     *         <ul>
+     *             <li>The dot is moved where the user's finger is.</li>
+     *         </ul>
+     *         <li>If the user lifts their finger...</li>
+     *         <ul>
+     *             <li>The game is paused</li>
+     *         </ul>
+     *     </ul>
+     *     <li>If the game is paused...</li>
+     *     <ul>
+     *         <li>If the user is placing their finger on the screen...</li>
+     *         <ul>
+     *             <li>If the finger is touching the dot...</li>
+     *             <ul>
+     *                  <li>The game is resumed.</li>
+     *                  <li>The dot is moved where the user's finger is.</li>
+     *             </ul>
+     *         </ul>
+     *     </ul>
+     * </ul>
+     * @param v     the view that is being touched
+     * @param event the motion event
+     * @return      true if the event was handled successfully, false if it was not
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         int action = event.getAction();
@@ -267,20 +310,16 @@ public class GameView extends View implements View.OnTouchListener{
         return true;
     }
 
+    /**
+     * This sets the game this view will be displaying.
+     */
     public void setGame(Game game){
         this.game = game;
     }
 
-    private float getBackground1Position(long time){
-        float t = time / 1000.0f;
-        return BG_VELOCITY_1 * t + BG_ACCELERATION_1 * t * t;
-    }
-
-    private float getBackground2Position(long time){
-        float t = time / 1000.0f;
-        return BG_VELOCITY_2 * t + BG_ACCELERATION_2 * t * t;
-    }
-
+    /**
+     * This gets the game this view is displaying
+     */
     public Game getGame(){
         return game;
     }

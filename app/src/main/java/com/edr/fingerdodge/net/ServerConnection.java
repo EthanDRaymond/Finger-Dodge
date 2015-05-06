@@ -36,12 +36,19 @@ public class ServerConnection extends Thread {
         onRecievedResponseIDs = new ArrayList<>();
         this.state = STATE_IDLE;
     }
+
+    /**
+     * Connects to the server and initializes the threat behind it.
+     */
     @Override
     public synchronized void start() {
         super.start();
         connect();
     }
 
+    /**
+     * Disconnects the server and causes the thread to cease.
+     */
     public void end(){
         this.isRunning = false;
         disconnect();
@@ -89,6 +96,10 @@ public class ServerConnection extends Thread {
         }
     }
 
+    /**
+     * Creates a connection between the client and the server
+     * @return  true if the connection is successful, false if the connection fails.
+     */
     public boolean connect() {
         if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT){
             try {
@@ -107,6 +118,10 @@ public class ServerConnection extends Thread {
         }
     }
 
+    /**
+     * Cuts off the connection to the server.
+     * @return  true if the connection successfully disconnects, false if there is an error.
+     */
     public boolean disconnect(){
         if (getConnectionState() == STATE_CONNECTED){
             try {
@@ -121,6 +136,12 @@ public class ServerConnection extends Thread {
         }
     }
 
+    /**
+     * Sends the given string of data to the server if there is a connection available.
+     * @param data                  the date to be sent to the server
+     * @param onRecievedResponse    this runnable is run if there is a response from the server
+     * @return                      true if the data is send successfully, false if the data is not
+     */
     public boolean sendData(String data, Runnable onRecievedResponse){
         try {
             if (getConnectionState() == STATE_CONNECTED) {
@@ -142,6 +163,11 @@ public class ServerConnection extends Thread {
         }
     }
 
+    /**
+     * Called when data is received from the server.
+     * @param data              the data from the server
+     * @param conversationID    the conversation id used to find the appropriate runnable.
+     */
     private void onRecievedData(String data, int conversationID){
         for (int i = 0; i < onRecievedResponseIDs.size(); i++){
             if (conversationID == onRecievedResponseIDs.get(i)){
@@ -151,10 +177,17 @@ public class ServerConnection extends Thread {
         }
     }
 
+    /**
+     * Gets the state of the connection. The list of states are static constants within the
+     * ServerConnection.
+     */
     public int getConnectionState() {
         return state;
     }
 
+    /**
+     * Finds a new conversation ID that is not in use.
+     */
     private int getNewConversationID(){
         int id;
         Random r = new Random();

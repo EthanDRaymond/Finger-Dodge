@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.edr.fingerdodge.game.Game;
 
 /**
+ * This view displays the score at the top left of the gameplay screen.
  * @author Ethan Raymond
  */
 public class ScoreView extends RelativeLayout {

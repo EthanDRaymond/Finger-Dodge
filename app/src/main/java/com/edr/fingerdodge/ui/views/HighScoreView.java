@@ -15,6 +15,7 @@ import com.edr.fingerdodge.util.Files;
 import java.io.File;
 
 /**
+ * This view displays the high score at the top right of the screen.
  * @author Ethan Raymond
  */
 public class HighScoreView extends RelativeLayout {

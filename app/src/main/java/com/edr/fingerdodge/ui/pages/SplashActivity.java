@@ -71,6 +71,11 @@ public class SplashActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This sees if this activity is being opened for the very first time.
+     * @return  true if the app has never been opened before, false if the app has been opened
+     *          before
+     */
     public boolean isFirstTime(){
         SharedPreferences settings = getSharedPreferences(Files.FILE_BASIC, 0);
         if (settings.getBoolean("my_first_time", true)) {

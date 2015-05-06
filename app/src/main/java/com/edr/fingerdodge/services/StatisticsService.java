@@ -40,10 +40,10 @@ public class StatisticsService extends Service {
 
     private static final String FILE_SAVED_STATISTICS = "saved_statistics.txt";
 
+    private final IBinder mBinder = new LocalBinder();
+
     private ServerConnection serverConnection;
     private ArrayList<String> unwrittenStatistics;
-
-    private final IBinder mBinder = new LocalBinder();
 
     @Override
     public IBinder onBind(Intent intent) {

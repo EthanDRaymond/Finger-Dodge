@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
+ * This view displays a general icon at the bottom left of the gameplay screen.
  * @author Ethan Raymond
  */
 public class IconView extends View {

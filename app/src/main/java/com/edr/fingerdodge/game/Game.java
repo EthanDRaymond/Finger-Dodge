@@ -538,24 +538,6 @@ public class Game {
     }
 
     /**
-     * Get the game view this game is being displayed on.
-     *
-     * @return the game view
-     * @see com.edr.fingerdodge.ui.views.GameView
-     */
-    public View getGameView() {
-        return gameView;
-    }
-
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public long getEndTime() {
-        return endTime;
-    }
-
-    /**
      * Returns the current score of the game.
      */
     public float getScore() {
