@@ -30,7 +30,7 @@ public class IconView extends View {
         init();
     }
 
-    private void init(){
+    protected void init() {
         bgPaint = new Paint();
         bgPaint.setColor(Color.BLACK);
         bgPaint.setAntiAlias(true);

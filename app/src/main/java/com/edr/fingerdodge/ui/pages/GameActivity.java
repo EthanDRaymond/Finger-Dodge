@@ -4,14 +4,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,7 +23,7 @@ import com.edr.fingerdodge.services.StatisticsService;
 import com.edr.fingerdodge.ui.views.EndOfGameView;
 import com.edr.fingerdodge.ui.views.GameView;
 import com.edr.fingerdodge.ui.views.HighScoreView;
-import com.edr.fingerdodge.ui.views.InfoView;
+import com.edr.fingerdodge.ui.views.InfoIconView;
 import com.edr.fingerdodge.ui.views.ScoreView;
 import com.edr.fingerdodge.util.Files;
 
@@ -40,7 +37,7 @@ public class GameActivity extends ActionBarActivity {
     private ScoreView timeView;
     private HighScoreView highScoreView;
     private EndOfGameView endOfGameView;
-    private InfoView infoView;
+    private InfoIconView infoIconView;
     private RelativeLayout preGameMessageView;
     private TextView gameMessageView;
 
@@ -65,8 +62,8 @@ public class GameActivity extends ActionBarActivity {
                 game.restartGame();
             }
         });
-        infoView = (InfoView) findViewById(R.id.infoView);
-        infoView.setOnClickListener(new View.OnClickListener() {
+        infoIconView = (InfoIconView) findViewById(R.id.infoView);
+        infoIconView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), InfoActivity.class);

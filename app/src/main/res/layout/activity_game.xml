@@ -60,8 +60,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true">
 
-        <com.edr.fingerdodge.ui.views.InfoView
+        <com.edr.fingerdodge.ui.views.InfoIconView
             android:id="@+id/infoView"
+            android:layout_width="30sp"
+            android:layout_height="30sp"/>
+
+        <com.edr.fingerdodge.ui.views.SettingsIconView
+            android:layout_marginLeft="5sp"
             android:layout_width="30sp"
             android:layout_height="30sp"/>
 

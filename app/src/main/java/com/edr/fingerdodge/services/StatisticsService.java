@@ -28,6 +28,7 @@ import java.util.ArrayList;
  *     <li>Sending statistics to the server when an internet connection is availible.</li>
  * </ol>
  * @author Ethan Raymond
+ * @deprecated
  */
 public class StatisticsService extends Service {
 
@@ -58,7 +59,7 @@ public class StatisticsService extends Service {
         super.onCreate();
         serverConnection = new ServerConnection();
         serverConnection.start();
-        unwrittenStatistics = new ArrayList<>();
+        unwrittenStatistics = new ArrayList<String>();
         try {
             readStatisticsFromFile();
         } catch (IOException e) {

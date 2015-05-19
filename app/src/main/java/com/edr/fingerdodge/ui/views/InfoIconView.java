@@ -9,17 +9,17 @@ import android.util.AttributeSet;
  * @author Ethan Raymond
  * @see IconView
  */
-public class InfoView extends IconView {
+public class InfoIconView extends IconView {
 
-    public InfoView(Context context){
+    public InfoIconView(Context context) {
         super(context);
     }
 
-    public InfoView(Context context, AttributeSet attributeSet){
+    public InfoIconView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
     }
 
-    public InfoView(Context context, AttributeSet attributeSet, int defStyleInt){
+    public InfoIconView(Context context, AttributeSet attributeSet, int defStyleInt) {
         super(context, attributeSet, defStyleInt);
     }
 
