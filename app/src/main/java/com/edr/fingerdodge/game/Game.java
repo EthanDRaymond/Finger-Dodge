@@ -67,10 +67,10 @@ public class Game {
         this.endTime = 0;
         this.highScore = -1;
         this.score = 0;
-        this.onGameStartedListeners = new ArrayList<>();
-        this.onGamePausedListeners = new ArrayList<>();
-        this.onGameEndedListeners = new ArrayList<>();
-        this.onGameRestartListeners = new ArrayList<>();
+        this.onGameStartedListeners = new ArrayList<OnGameStartedListener>();
+        this.onGamePausedListeners = new ArrayList<OnGamePausedListener>();
+        this.onGameEndedListeners = new ArrayList<OnGameEndedListener>();
+        this.onGameRestartListeners = new ArrayList<OnGameRestartListener>();
         handleRectangleCount();
     }
 

@@ -34,8 +34,8 @@ public class ServerConnection extends Thread {
     public ServerConnection(){
         super("ServerConnection");
         this.isRunning = true;
-        onRecievedResponseRunnables = new ArrayList<>();
-        onRecievedResponseIDs = new ArrayList<>();
+        onRecievedResponseRunnables = new ArrayList<Runnable>();
+        onRecievedResponseIDs = new ArrayList<Integer>();
         this.state = STATE_IDLE;
     }
 
