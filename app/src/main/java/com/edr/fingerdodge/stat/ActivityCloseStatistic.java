@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.edr.fingerdodge.json.JSONKeys;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -11,13 +12,18 @@ import org.json.JSONObject;
  */
 public class ActivityCloseStatistic extends Statistic {
 
-    private static final String TYPE = "activity-close";
+    public static final String TYPE = "activity-close";
 
     private String activityName;
 
     public ActivityCloseStatistic(long time, Activity activity) {
         super(TYPE, time);
         this.activityName = activity.getLocalClassName();
+    }
+
+    public ActivityCloseStatistic(JSONObject json) throws JSONException {
+        super(TYPE, json.getLong(JSONKeys.KEY_TIME));
+        this.activityName = json.getString(JSONKeys.KEY_ACTIVITY_NAME);
     }
 
     public String getActivityName() {
@@ -27,9 +33,7 @@ public class ActivityCloseStatistic extends Statistic {
     @Override
     public JSONObject getJSONObject() {
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(JSONKeys.KEY_TYPE, getJSONObject());
-            jsonObject.put(JSONKeys.KEY_TIME, getTime());
+            JSONObject jsonObject = super.getJSONObject();
             jsonObject.put(JSONKeys.KEY_ACTIVITY_NAME, getActivityName());
             return jsonObject;
         } catch (Exception e) {

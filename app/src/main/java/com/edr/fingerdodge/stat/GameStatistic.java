@@ -3,6 +3,7 @@ package com.edr.fingerdodge.stat;
 import com.edr.fingerdodge.game.Game;
 import com.edr.fingerdodge.json.JSONKeys;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -10,7 +11,7 @@ import org.json.JSONObject;
  */
 public class GameStatistic extends Statistic {
 
-    private static final String TYPE = "game";
+    public static final String TYPE = "game";
 
     private long duration;
     private boolean beatHighScore;
@@ -19,6 +20,12 @@ public class GameStatistic extends Statistic {
         super(TYPE, time);
         duration = (long) (game.getScore() * 1000);
         beatHighScore = game.getScore() >= game.getHighScore();
+    }
+
+    public GameStatistic(JSONObject json) throws JSONException {
+        super(TYPE, json.getLong(JSONKeys.KEY_TIME));
+        duration = json.getLong(JSONKeys.KEY_DURATION);
+        duration = json.getLong(JSONKeys.KEY_BEAT_HIGH_SCORE);
     }
 
     public long getDuration() {
@@ -32,9 +39,7 @@ public class GameStatistic extends Statistic {
     @Override
     public JSONObject getJSONObject() {
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(JSONKeys.KEY_TYPE, getType());
-            jsonObject.put(JSONKeys.KEY_TIME, getTime());
+            JSONObject jsonObject = super.getJSONObject();
             jsonObject.put(JSONKeys.KEY_DURATION, getDuration());
             jsonObject.put(JSONKeys.KEY_BEAT_HIGH_SCORE, isBeatHighScore());
             return jsonObject;

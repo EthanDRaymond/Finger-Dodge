@@ -1,6 +1,7 @@
 package com.edr.fingerdodge.stat;
 
 import com.edr.fingerdodge.json.JSONKeys;
+import com.edr.fingerdodge.util.Version;
 
 import org.json.JSONObject;
 
@@ -30,6 +31,7 @@ public class Statistic {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(JSONKeys.KEY_TYPE, getType());
             jsonObject.put(JSONKeys.KEY_TIME, getTime());
+            jsonObject.put(JSONKeys.KEY_API, Version.API_CODE);
             return jsonObject;
         } catch (Exception e) {
             e.printStackTrace();
