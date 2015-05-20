@@ -20,6 +20,7 @@ import com.edr.fingerdodge.game.listeners.OnGamePausedListener;
 import com.edr.fingerdodge.game.listeners.OnGameRestartListener;
 import com.edr.fingerdodge.game.listeners.OnGameStartedListener;
 import com.edr.fingerdodge.services.StatisticsService;
+import com.edr.fingerdodge.stat.GameStatistic;
 import com.edr.fingerdodge.ui.views.EndOfGameView;
 import com.edr.fingerdodge.ui.views.GameView;
 import com.edr.fingerdodge.ui.views.HighScoreView;
@@ -30,7 +31,7 @@ import com.edr.fingerdodge.util.Files;
 /**
  * @author Ethan Raymond
  */
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends StatisticsTrackingActivity {
 
     private RelativeLayout mainLayout;
     private GameView gameView;
@@ -43,12 +44,8 @@ public class GameActivity extends ActionBarActivity {
 
     private Game game;
 
-    private StatisticsService statisticsService;
-    private ServiceConnection statisticsServiceConnection;
-    private boolean isBound;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         gameView = (GameView) findViewById(R.id.gameView);
@@ -118,21 +115,6 @@ public class GameActivity extends ActionBarActivity {
         gameView.setGame(game);
         timeView.setGame(game);
         highScoreView.setGame(game);
-        statisticsServiceConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName className,
-                                           IBinder service) {
-                // We've bound to LocalService, cast the IBinder and get LocalService instance
-                StatisticsService.LocalBinder binder = (StatisticsService.LocalBinder) service;
-                statisticsService = binder.getService();
-                isBound = true;
-            }
-            @Override
-            public void onServiceDisconnected(ComponentName arg0) {
-                isBound = false;
-            }
-        };
-        isBound = false;
     }
 
     @Override
@@ -144,14 +126,12 @@ public class GameActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent = new Intent(this, StatisticsService.class);
-        bindService(intent, statisticsServiceConnection, Context.BIND_AUTO_CREATE);
         game.registerOnGameEndedListener(new OnGameEndedListener() {
             @Override
             public void onGameEnded(String message, long endTime) {
                 if (isBound){
                     long startTime = endTime - (long) game.getScore();
-                    statisticsService.addStatisticGameplay(startTime, endTime);
+                    statisticsService.addNewStatistic(new GameStatistic(System.currentTimeMillis(), game));
                 }
             }
         });
@@ -184,4 +164,5 @@ public class GameActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
