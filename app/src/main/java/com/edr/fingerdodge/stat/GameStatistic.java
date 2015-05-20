@@ -25,7 +25,7 @@ public class GameStatistic extends Statistic {
     public GameStatistic(JSONObject json) throws JSONException {
         super(TYPE, json.getLong(JSONKeys.KEY_TIME));
         duration = json.getLong(JSONKeys.KEY_DURATION);
-        duration = json.getLong(JSONKeys.KEY_BEAT_HIGH_SCORE);
+        beatHighScore = json.getBoolean(JSONKeys.KEY_BEAT_HIGH_SCORE);
     }
 
     public long getDuration() {

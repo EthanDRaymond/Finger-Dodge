@@ -19,7 +19,6 @@ import com.edr.fingerdodge.game.listeners.OnGameEndedListener;
 import com.edr.fingerdodge.game.listeners.OnGamePausedListener;
 import com.edr.fingerdodge.game.listeners.OnGameRestartListener;
 import com.edr.fingerdodge.game.listeners.OnGameStartedListener;
-import com.edr.fingerdodge.services.StatisticsService;
 import com.edr.fingerdodge.stat.GameStatistic;
 import com.edr.fingerdodge.ui.views.EndOfGameView;
 import com.edr.fingerdodge.ui.views.GameView;
@@ -153,7 +152,6 @@ public class GameActivity extends StatisticsTrackingActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        unbindService(statisticsServiceConnection);
     }
 
     @Override

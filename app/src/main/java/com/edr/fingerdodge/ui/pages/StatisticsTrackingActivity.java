@@ -49,17 +49,31 @@ public class StatisticsTrackingActivity extends Activity {
         super.onStart();
         Intent intent = new Intent(this, StatisticsService.class);
         bindService(intent, statisticsServiceConnection, Context.BIND_AUTO_CREATE);
-        ActivityOpenStatistic activityOpenStatistic
-                = new ActivityOpenStatistic(System.currentTimeMillis(), this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                    ActivityOpenStatistic activityOpenStatistic
+                            = new ActivityOpenStatistic(System.currentTimeMillis(), getParent());
+                    getStatisticsService().addNewStatistic(activityOpenStatistic);
+                } catch (Exception e) {
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ActivityCloseStatistic activityOpenStatistic
+                = new ActivityCloseStatistic(System.currentTimeMillis(), this);
         getStatisticsService().addNewStatistic(activityOpenStatistic);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        ActivityCloseStatistic activityOpenStatistic
-                = new ActivityCloseStatistic(System.currentTimeMillis(), this);
-        getStatisticsService().addNewStatistic(activityOpenStatistic);
         unbindService(statisticsServiceConnection);
     }
 
