@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PersistableBundle;
+import android.util.Log;
 
 import com.edr.fingerdodge.game.listeners.OnGameEndedListener;
 import com.edr.fingerdodge.services.StatisticsService;
@@ -42,25 +43,38 @@ public class StatisticsTrackingActivity extends Activity {
             }
         };
         isBound = false;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         Intent intent = new Intent(this, StatisticsService.class);
         bindService(intent, statisticsServiceConnection, Context.BIND_AUTO_CREATE);
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(500);
                     ActivityOpenStatistic activityOpenStatistic
                             = new ActivityOpenStatistic(System.currentTimeMillis(), getParent());
                     getStatisticsService().addNewStatistic(activityOpenStatistic);
                 } catch (Exception e) {
                 }
             }
-        });
+        });*/
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                    ActivityOpenStatistic activityOpenStatistic
+                            = new ActivityOpenStatistic(System.currentTimeMillis(), getThisActivity());
+                    getStatisticsService().addNewStatistic(activityOpenStatistic);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -88,4 +102,9 @@ public class StatisticsTrackingActivity extends Activity {
     public boolean isBound() {
         return isBound;
     }
+
+    public Activity getThisActivity() {
+        return this;
+    }
+
 }
