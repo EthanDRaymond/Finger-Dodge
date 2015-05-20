@@ -88,7 +88,10 @@ public class StatisticsTrackingActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        unbindService(statisticsServiceConnection);
+        /*if (isBound) {
+            stopService(new Intent(this, StatisticsService.class));
+            unbindService(statisticsServiceConnection);
+        }*/
     }
 
     public StatisticsService getStatisticsService() {
