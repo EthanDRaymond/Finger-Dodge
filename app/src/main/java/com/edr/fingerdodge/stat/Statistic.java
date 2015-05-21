@@ -25,7 +25,7 @@ public class Statistic {
 
     public Statistic(JSONObject json){
         this.type = json.getString(JSONKeys.KEY_TYPE);
-        this.type = json.getString(JSONKeys.KEY_USER_ID);
+        this.userID = json.getLong(JSONKeys.KEY_USER_ID);
         this.time = json.getLong(JSONKeys.KEY_TIME);
         this.api = json.getInt(JSONKeys.KEY_API);
     }

@@ -17,8 +17,8 @@ import java.util.Random;
  */
 public class ServerConnection extends Thread {
 
-    public static final String SERVER_ADDRESS = "";
-    public static final int SERVER_PORT = 10444;
+    public static final String SERVER_ADDRESS = "10.0.2.2";
+    public static final int SERVER_PORT = 4500;
     public static final int STATE_CONNECTED = 1;
     public static final int STATE_FAILURE_TO_CONNECT = 2;
     public static final int STATE_IDLE = 3;
@@ -27,15 +27,15 @@ public class ServerConnection extends Thread {
     private PrintWriter out;
     private BufferedReader in;
     private int state;
-    private ArrayList<Runnable> onRecievedResponseRunnables;
-    private ArrayList<Integer> onRecievedResponseIDs;
+    //private ArrayList<Runnable> onRecievedResponseRunnables;
+    //private ArrayList<Integer> onRecievedResponseIDs;
     private boolean isRunning;
 
     public ServerConnection(){
         super("ServerConnection");
         this.isRunning = true;
-        onRecievedResponseRunnables = new ArrayList<Runnable>();
-        onRecievedResponseIDs = new ArrayList<Integer>();
+        //onRecievedResponseRunnables = new ArrayList<Runnable>();
+        //onRecievedResponseIDs = new ArrayList<Integer>();
         this.state = STATE_IDLE;
     }
 
@@ -45,7 +45,7 @@ public class ServerConnection extends Thread {
     @Override
     public synchronized void start() {
         super.start();
-        connect();
+        this.state = STATE_FAILURE_TO_CONNECT;
     }
 
     /**
@@ -77,7 +77,7 @@ public class ServerConnection extends Thread {
                         int conversationID = inputObject.getInt("CONVERSATION_ID");
                         String data = inputObject.getString("CONTENT");
                         if (data != null){
-                            onRecievedData(data, conversationID);
+                            //onRecievedData(data, conversationID);
                         }
                     }
                 } catch (Exception e) {
@@ -89,6 +89,9 @@ public class ServerConnection extends Thread {
                     }
                 }
             } else {
+                if (connect()) {
+                    state = STATE_CONNECTED;
+                }
                 try {
                     Thread.sleep(25);
                 } catch (InterruptedException e) {
@@ -148,14 +151,17 @@ public class ServerConnection extends Thread {
         Log.i("NET", "Attempting to send Data: \"" + data + "\"");
         try {
             if (getConnectionState() == STATE_CONNECTED) {
+                /*
                 JSONObject message = new JSONObject();
                 if (onRecievedResponse != null) {
-                    int conversationID = getNewConversationID();
-                    onRecievedResponseIDs.add(conversationID);
-                    onRecievedResponseRunnables.add(onRecievedResponse);
-                    message.put("CONVERSATION_ID", conversationID);
+                    //int conversationID = getNewConversationID();
+                    // onRecievedResponseIDs.add(conversationID);
+                    // onRecievedResponseRunnables.add(onRecievedResponse);
+                    // message.put("CONVERSATION_ID", conversationID);
                 }
                 message.put("CONTENT", data);
+                */
+                out.println(data);
                 Log.i("NET", "Succesfully sent data: \"" + data + "\"");
                 return true;
             } else {
@@ -169,11 +175,13 @@ public class ServerConnection extends Thread {
         }
     }
 
+
     /**
      * Called when data is received from the server.
      * @param data              the data from the server
      * @param conversationID    the conversation id used to find the appropriate runnable.
      */
+    /*
     private void onRecievedData(String data, int conversationID){
         for (int i = 0; i < onRecievedResponseIDs.size(); i++){
             if (conversationID == onRecievedResponseIDs.get(i)){
@@ -181,6 +189,11 @@ public class ServerConnection extends Thread {
                 return;
             }
         }
+    }
+    */
+
+    public boolean isConnected(){
+        return getConnectionState() == STATE_CONNECTED;
     }
 
     /**
@@ -191,9 +204,11 @@ public class ServerConnection extends Thread {
         return state;
     }
 
+
     /**
      * Finds a new conversation ID that is not in use.
      */
+    /*
     private int getNewConversationID(){
         int id;
         Random r = new Random();
@@ -208,5 +223,6 @@ public class ServerConnection extends Thread {
         } while (true);
         return new Random().nextInt();
     }
+    */
 
 }

@@ -70,8 +70,8 @@ public class StatisticsTrackingActivity extends Activity {
                     Thread.sleep(500);
                     ActivityOpenStatistic activityOpenStatistic = new ActivityOpenStatistic(
                             ActivityOpenStatistic.TYPE,
-                            System.currentTimeMillis(),
                             getStatisticsService().getID(),
+                            System.currentTimeMillis(),
                             Version.API_CODE,
                             getThisActivity().getLocalClassName());
                     getStatisticsService().addNewStatistic(activityOpenStatistic);
@@ -85,6 +85,11 @@ public class StatisticsTrackingActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         ActivityCloseStatistic activityOpenStatistic = new ActivityCloseStatistic(
                 ActivityCloseStatistic.TYPE,
                 getStatisticsService().getID(),
@@ -92,11 +97,6 @@ public class StatisticsTrackingActivity extends Activity {
                 Version.API_CODE,
                 getThisActivity().getLocalClassName());
         getStatisticsService().addNewStatistic(activityOpenStatistic);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
         /*if (isBound) {
             stopService(new Intent(this, StatisticsService.class));
             unbindService(statisticsServiceConnection);

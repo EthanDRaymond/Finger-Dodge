@@ -13,11 +13,15 @@ import android.util.Log;
 import com.edr.fingerdodge.json.JSONArray;
 import com.edr.fingerdodge.json.JSONException;
 import com.edr.fingerdodge.json.JSONKeys;
+import com.edr.fingerdodge.json.JSONObject;
+import com.edr.fingerdodge.net.ServerConnection;
 import com.edr.fingerdodge.stat.ActivityCloseStatistic;
 import com.edr.fingerdodge.stat.ActivityOpenStatistic;
 import com.edr.fingerdodge.stat.GameStatistic;
 import com.edr.fingerdodge.stat.Statistic;
+import com.edr.fingerdodge.stat.StatisticPacket;
 import com.edr.fingerdodge.util.Files;
+import com.edr.fingerdodge.util.Version;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +44,7 @@ public class StatisticsService extends Service {
 
     private final IBinder mBinder = new LocalBinder();
 
-    //private ServerConnection serverConnection;
+    private ServerConnection serverConnection;
     private ArrayList<Statistic> unwrittenStatistics;
 
     @Override
@@ -54,6 +58,8 @@ public class StatisticsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        serverConnection = new ServerConnection();
+        serverConnection.start();
         unwrittenStatistics = new ArrayList<Statistic>();
         try {
             readStatisticsFromFile();
@@ -93,6 +99,7 @@ public class StatisticsService extends Service {
     public void addNewStatistic(Statistic statistic) {
         Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
         unwrittenStatistics.add(statistic);
+        onAddNewStatistic();
     }
 
     /**
@@ -134,20 +141,14 @@ public class StatisticsService extends Service {
      */
     private boolean sendStatisticsToServer() {
         Log.i("STATISTICS", "Sending Statistics To Server.");
-        return false;
-        /*
-        try {
-            String output = getAllStatisticsDataString();
-            ServerConnection connection = new ServerConnection();
-            connection.start();
-            boolean outcome = connection.sendData(output, null);
-            connection.end();
-            return outcome;
-        } catch (Exception e){
-            e.printStackTrace();
-            return false;
+        if (serverConnection.isConnected()){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(JSONKeys.KEY_STATISTICS, Statistic.makeJSONArray(unwrittenStatistics));
+            StatisticPacket statisticPacket = new StatisticPacket(Version.API_CODE, getID(), jsonObject);
+            serverConnection.sendData(statisticPacket.getJSONObject().toString(), null);
+            return true;
         }
-        */
+        return false;
     }
 
     /**
@@ -223,6 +224,9 @@ public class StatisticsService extends Service {
             Random random = new Random();
             SharedPreferences.Editor editor = sharedPref.edit();
             long newID = random.nextLong();
+            if (newID < 0) {
+                newID *= -newID;
+            }
             editor.putLong("stat-id", newID);
             return newID;
         } else {
