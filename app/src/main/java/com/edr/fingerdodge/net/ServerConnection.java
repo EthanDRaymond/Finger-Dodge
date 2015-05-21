@@ -98,6 +98,11 @@ public class ServerConnection extends Thread {
                     e.printStackTrace();
                 }
             }
+            try {
+                Thread.sleep(15);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

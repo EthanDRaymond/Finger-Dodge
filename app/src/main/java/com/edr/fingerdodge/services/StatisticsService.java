@@ -220,14 +220,15 @@ public class StatisticsService extends Service {
     public long getID() {
         SharedPreferences sharedPref = getSharedPreferences("stat", Context.MODE_PRIVATE);
         long id = sharedPref.getLong("stat-id", -1);
-        if (id == -1){
+        if (id == -1 || id < 0){
             Random random = new Random();
             SharedPreferences.Editor editor = sharedPref.edit();
             long newID = random.nextLong();
             if (newID < 0) {
-                newID *= -newID;
+                newID *= -1;
             }
             editor.putLong("stat-id", newID);
+            editor.commit();
             return newID;
         } else {
             return id;
