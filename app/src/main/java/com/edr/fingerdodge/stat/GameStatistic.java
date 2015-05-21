@@ -14,7 +14,7 @@ public class GameStatistic extends Statistic {
     private long duration;
     private boolean beatHighScore;
 
-    public GameStatistic(String type, long time, int api, long duration, boolean beatHighScore){
+    public GameStatistic(String type, long id, long time, int api, long duration, boolean beatHighScore){
         super(TYPE, 500, time, api);
         this.duration = duration;
         this.beatHighScore = beatHighScore;

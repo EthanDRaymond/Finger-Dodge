@@ -26,6 +26,7 @@ import com.edr.fingerdodge.ui.views.HighScoreView;
 import com.edr.fingerdodge.ui.views.InfoIconView;
 import com.edr.fingerdodge.ui.views.ScoreView;
 import com.edr.fingerdodge.util.Files;
+import com.edr.fingerdodge.util.Version;
 
 /**
  * @author Ethan Raymond
@@ -130,7 +131,20 @@ public class GameActivity extends StatisticsTrackingActivity {
             public void onGameEnded(String message, long endTime) {
                 if (isBound){
                     long startTime = endTime - (long) game.getScore();
-                    statisticsService.addNewStatistic(new GameStatistic(System.currentTimeMillis(), game));
+                    boolean beatHighScore;
+                    if (game.getScore() >= game.getHighScore()){
+                        beatHighScore = true;
+                    } else {
+                        beatHighScore = false;
+                    }
+                    statisticsService.addNewStatistic(
+                            new GameStatistic(
+                                    GameStatistic.TYPE,
+                                    getStatisticsService().getID(),
+                                    System.currentTimeMillis(),
+                                    Version.API_CODE,
+                                    (long) (game.getScore()*1000),
+                                    beatHighScore));
                 }
             }
         });

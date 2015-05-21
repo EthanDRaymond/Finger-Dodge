@@ -15,6 +15,7 @@ import com.edr.fingerdodge.services.StatisticsService;
 import com.edr.fingerdodge.stat.ActivityCloseStatistic;
 import com.edr.fingerdodge.stat.ActivityOpenStatistic;
 import com.edr.fingerdodge.stat.GameStatistic;
+import com.edr.fingerdodge.util.Version;
 
 /**
  * @author Ethan Raymond
@@ -67,8 +68,12 @@ public class StatisticsTrackingActivity extends Activity {
             public void run() {
                 try {
                     Thread.sleep(500);
-                    ActivityOpenStatistic activityOpenStatistic
-                            = new ActivityOpenStatistic(System.currentTimeMillis(), getThisActivity());
+                    ActivityOpenStatistic activityOpenStatistic = new ActivityOpenStatistic(
+                            ActivityOpenStatistic.TYPE,
+                            System.currentTimeMillis(),
+                            getStatisticsService().getID(),
+                            Version.API_CODE,
+                            getThisActivity().getLocalClassName());
                     getStatisticsService().addNewStatistic(activityOpenStatistic);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -80,8 +85,12 @@ public class StatisticsTrackingActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        ActivityCloseStatistic activityOpenStatistic
-                = new ActivityCloseStatistic(System.currentTimeMillis(), this);
+        ActivityCloseStatistic activityOpenStatistic = new ActivityCloseStatistic(
+                ActivityCloseStatistic.TYPE,
+                getStatisticsService().getID(),
+                System.currentTimeMillis(),
+                Version.API_CODE,
+                getThisActivity().getLocalClassName());
         getStatisticsService().addNewStatistic(activityOpenStatistic);
     }
 

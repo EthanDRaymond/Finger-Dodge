@@ -3,12 +3,15 @@ package com.edr.fingerdodge.services;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.edr.fingerdodge.json.JSONArray;
+import com.edr.fingerdodge.json.JSONException;
 import com.edr.fingerdodge.json.JSONKeys;
 import com.edr.fingerdodge.stat.ActivityCloseStatistic;
 import com.edr.fingerdodge.stat.ActivityOpenStatistic;
@@ -16,12 +19,10 @@ import com.edr.fingerdodge.stat.GameStatistic;
 import com.edr.fingerdodge.stat.Statistic;
 import com.edr.fingerdodge.util.Files;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This service handles the following tasks:
@@ -213,6 +214,20 @@ public class StatisticsService extends Service {
             array.put(unwrittenStatistics.get(i).getJSONObject());
         }
         return array;
+    }
+
+    public long getID() {
+        SharedPreferences sharedPref = getSharedPreferences("stat", Context.MODE_PRIVATE);
+        long id = sharedPref.getLong("stat-id", -1);
+        if (id == -1){
+            Random random = new Random();
+            SharedPreferences.Editor editor = sharedPref.edit();
+            long newID = random.nextLong();
+            editor.putLong("stat-id", newID);
+            return newID;
+        } else {
+            return id;
+        }
     }
 
     public class LocalBinder extends Binder {

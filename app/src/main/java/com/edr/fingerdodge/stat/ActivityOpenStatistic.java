@@ -13,7 +13,7 @@ public class ActivityOpenStatistic extends Statistic {
 
     private String activityName;
 
-    public ActivityOpenStatistic(String type, long time, int api, String activityName){
+    public ActivityOpenStatistic(String type, long id, long time, int api, String activityName){
         super(type, 500, time, api);
         this.activityName = activityName;
     }
