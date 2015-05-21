@@ -1,10 +1,8 @@
 package com.edr.fingerdodge.stat;
 
-import com.edr.fingerdodge.game.Game;
+import com.edr.fingerdodge.json.JSONException;
 import com.edr.fingerdodge.json.JSONKeys;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.edr.fingerdodge.json.JSONObject;
 
 /**
  * @author Ethan Raymond
@@ -16,14 +14,14 @@ public class GameStatistic extends Statistic {
     private long duration;
     private boolean beatHighScore;
 
-    public GameStatistic(long time, Game game) {
-        super(TYPE, time);
-        duration = (long) (game.getScore() * 1000);
-        beatHighScore = game.getScore() >= game.getHighScore();
+    public GameStatistic(String type, long time, int api, long duration, boolean beatHighScore){
+        super(TYPE, 500, time, api);
+        this.duration = duration;
+        this.beatHighScore = beatHighScore;
     }
 
     public GameStatistic(JSONObject json) throws JSONException {
-        super(TYPE, json.getLong(JSONKeys.KEY_TIME));
+        super(json);
         duration = json.getLong(JSONKeys.KEY_DURATION);
         beatHighScore = json.getBoolean(JSONKeys.KEY_BEAT_HIGH_SCORE);
     }

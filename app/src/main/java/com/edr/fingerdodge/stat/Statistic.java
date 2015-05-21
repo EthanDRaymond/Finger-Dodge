@@ -1,9 +1,10 @@
 package com.edr.fingerdodge.stat;
 
+import com.edr.fingerdodge.json.JSONArray;
 import com.edr.fingerdodge.json.JSONKeys;
-import com.edr.fingerdodge.util.Version;
+import com.edr.fingerdodge.json.JSONObject;
 
-import org.json.JSONObject;
+import java.util.ArrayList;
 
 /**
  * @author Ethan Raymond
@@ -11,11 +12,22 @@ import org.json.JSONObject;
 public class Statistic {
 
     private String type;
+    private long userID;
     private long time;
+    private int api;
 
-    public Statistic(String type, long time) {
+    public Statistic(String type, long userID, long time, int api) {
         this.type = type;
+        this.userID = userID;
         this.time = time;
+        this.api = api;
+    }
+
+    public Statistic(JSONObject json){
+        this.type = json.getString(JSONKeys.KEY_TYPE);
+        this.type = json.getString(JSONKeys.KEY_USER_ID);
+        this.time = json.getLong(JSONKeys.KEY_TIME);
+        this.api = json.getInt(JSONKeys.KEY_API);
     }
 
     public String getType() {
@@ -26,17 +38,42 @@ public class Statistic {
         return time;
     }
 
+    public int getApi() {
+        return api;
+    }
+
+    public long getUserID() {
+        return userID;
+    }
+
     public JSONObject getJSONObject() {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(JSONKeys.KEY_TYPE, getType());
+            jsonObject.put(JSONKeys.KEY_USER_ID, getUserID());
             jsonObject.put(JSONKeys.KEY_TIME, getTime());
-            jsonObject.put(JSONKeys.KEY_API, Version.API_CODE);
+            jsonObject.put(JSONKeys.KEY_API, api);
             return jsonObject;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static JSONArray makeJSONArray(ArrayList<Statistic> statistics) {
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < statistics.size(); i++) {
+            jsonArray.put(statistics.get(i).getJSONObject());
+        }
+        return jsonArray;
+    }
+
+    public static JSONArray makeJSONArray(Statistic[] statistics) {
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < statistics.length; i++) {
+            jsonArray.put(statistics[i].getJSONObject());
+        }
+        return jsonArray;
     }
 
 }
