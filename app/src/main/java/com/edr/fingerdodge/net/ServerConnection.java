@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class ServerConnection extends Thread {
 
-    public static final String SERVER_ADDRESS = "10.0.2.2";
+    public static final String SERVER_ADDRESS = "104.131.251.167";
     public static final int SERVER_PORT = 4500;
     public static final int STATE_CONNECTED = 1;
     public static final int STATE_FAILURE_TO_CONNECT = 2;
