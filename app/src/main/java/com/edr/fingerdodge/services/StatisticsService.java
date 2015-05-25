@@ -137,18 +137,31 @@ public class StatisticsService extends Service {
      * send successfully.
      *
      * @return true if the data is successfully send, false if the data is not.e
-     * TODO:    Make this method actually send the data. It currently just pretends to and fails every time.
      */
     private boolean sendStatisticsToServer() {
         Log.i("STATISTICS", "Sending Statistics To Server.");
-        if (serverConnection.isConnected()){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(JSONKeys.KEY_STATISTICS, Statistic.makeJSONArray(unwrittenStatistics));
-            StatisticPacket statisticPacket = new StatisticPacket(Version.API_CODE, getID(), jsonObject);
-            serverConnection.sendData(statisticPacket.getJSONObject().toString(), null);
+        if (unwrittenStatistics.size() > 0) {
+            ServerConnection serverConnection = new ServerConnection();
+            serverConnection.start();
+            try {
+                Thread.sleep(2500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (serverConnection.isConnected()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(JSONKeys.KEY_STATISTICS, Statistic.makeJSONArray(unwrittenStatistics));
+                StatisticPacket statisticPacket = new StatisticPacket(Version.API_CODE, getID(), jsonObject);
+                serverConnection.sendData(statisticPacket.getJSONObject().toString(), null);
+                serverConnection.end();
+                return true;
+            } else {
+                serverConnection.end();
+                return false;
+            }
+        } else {
             return true;
         }
-        return false;
     }
 
     /**

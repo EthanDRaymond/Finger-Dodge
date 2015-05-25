@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PersistableBundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import com.edr.fingerdodge.game.listeners.OnGameEndedListener;
@@ -20,7 +21,7 @@ import com.edr.fingerdodge.util.Version;
 /**
  * @author Ethan Raymond
  */
-public class StatisticsTrackingActivity extends Activity {
+public class StatisticsTrackingActivity extends ActionBarActivity {
 
     protected StatisticsService statisticsService;
     protected ServiceConnection statisticsServiceConnection;

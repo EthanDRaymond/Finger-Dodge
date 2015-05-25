@@ -45,7 +45,7 @@ public class ServerConnection extends Thread {
     @Override
     public synchronized void start() {
         super.start();
-        this.state = STATE_FAILURE_TO_CONNECT;
+        // connect();
     }
 
     /**
@@ -59,47 +59,58 @@ public class ServerConnection extends Thread {
     @Override
     public void run() {
         super.run();
+        connect();
         while (isRunning) {
+            /*
             if (getConnectionState() == STATE_CONNECTED){
-                if (socket.isClosed()){
-                    state = STATE_IDLE;
-                    try {
-                        Thread.sleep(25);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    continue;
-                }
                 try {
-                    if (in.ready()){
-                        String input = in.readLine();
-                        JSONObject inputObject = new JSONObject(input);
-                        int conversationID = inputObject.getInt("CONVERSATION_ID");
-                        String data = inputObject.getString("CONTENT");
-                        if (data != null){
-                            //onRecievedData(data, conversationID);
-                        }
+                    if (!isSocketConnected()){
+                        disconnect();
+                        continue;
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                     e.printStackTrace();
-                    try {
-                        Thread.sleep(25);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
                 }
-            } else {
-                if (connect()) {
-                    state = STATE_CONNECTED;
+            } else if (getConnectionState() == STATE_FAILURE_TO_CONNECT) {
+                try {
+                    connect();
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
                 try {
-                    Thread.sleep(25);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            } else {
+                try {
+                    connect();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }*/
+            try {
+                if (isConnected()) {
+                    if (!isSocketConnected()) {
+                        disconnect();
+                    }
+
+                } else if (isIdle()) {
+                    connect();
+                } else if (isFailedToConnect()) {
+                    connect();
+                    Thread.sleep(4000);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             try {
-                Thread.sleep(15);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -107,10 +118,12 @@ public class ServerConnection extends Thread {
     }
 
     /**
-     * Creates a connection between the client and the server
+     * Creates a connection between the client and the server. If the connection already exits then
+     * this does nothing.
      * @return  true if the connection is successful, false if the connection fails.
      */
     public boolean connect() {
+        Log.i("SERVER-CONNECTED", "Attempting to connect to a server...");
         if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT){
             try {
                 socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
@@ -129,16 +142,20 @@ public class ServerConnection extends Thread {
     }
 
     /**
-     * Cuts off the connection to the server.
+     * Cuts off the connection to the server. If there is no connection than this doesn't do
+     * anything.
      * @return  true if the connection successfully disconnects, false if there is an error.
      */
     public boolean disconnect(){
+        Log.i("SERVER-CONNECTED", "Attempting to disconnect to a server...");
         if (getConnectionState() == STATE_CONNECTED){
             try {
                 socket.close();
+                state = STATE_IDLE;
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();
+                state = STATE_IDLE;
                 return false;
             }
         } else {
@@ -153,9 +170,9 @@ public class ServerConnection extends Thread {
      * @return                      true if the data is send successfully, false if the data is not
      */
     public boolean sendData(String data, Runnable onRecievedResponse){
-        Log.i("NET", "Attempting to send Data: \"" + data + "\"");
+        Log.i("SERVER-CONNECTED", "Attempting to send Data: \"" + data + "\"");
         try {
-            if (getConnectionState() == STATE_CONNECTED) {
+            if (isConnected() && isSocketConnected()) {
                 /*
                 JSONObject message = new JSONObject();
                 if (onRecievedResponse != null) {
@@ -167,18 +184,18 @@ public class ServerConnection extends Thread {
                 message.put("CONTENT", data);
                 */
                 out.println(data);
-                Log.i("NET", "Succesfully sent data: \"" + data + "\"");
+                Log.i("SERVER-CONNECTED", "Succesfully sent data: \"" + data + "\"");
                 return true;
             } else {
-                Log.i("NET", "Failed to send data, no connection: \"" + data + "\"");
+                disconnect();
+                Log.i("SERVER-CONNECTED", "Failed to send data, no connection: \"" + data + "\"");
                 return false;
             }
         } catch (Exception e){
             e.printStackTrace();
-            Log.i("NET", "Failed to send data, exception thrown: \"" + data + "\"");
+            disconnect();
+            Log.i("SERVER-CONNECTED", "Failed to send data, exception thrown: \"" + data + "\"");
             return false;
-        }
-    }
 
 
     /**
@@ -196,9 +213,23 @@ public class ServerConnection extends Thread {
         }
     }
     */
+        }
+    }
 
     public boolean isConnected(){
         return getConnectionState() == STATE_CONNECTED;
+    }
+
+    public boolean isFailedToConnect() {
+        return getConnectionState() == STATE_FAILURE_TO_CONNECT;
+    }
+
+    public boolean isIdle() {
+        return getConnectionState() == STATE_IDLE;
+    }
+
+    public boolean isSocketConnected() {
+        return socket.isConnected();
     }
 
     /**

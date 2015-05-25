@@ -14,7 +14,7 @@ import com.edr.fingerdodge.R;
 /**
  * @author Ethan Raymond
  */
-public class InfoActivity extends ActionBarActivity {
+public class InfoActivity extends StatisticsTrackingActivity {
 
     /**
      * This text view contains the information blurb.
@@ -26,7 +26,7 @@ public class InfoActivity extends ActionBarActivity {
     private TextView email;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         getSupportActionBar().setTitle("App Information");

@@ -8,10 +8,10 @@ import android.view.MenuItem;
 
 import com.edr.fingerdodge.R;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends StatisticsTrackingActivity {
     
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
     }
