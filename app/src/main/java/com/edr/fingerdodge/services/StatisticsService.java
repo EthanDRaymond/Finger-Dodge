@@ -64,6 +64,14 @@ public class StatisticsService extends Service {
         try {
             readStatisticsFromFile();
             removeOldStatistics();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (sendStatisticsToServer()) {
+                        unwrittenStatistics.clear();
+                    }
+                }
+            }).start();
         } catch (IOException e) {
             e.printStackTrace();
             Log.i("STATISTICS", "Failed to read statistics from file. Reason: IOException");
@@ -86,6 +94,7 @@ public class StatisticsService extends Service {
     }
 
     private void onAddNewStatistic() {
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -94,6 +103,7 @@ public class StatisticsService extends Service {
                 }
             }
         }).start();
+        */
     }
 
     public void addNewStatistic(Statistic statistic) {
