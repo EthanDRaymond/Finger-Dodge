@@ -66,6 +66,7 @@
             android:layout_height="30sp"/>
 
         <com.edr.fingerdodge.ui.views.SettingsIconView
+            android:id="@+id/settingsView"
             android:layout_marginLeft="5sp"
             android:layout_width="30sp"
             android:layout_height="30sp"/>

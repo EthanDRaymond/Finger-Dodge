@@ -1,5 +1,6 @@
 package com.edr.fingerdodge.ui.pages;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.util.Files;
+import com.edr.fingerdodge.util.Settings;
 
 import java.io.File;
 
@@ -25,7 +27,7 @@ public class SplashActivity extends StatisticsTrackingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         isFirstTime();
-        SharedPreferences settings = getSharedPreferences(Files.FILE_BASIC, 0);
+        loadSettings();
         File statFile = new File(getFilesDir(), Files.FILE_STAT_SAVES);
         /*textView = (TextView) findViewById(R.id.splash_textView);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +88,11 @@ public class SplashActivity extends StatisticsTrackingActivity {
         } else {
             return false;
         }
+    }
+
+    private void loadSettings() {
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        Settings.loadSettings(sharedPreferences);
     }
 
 }

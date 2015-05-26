@@ -21,6 +21,7 @@ import com.edr.fingerdodge.stat.GameStatistic;
 import com.edr.fingerdodge.stat.Statistic;
 import com.edr.fingerdodge.stat.StatisticPacket;
 import com.edr.fingerdodge.util.Files;
+import com.edr.fingerdodge.util.Settings;
 import com.edr.fingerdodge.util.Version;
 
 import java.io.File;
@@ -107,9 +108,11 @@ public class StatisticsService extends Service {
     }
 
     public void addNewStatistic(Statistic statistic) {
-        Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
-        unwrittenStatistics.add(statistic);
-        onAddNewStatistic();
+        if (Settings.doCollectStatistics) {
+            Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
+            unwrittenStatistics.add(statistic);
+            onAddNewStatistic();
+        }
     }
 
     /**

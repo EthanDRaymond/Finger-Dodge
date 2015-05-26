@@ -41,7 +41,8 @@
 
         <activity
             android:name=".ui.pages.SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.pages.GameActivity" >
         </activity>
     </application>
 
