@@ -7,6 +7,6 @@ package com.edr.fingerdodge.util;
  */
 public class Version {
 
-    public static final int API_CODE = 4;
+    public static final int API_CODE = 5;
 
 }
