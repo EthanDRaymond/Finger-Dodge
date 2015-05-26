@@ -45,7 +45,6 @@ public class StatisticsService extends Service {
 
     private final IBinder mBinder = new LocalBinder();
 
-    private ServerConnection serverConnection;
     private ArrayList<Statistic> unwrittenStatistics;
 
     @Override
@@ -59,8 +58,6 @@ public class StatisticsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        serverConnection = new ServerConnection();
-        serverConnection.start();
         unwrittenStatistics = new ArrayList<Statistic>();
         try {
             readStatisticsFromFile();
@@ -70,6 +67,11 @@ public class StatisticsService extends Service {
                 public void run() {
                     if (sendStatisticsToServer()) {
                         unwrittenStatistics.clear();
+                        try {
+                            saveStatisticsToFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }).start();
@@ -112,6 +114,11 @@ public class StatisticsService extends Service {
             Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
             unwrittenStatistics.add(statistic);
             onAddNewStatistic();
+            try {
+                saveStatisticsToFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
