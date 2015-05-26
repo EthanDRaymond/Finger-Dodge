@@ -7,15 +7,11 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 
-import com.edr.fingerdodge.game.listeners.OnGameEndedListener;
 import com.edr.fingerdodge.services.StatisticsService;
 import com.edr.fingerdodge.stat.ActivityCloseStatistic;
 import com.edr.fingerdodge.stat.ActivityOpenStatistic;
-import com.edr.fingerdodge.stat.GameStatistic;
 import com.edr.fingerdodge.util.Version;
 
 /**

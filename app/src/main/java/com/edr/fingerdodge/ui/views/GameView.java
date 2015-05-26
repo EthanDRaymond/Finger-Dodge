@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.game.Game;
 import com.edr.fingerdodge.math.geo.Point;
 import com.edr.fingerdodge.math.geo.Rectangle;
@@ -20,9 +19,10 @@ import java.util.ArrayList;
 /**
  * This view displays the visuals of the game and handles any touch information to interact with
  * the game.
+ *
  * @author Ethan Raymond
  */
-public class GameView extends View implements View.OnTouchListener{
+public class GameView extends View implements View.OnTouchListener {
 
     private static final float SHADOW_OFFSET = 10.0f;
     private static final float BG_VELOCITY_1 = 10.0f;
@@ -45,22 +45,22 @@ public class GameView extends View implements View.OnTouchListener{
 
     private long lastTouchEventTime = 0;
 
-    public GameView(Context context){
+    public GameView(Context context) {
         super(context);
         init();
     }
 
-    public GameView(Context context, AttributeSet attrs){
+    public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public GameView(Context context, AttributeSet attrs, int defStyleAttr){
+    public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    private void init(){
+    private void init() {
         setOnTouchListener(this);
         game = new Game(this);
         game.getFinger().getCenter().x = getWidth() / 2.0f;
@@ -94,17 +94,17 @@ public class GameView extends View implements View.OnTouchListener{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int gameState = game.getGameState();
-        if (gameState == Game.STATE_PRE_GAME){
+        if (gameState == Game.STATE_PRE_GAME) {
             onDrawFinger(canvas);
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } else if (gameState == Game.STATE_PLAYING){
+        } else if (gameState == Game.STATE_PLAYING) {
             onDrawRectangles(canvas);
             onDrawFinger(canvas);
-        } else if (gameState == Game.STATE_PAUSED){
+        } else if (gameState == Game.STATE_PAUSED) {
             onDrawRectangles(canvas);
             onDrawFinger(canvas);
             try {
@@ -112,7 +112,7 @@ public class GameView extends View implements View.OnTouchListener{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } else if (gameState == Game.STATE_END){
+        } else if (gameState == Game.STATE_END) {
             onDrawRectangles(canvas);
             try {
                 Thread.sleep(50);
@@ -123,9 +123,9 @@ public class GameView extends View implements View.OnTouchListener{
         invalidate();
     }
 
-    private void onDrawRectangles(Canvas canvas){
+    private void onDrawRectangles(Canvas canvas) {
         ArrayList<Rectangle> rectangles = game.getRectangles();
-        for (int i = 0; i < rectangles.size(); i++){
+        for (int i = 0; i < rectangles.size(); i++) {
             Rectangle rectangle = rectangles.get(i);
             float top = rectangle.top;
             float bottom = rectangle.bottom;
@@ -137,7 +137,7 @@ public class GameView extends View implements View.OnTouchListener{
         }
     }
 
-    private void onDrawRectangle(Canvas canvas, float top, float bottom, float left, float right){
+    private void onDrawRectangle(Canvas canvas, float top, float bottom, float left, float right) {
         canvas.drawRect(left + SHADOW_OFFSET, top + SHADOW_OFFSET, right + SHADOW_OFFSET, bottom + SHADOW_OFFSET, shadowPaint);
         canvas.drawRect(left, top, right, bottom, rectanglePaint2);
         canvas.drawRect(left + RECTANGLE_PIN_SIZE, top + RECTANGLE_PIN_SIZE,
@@ -152,7 +152,7 @@ public class GameView extends View implements View.OnTouchListener{
                 RECTANGLE_PIN_SIZE / 2.0f, rectanglePaint2);
     }
 
-    private void onDrawFinger(Canvas canvas){
+    private void onDrawFinger(Canvas canvas) {
         Point center = game.getFinger().getCenter();
         float radius = game.getFinger().getRadius();
         canvas.drawCircle(center.x, center.y, radius, fingerPaint);
@@ -180,7 +180,7 @@ public class GameView extends View implements View.OnTouchListener{
     }
     */
 
-    private void printRenderTime(){
+    private void printRenderTime() {
         Log.i("RENDER TIME", Long.toString(System.currentTimeMillis()));
     }
 
@@ -197,7 +197,7 @@ public class GameView extends View implements View.OnTouchListener{
         Game.RECTANGLE_SEPARATION_MAX = getHeight() / 14.0f;
         Game.RECTANGLE_LENGTH_MIN = getHeight() / 7.0f;
         Game.RECTANGLE_LEGNTH_MAX = getHeight();
-        if (w < h){
+        if (w < h) {
             BG_CIRCLE1_RADIUS = h / 6.0f;
             BG_CIRCLE2_RADIUS = h / 3.0f;
             RECTANGLE_PIN_SIZE = h / 225.f;
@@ -215,65 +215,66 @@ public class GameView extends View implements View.OnTouchListener{
     /**
      * This handles all of the touch input from the user. The algorithm in this method is a follows:
      * <ul>
-     *     <li>If the game has not started yet...</li>
-     *     <ul>
-     *         <li>If the user is placing their finger on the screen...</li>
-     *         <ul>
-     *             <li>If the finger is touching the dot...</li>
-     *             <ul>
-     *                  <li>The game is started.</li>
-     *                  <li>The dot is moved where the user's finger is.</li>
-     *             </ul>
-     *         </ul>
-     *     </ul>
-     *     <li>If the game is currently playing...</li>
-     *     <ul>
-     *         <li>If the user is moving their finger across the screen...</li>
-     *         <ul>
-     *             <li>The dot is moved where the user's finger is.</li>
-     *         </ul>
-     *         <li>If the user lifts their finger...</li>
-     *         <ul>
-     *             <li>The game is paused</li>
-     *         </ul>
-     *     </ul>
-     *     <li>If the game is paused...</li>
-     *     <ul>
-     *         <li>If the user is placing their finger on the screen...</li>
-     *         <ul>
-     *             <li>If the finger is touching the dot...</li>
-     *             <ul>
-     *                  <li>The game is resumed.</li>
-     *                  <li>The dot is moved where the user's finger is.</li>
-     *             </ul>
-     *         </ul>
-     *     </ul>
+     * <li>If the game has not started yet...</li>
+     * <ul>
+     * <li>If the user is placing their finger on the screen...</li>
+     * <ul>
+     * <li>If the finger is touching the dot...</li>
+     * <ul>
+     * <li>The game is started.</li>
+     * <li>The dot is moved where the user's finger is.</li>
      * </ul>
+     * </ul>
+     * </ul>
+     * <li>If the game is currently playing...</li>
+     * <ul>
+     * <li>If the user is moving their finger across the screen...</li>
+     * <ul>
+     * <li>The dot is moved where the user's finger is.</li>
+     * </ul>
+     * <li>If the user lifts their finger...</li>
+     * <ul>
+     * <li>The game is paused</li>
+     * </ul>
+     * </ul>
+     * <li>If the game is paused...</li>
+     * <ul>
+     * <li>If the user is placing their finger on the screen...</li>
+     * <ul>
+     * <li>If the finger is touching the dot...</li>
+     * <ul>
+     * <li>The game is resumed.</li>
+     * <li>The dot is moved where the user's finger is.</li>
+     * </ul>
+     * </ul>
+     * </ul>
+     * </ul>
+     *
      * @param v     the view that is being touched
      * @param event the motion event
-     * @return      true if the event was handled successfully, false if it was not
+     * @return true if the event was handled successfully, false if it was not
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         int action = event.getAction();
         int gameState = game.getGameState();
         float fingerRadius = game.getFinger().getRadius();
-        if (gameState == Game.STATE_PRE_GAME){
-            if (action == MotionEvent.ACTION_DOWN){
+        if (gameState == Game.STATE_PRE_GAME) {
+            if (action == MotionEvent.ACTION_DOWN) {
                 float x = event.getX();
                 float y = event.getY();
-                if (x < getWidth()/2.0f + fingerRadius && x > getWidth()/2.0f - fingerRadius
-                        && y < getHeight()/2.0f + fingerRadius && y > getHeight()/2.0f - fingerRadius){
-                    float distance = (float) Math.sqrt(Math.pow(x - getWidth()/2.0f, 2) + Math.pow(y - getHeight()/2.0f, 2));
-                    if (distance < fingerRadius){
+                if (x < getWidth() / 2.0f + fingerRadius && x > getWidth() / 2.0f - fingerRadius
+                        && y < getHeight() / 2.0f + fingerRadius && y > getHeight() / 2.0f - fingerRadius) {
+                    float distance = (float) Math.sqrt(Math.pow(x - getWidth() / 2.0f, 2) + Math.pow(y - getHeight() / 2.0f, 2));
+                    if (distance < fingerRadius) {
                         game.getFinger().getCenter().x = x;
                         game.getFinger().getCenter().y = y /*- 2 * fingerRadius*/;
                         game.startGame();
                     }
                 }
             }
-        } else if (gameState == Game.STATE_PLAYING){
-            if (action == MotionEvent.ACTION_MOVE){
+        } else if (gameState == Game.STATE_PLAYING) {
+            if (action == MotionEvent.ACTION_MOVE) {
                 float x = event.getX();
                 float y = event.getY();
                 /*float oldX = game.getFinger().getCenter().x;
@@ -285,21 +286,21 @@ public class GameView extends View implements View.OnTouchListener{
                 }*/
                 game.getFinger().getCenter().x = x;
                 game.getFinger().getCenter().y = y /*- 2 * fingerRadius*/;
-            } else if (action == MotionEvent.ACTION_UP){
+            } else if (action == MotionEvent.ACTION_UP) {
                 game.pauseGame();
-            } else if (action == MotionEvent.ACTION_POINTER_DOWN || action == MotionEvent.ACTION_POINTER_UP){
+            } else if (action == MotionEvent.ACTION_POINTER_DOWN || action == MotionEvent.ACTION_POINTER_UP) {
                 game.pauseGame();
             }
-        } else if (gameState == Game.STATE_PAUSED){
-            if (action == MotionEvent.ACTION_DOWN){
+        } else if (gameState == Game.STATE_PAUSED) {
+            if (action == MotionEvent.ACTION_DOWN) {
                 float x = event.getX();
                 float y = event.getY();
                 float fingerX = game.getFinger().getCenter().x;
                 float fingerY = game.getFinger().getCenter().y;
                 if (x < fingerX + fingerRadius && x > fingerX - fingerRadius
-                        && y < fingerY + fingerRadius && y > fingerY - fingerRadius){
+                        && y < fingerY + fingerRadius && y > fingerY - fingerRadius) {
                     float distance = (float) Math.sqrt(Math.pow(x - fingerX, 2) + Math.pow(y - fingerY, 2));
-                    if (distance < fingerRadius){
+                    if (distance < fingerRadius) {
                         game.getFinger().getCenter().x = x;
                         game.getFinger().getCenter().y = y /*- 2 * fingerRadius*/;
                         game.startGame();
@@ -313,14 +314,14 @@ public class GameView extends View implements View.OnTouchListener{
     /**
      * This sets the game this view will be displaying.
      */
-    public void setGame(Game game){
+    public void setGame(Game game) {
         this.game = game;
     }
 
     /**
      * This gets the game this view is displaying
      */
-    public Game getGame(){
+    public Game getGame() {
         return game;
     }
 

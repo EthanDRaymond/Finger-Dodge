@@ -19,6 +19,7 @@ import com.edr.fingerdodge.game.Game;
 /**
  * This view appears when a game is complete. It displays the score from the game and a button
  * to restart the game.
+ *
  * @author Ethan Raymond
  */
 public class EndOfGameView extends LinearLayout {
@@ -29,22 +30,22 @@ public class EndOfGameView extends LinearLayout {
     private Button restartGameButton;
     private RelativeLayout.LayoutParams layoutParams;
 
-    public EndOfGameView(Context context){
+    public EndOfGameView(Context context) {
         super(context);
         init();
     }
 
-    public EndOfGameView(Context context, AttributeSet attributeSet){
+    public EndOfGameView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         init();
     }
 
-    public EndOfGameView(Context context, AttributeSet attributeSet, int defStyleInt){
+    public EndOfGameView(Context context, AttributeSet attributeSet, int defStyleInt) {
         super(context, attributeSet, defStyleInt);
         init();
     }
 
-    private void init(){
+    private void init() {
         displayView = new TextView(getContext());
         displayView.setText("You Lost!");
         displayView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
@@ -79,7 +80,7 @@ public class EndOfGameView extends LinearLayout {
         addView(restartGameButton);
     }
 
-    public void setMessage(String message){
+    public void setMessage(String message) {
         this.displayView.setText(message);
     }
 
@@ -91,7 +92,7 @@ public class EndOfGameView extends LinearLayout {
         return displayView;
     }
 
-    public TextView getScoreView(){
+    public TextView getScoreView() {
         return scoreView;
     }
 

@@ -1,12 +1,8 @@
 package com.edr.fingerdodge.ui.pages;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -38,7 +34,7 @@ public class SettingsActivity extends StatisticsTrackingActivity {
                 = (CheckBox) findViewById(R.id.settings_usage_statistics_checkbox);
     }
 
-    private void saveSettings(){
+    private void saveSettings() {
         SharedPreferences sharedPreferences
                 = getSharedPreferences("settings", Context.MODE_PRIVATE);
         Settings.saveSettings(sharedPreferences);

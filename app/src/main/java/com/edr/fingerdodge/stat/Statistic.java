@@ -23,7 +23,7 @@ public class Statistic {
         this.api = api;
     }
 
-    public Statistic(JSONObject json){
+    public Statistic(JSONObject json) {
         this.type = json.getString(JSONKeys.KEY_TYPE);
         this.userID = json.getLong(JSONKeys.KEY_USER_ID);
         this.time = json.getLong(JSONKeys.KEY_TIME);

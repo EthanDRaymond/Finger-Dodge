@@ -13,7 +13,7 @@ public class ActivityCloseStatistic extends Statistic {
 
     private String activityName;
 
-    public ActivityCloseStatistic(String type, long id, long time, int api, String activityName){
+    public ActivityCloseStatistic(String type, long id, long time, int api, String activityName) {
         super(type, id, time, api);
         this.activityName = activityName;
     }

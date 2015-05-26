@@ -2,15 +2,11 @@ package com.edr.fingerdodge.net;
 
 import android.util.Log;
 
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author Ethan Raymond
@@ -31,7 +27,7 @@ public class ServerConnection extends Thread {
     //private ArrayList<Integer> onRecievedResponseIDs;
     private boolean isRunning;
 
-    public ServerConnection(){
+    public ServerConnection() {
         super("ServerConnection");
         this.isRunning = true;
         //onRecievedResponseRunnables = new ArrayList<Runnable>();
@@ -51,7 +47,7 @@ public class ServerConnection extends Thread {
     /**
      * Disconnects the server and causes the thread to cease.
      */
-    public void end(){
+    public void end() {
         this.isRunning = false;
         disconnect();
     }
@@ -120,18 +116,19 @@ public class ServerConnection extends Thread {
     /**
      * Creates a connection between the client and the server. If the connection already exits then
      * this does nothing.
-     * @return  true if the connection is successful, false if the connection fails.
+     *
+     * @return true if the connection is successful, false if the connection fails.
      */
     public boolean connect() {
         Log.i("SERVER-CONNECTED", "Attempting to connect to a server...");
-        if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT){
+        if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT) {
             try {
                 socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.state = STATE_CONNECTED;
                 return true;
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
                 this.state = STATE_FAILURE_TO_CONNECT;
                 return false;
@@ -144,11 +141,12 @@ public class ServerConnection extends Thread {
     /**
      * Cuts off the connection to the server. If there is no connection than this doesn't do
      * anything.
-     * @return  true if the connection successfully disconnects, false if there is an error.
+     *
+     * @return true if the connection successfully disconnects, false if there is an error.
      */
-    public boolean disconnect(){
+    public boolean disconnect() {
         Log.i("SERVER-CONNECTED", "Attempting to disconnect to a server...");
-        if (getConnectionState() == STATE_CONNECTED){
+        if (getConnectionState() == STATE_CONNECTED) {
             try {
                 socket.close();
                 state = STATE_IDLE;
@@ -165,11 +163,12 @@ public class ServerConnection extends Thread {
 
     /**
      * Sends the given string of data to the server if there is a connection available.
-     * @param data                  the date to be sent to the server
-     * @param onRecievedResponse    this runnable is run if there is a response from the server
-     * @return                      true if the data is send successfully, false if the data is not
+     *
+     * @param data               the date to be sent to the server
+     * @param onRecievedResponse this runnable is run if there is a response from the server
+     * @return true if the data is send successfully, false if the data is not
      */
-    public boolean sendData(String data, Runnable onRecievedResponse){
+    public boolean sendData(String data, Runnable onRecievedResponse) {
         Log.i("SERVER-CONNECTED", "Attempting to send Data: \"" + data + "\"");
         try {
             if (isConnected() && isSocketConnected()) {
@@ -191,18 +190,18 @@ public class ServerConnection extends Thread {
                 Log.i("SERVER-CONNECTED", "Failed to send data, no connection: \"" + data + "\"");
                 return false;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             disconnect();
             Log.i("SERVER-CONNECTED", "Failed to send data, exception thrown: \"" + data + "\"");
             return false;
 
 
-    /**
-     * Called when data is received from the server.
-     * @param data              the data from the server
-     * @param conversationID    the conversation id used to find the appropriate runnable.
-     */
+            /**
+             * Called when data is received from the server.
+             * @param data              the data from the server
+             * @param conversationID    the conversation id used to find the appropriate runnable.
+             */
     /*
     private void onRecievedData(String data, int conversationID){
         for (int i = 0; i < onRecievedResponseIDs.size(); i++){
@@ -216,7 +215,7 @@ public class ServerConnection extends Thread {
         }
     }
 
-    public boolean isConnected(){
+    public boolean isConnected() {
         return getConnectionState() == STATE_CONNECTED;
     }
 

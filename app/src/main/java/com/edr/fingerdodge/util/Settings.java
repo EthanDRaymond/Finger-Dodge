@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 /**
  * This holds various static values for settings.
+ *
  * @author Ethan Raymond
  */
 public class Settings {

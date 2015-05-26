@@ -14,7 +14,7 @@ public class Packet {
     protected long userID;
     protected JSONObject content;
 
-    public Packet(String title, int api, long userID, JSONObject content){
+    public Packet(String title, int api, long userID, JSONObject content) {
         this.title = title;
         this.api = api;
         this.userID = userID;

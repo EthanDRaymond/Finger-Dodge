@@ -1,13 +1,7 @@
 package com.edr.fingerdodge.ui.pages;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.method.CharacterPickerDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +20,6 @@ import com.edr.fingerdodge.ui.views.GameView;
 import com.edr.fingerdodge.ui.views.HighScoreView;
 import com.edr.fingerdodge.ui.views.InfoIconView;
 import com.edr.fingerdodge.ui.views.ScoreView;
-import com.edr.fingerdodge.ui.views.SettingsIconView;
 import com.edr.fingerdodge.util.Files;
 import com.edr.fingerdodge.util.Version;
 
@@ -41,7 +34,7 @@ public class GameActivity extends StatisticsTrackingActivity {
     private HighScoreView highScoreView;
     private EndOfGameView endOfGameView;
     private InfoIconView infoIconView;
-    private SettingsIconView settingsIconView;
+    private RelativeLayout settingsIconView;
     private RelativeLayout preGameMessageView;
     private TextView gameMessageView;
 
@@ -70,7 +63,7 @@ public class GameActivity extends StatisticsTrackingActivity {
                 startActivity(i);
             }
         });
-        settingsIconView = (SettingsIconView) findViewById(R.id.settingsView);
+        settingsIconView = (RelativeLayout) findViewById(R.id.settingsView);
         settingsIconView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,10 +133,10 @@ public class GameActivity extends StatisticsTrackingActivity {
         game.registerOnGameEndedListener(new OnGameEndedListener() {
             @Override
             public void onGameEnded(String message, long endTime) {
-                if (isBound){
+                if (isBound) {
                     long startTime = endTime - (long) game.getScore();
                     boolean beatHighScore;
-                    if (game.getScore() >= game.getHighScore()){
+                    if (game.getScore() >= game.getHighScore()) {
                         beatHighScore = true;
                     } else {
                         beatHighScore = false;
@@ -154,7 +147,7 @@ public class GameActivity extends StatisticsTrackingActivity {
                                     getStatisticsService().getID(),
                                     System.currentTimeMillis(),
                                     Version.API_CODE,
-                                    (long) (game.getScore()*1000),
+                                    (long) (game.getScore() * 1000),
                                     beatHighScore));
                 }
             }

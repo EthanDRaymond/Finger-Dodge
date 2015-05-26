@@ -3,7 +3,6 @@ package com.edr.fingerdodge.ui.pages;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,10 +74,11 @@ public class SplashActivity extends StatisticsTrackingActivity {
 
     /**
      * This sees if this activity is being opened for the very first time.
-     * @return  true if the app has never been opened before, false if the app has been opened
-     *          before
+     *
+     * @return true if the app has never been opened before, false if the app has been opened
+     * before
      */
-    public boolean isFirstTime(){
+    public boolean isFirstTime() {
         SharedPreferences settings = getSharedPreferences(Files.FILE_BASIC, 0);
         if (settings.getBoolean("my_first_time", true)) {
             settings.edit().putBoolean("my_first_time", false).commit();
