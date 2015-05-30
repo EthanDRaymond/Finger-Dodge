@@ -21,6 +21,7 @@ import com.edr.fingerdodge.stat.GameStatistic;
 import com.edr.fingerdodge.stat.Statistic;
 import com.edr.fingerdodge.stat.StatisticPacket;
 import com.edr.fingerdodge.util.Files;
+import com.edr.fingerdodge.util.Settings;
 import com.edr.fingerdodge.util.Version;
 
 import java.io.File;
@@ -36,15 +37,27 @@ import java.util.Random;
  * <li>Sending statistics to the server when an internet connection is availible.</li>
  * </ol>
  *
+ * The following is the steps this takes to collecting and storing statistics. First statistics are
+ * added from bound activities using the addStatistic() method. Those statistics are stored in an
+ * ArrayList for later use, and they are written to a json file. Everytime the service closes the
+ * existing unwritten statistics are written to the same json file. When the service opens, that
+ * file is read and those statistics are either sent to the server or placed in memory for next
+ * time. The service will only attempt to send statistics to the server on starting.
+ *
  * @author Ethan Raymond
  */
 public class StatisticsService extends Service {
 
+    /**
+     * This is the name of the file the saved statistics are stored in using JSON.
+     */
     private static final String FILE_SAVED_STATISTICS = "saved_statistics.txt";
 
     private final IBinder mBinder = new LocalBinder();
 
-    private ServerConnection serverConnection;
+    /**
+     * This is the list of unwritten statistics.
+     */
     private ArrayList<Statistic> unwrittenStatistics;
 
     @Override
@@ -58,12 +71,23 @@ public class StatisticsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        serverConnection = new ServerConnection();
-        serverConnection.start();
         unwrittenStatistics = new ArrayList<Statistic>();
         try {
             readStatisticsFromFile();
             removeOldStatistics();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (sendStatisticsToServer()) {
+                        unwrittenStatistics.clear();
+                        try {
+                            saveStatisticsToFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
         } catch (IOException e) {
             e.printStackTrace();
             Log.i("STATISTICS", "Failed to read statistics from file. Reason: IOException");
@@ -85,7 +109,11 @@ public class StatisticsService extends Service {
         return super.onUnbind(intent);
     }
 
+    /**
+     * Called when a new statistic is added.
+     */
     private void onAddNewStatistic() {
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -94,12 +122,26 @@ public class StatisticsService extends Service {
                 }
             }
         }).start();
+        */
     }
 
+    /**
+     * Calls this when adding a new statistics to the list. This adds the statistics, and saves the
+     * data to both memory and to a file.
+     *
+     * @param statistic the statistics to be added
+     */
     public void addNewStatistic(Statistic statistic) {
-        Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
-        unwrittenStatistics.add(statistic);
-        onAddNewStatistic();
+        if (Settings.doCollectStatistics) {
+            Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
+            unwrittenStatistics.add(statistic);
+            onAddNewStatistic();
+            try {
+                saveStatisticsToFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -137,18 +179,31 @@ public class StatisticsService extends Service {
      * send successfully.
      *
      * @return true if the data is successfully send, false if the data is not.e
-     * TODO:    Make this method actually send the data. It currently just pretends to and fails every time.
      */
     private boolean sendStatisticsToServer() {
         Log.i("STATISTICS", "Sending Statistics To Server.");
-        if (serverConnection.isConnected()){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(JSONKeys.KEY_STATISTICS, Statistic.makeJSONArray(unwrittenStatistics));
-            StatisticPacket statisticPacket = new StatisticPacket(Version.API_CODE, getID(), jsonObject);
-            serverConnection.sendData(statisticPacket.getJSONObject().toString(), null);
+        if (unwrittenStatistics.size() > 0) {
+            ServerConnection serverConnection = new ServerConnection();
+            serverConnection.start();
+            try {
+                Thread.sleep(2500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (serverConnection.isConnected()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(JSONKeys.KEY_STATISTICS, Statistic.makeJSONArray(unwrittenStatistics));
+                StatisticPacket statisticPacket = new StatisticPacket(Version.API_CODE, getID(), jsonObject);
+                serverConnection.sendData(statisticPacket.getJSONObject().toString(), null);
+                serverConnection.end();
+                return true;
+            } else {
+                serverConnection.end();
+                return false;
+            }
+        } else {
             return true;
         }
-        return false;
     }
 
     /**
@@ -180,6 +235,11 @@ public class StatisticsService extends Service {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    /**
+     * This takes raw JSON code and builds the array of unwritten statistics out of it.
+     * @param json              this is the raw JSON code
+     * @throws JSONException    thrown if there is a problem with the JSON code
+     */
     private void setStatisticsFromJSONArray(String json) throws JSONException {
         JSONArray array = new JSONArray(json);
         for (int i = 0; i < array.length(); i++) {
@@ -198,17 +258,10 @@ public class StatisticsService extends Service {
         }
     }
 
-    private String getAllStatisticsDataString() throws JSONException {
-        /*
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < unwrittenStatistics.size(); i++){
-            jsonArray.put(new JSONObject(unwrittenStatistics.get(i)));
-        }
-        return jsonArray.toString();
-        */
-        return null;
-    }
-
+    /**
+     * This makes a JSON array from the list of unwritten statistics.
+     * @return a JSON array of unwritten statistics
+     */
     private JSONArray getJSONArrayOfStatistics() {
         JSONArray array = new JSONArray();
         for (int i = 0; i < unwrittenStatistics.size(); i++) {
@@ -217,10 +270,15 @@ public class StatisticsService extends Service {
         return array;
     }
 
+    /**
+     * This gets the user's statistics ID. If there is not a statistics ID then it makes a new one
+     * and saves it.
+     * @return the users statistics ID
+     */
     public long getID() {
         SharedPreferences sharedPref = getSharedPreferences("stat", Context.MODE_PRIVATE);
         long id = sharedPref.getLong("stat-id", -1);
-        if (id == -1 || id < 0){
+        if (id == -1 || id < 0) {
             Random random = new Random();
             SharedPreferences.Editor editor = sharedPref.edit();
             long newID = random.nextLong();

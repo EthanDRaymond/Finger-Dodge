@@ -16,16 +16,16 @@ public class StatisticPacket extends Packet {
 
     private ArrayList<Statistic> statistics;
 
-    public StatisticPacket(int api, long userID, JSONObject content){
+    public StatisticPacket(int api, long userID, JSONObject content) {
         super(TITLE, api, userID, content);
     }
 
-    public StatisticPacket(String json){
+    public StatisticPacket(String json) {
         super(json);
         setStatisticsFromContent();
     }
 
-    private void setStatisticsFromContent(){
+    private void setStatisticsFromContent() {
         statistics = new ArrayList<Statistic>();
         JSONArray array = getContent().getJSONArray(JSONKeys.KEY_STATISTICS);
         for (int i = 0; i < array.length(); i++) {
@@ -33,13 +33,13 @@ public class StatisticPacket extends Packet {
         }
     }
 
-    private void addStatistic(JSONObject jsonObject){
+    private void addStatistic(JSONObject jsonObject) {
         String type = jsonObject.getString(JSONKeys.KEY_TYPE);
-        if (type.equals(ActivityOpenStatistic.TYPE)){
+        if (type.equals(ActivityOpenStatistic.TYPE)) {
             statistics.add(new ActivityOpenStatistic(jsonObject));
-        } else if (type.equals(ActivityCloseStatistic.TYPE)){
+        } else if (type.equals(ActivityCloseStatistic.TYPE)) {
             statistics.add(new ActivityCloseStatistic(jsonObject));
-        } else if (type.equals(GameStatistic.TYPE)){
+        } else if (type.equals(GameStatistic.TYPE)) {
             statistics.add(new GameStatistic(jsonObject));
         }
     }

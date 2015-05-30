@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 
 /**
  * This is subclass of IconView that displays the information icon.
+ *
  * @author Ethan Raymond
  * @see IconView
  */
@@ -27,7 +28,7 @@ public class InfoIconView extends IconView {
     protected void onDrawDesign(Canvas canvas) {
         super.onDrawDesign(canvas);
         float dotX, dotY, dotRadius, lineTop, lineBottom, lineLeft, lineRight;
-        if (getWidth() < getHeight()){
+        if (getWidth() < getHeight()) {
             dotX = getWidth() / 2.0f;
             dotY = getHeight() / 2.0f - getWidth() / 4.0f;
             dotRadius = getWidth() / 12.0f;

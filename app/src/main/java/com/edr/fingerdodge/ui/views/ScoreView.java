@@ -12,6 +12,7 @@ import com.edr.fingerdodge.game.Game;
 
 /**
  * This view displays the score at the top left of the gameplay screen.
+ *
  * @author Ethan Raymond
  */
 public class ScoreView extends RelativeLayout {
@@ -19,22 +20,22 @@ public class ScoreView extends RelativeLayout {
     private TextView clockView;
     private Game game;
 
-    public ScoreView(Context context){
+    public ScoreView(Context context) {
         super(context);
         init();
     }
 
-    public ScoreView(Context context, AttributeSet attrs){
+    public ScoreView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ScoreView(Context context, AttributeSet attrs, int defStyleAttr){
+    public ScoreView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    private void init(){
+    private void init() {
         clockView = new TextView(getContext());
         clockView.setPadding(10, 10, 10, 10);
         clockView.setText("00:00");
@@ -47,7 +48,7 @@ public class ScoreView extends RelativeLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (game == null){
+        if (game == null) {
             clockView.setText("Score: 0");
         } else if (game.getGameState() == Game.STATE_PRE_GAME) {
             clockView.setText("Score: 0");
@@ -57,17 +58,17 @@ public class ScoreView extends RelativeLayout {
         invalidate();
     }
 
-    public void setGame(Game game){
+    public void setGame(Game game) {
         this.game = game;
     }
 
-    private String getTimeString(Game game){
+    private String getTimeString(Game game) {
         String output = "Score: ";
         output += (int) (game.getScore() * 100);
         return output;
     }
 
-    public String getScore(){
+    public String getScore() {
         return getTimeString(game);
     }
 

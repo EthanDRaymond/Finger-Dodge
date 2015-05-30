@@ -8,6 +8,7 @@ import java.io.IOException;
 /**
  * This is a static class used for simplifying reading, writing, and appending to files. It contains
  * methods that simplify the process.
+ *
  * @author Ethan Raymond
  */
 public class Files {
@@ -20,9 +21,10 @@ public class Files {
 
     /**
      * Reads and returns the data from the given file if it is available.
-     * @param file          the file that will be read from
-     * @return              the data in the given file
-     * @throws IOException  thrown if there is an error finding or opening the file
+     *
+     * @param file the file that will be read from
+     * @return the data in the given file
+     * @throws IOException thrown if there is an error finding or opening the file
      */
     public static String readFile(File file) throws IOException {
         int length = (int) file.length();
@@ -34,9 +36,10 @@ public class Files {
 
     /**
      * Writes the given string of data to the given file.
-     * @param data          the data that will be written to the file.
-     * @param file          the file that will be opened and written to
-     * @throws IOException  thrown if the file cannot be opened or the data cannot be written to it
+     *
+     * @param data the data that will be written to the file.
+     * @param file the file that will be opened and written to
+     * @throws IOException thrown if the file cannot be opened or the data cannot be written to it
      */
     public static void writeToFile(String data, File file) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -47,9 +50,10 @@ public class Files {
      * This appends the given string of data to the given file. It does this by reading the existing
      * data from the file and concatenates the new data to that string and rewrites it back out to
      * the file.
-     * @param data          the new data to be appended
-     * @param file          the file to append the data to
-     * @throws IOException  thrown if the file cannot be opened or the data cannot be written to it
+     *
+     * @param data the new data to be appended
+     * @param file the file to append the data to
+     * @throws IOException thrown if the file cannot be opened or the data cannot be written to it
      */
     public static void appendToFile(String data, File file) throws IOException {
         writeToFile(readFile(file) + data, file);

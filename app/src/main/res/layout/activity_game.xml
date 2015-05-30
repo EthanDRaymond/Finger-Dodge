@@ -1,7 +1,8 @@
 <RelativeLayout
     android:id="@+id/mainLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.edr.fingerdodge.ui.pages.GameActivity">
 
@@ -65,10 +66,24 @@
             android:layout_width="30sp"
             android:layout_height="30sp"/>
 
-        <com.edr.fingerdodge.ui.views.SettingsIconView
-            android:layout_marginLeft="5sp"
+        <RelativeLayout
+            android:id="@+id/settingsView"
+            android:layout_marginLeft="10sp"
             android:layout_width="30sp"
-            android:layout_height="30sp"/>
+            android:layout_height="30sp">
+
+            <com.edr.fingerdodge.ui.views.IconView
+                android:layout_width="30sp"
+                android:layout_height="30sp"/>
+
+            <ImageView
+                android:layout_width="28sp"
+                android:layout_height="28sp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_settings"
+                android:alpha="10"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

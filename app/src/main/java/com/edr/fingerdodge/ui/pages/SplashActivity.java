@@ -1,8 +1,8 @@
 package com.edr.fingerdodge.ui.pages;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,22 +10,23 @@ import android.widget.TextView;
 
 import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.util.Files;
+import com.edr.fingerdodge.util.Settings;
 
 import java.io.File;
 
 /**
  * @author Ethan Raymond
  */
-public class SplashActivity extends ActionBarActivity {
+public class SplashActivity extends StatisticsTrackingActivity {
 
     private TextView textView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         isFirstTime();
-        SharedPreferences settings = getSharedPreferences(Files.FILE_BASIC, 0);
+        loadSettings();
         File statFile = new File(getFilesDir(), Files.FILE_STAT_SAVES);
         /*textView = (TextView) findViewById(R.id.splash_textView);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -73,10 +74,11 @@ public class SplashActivity extends ActionBarActivity {
 
     /**
      * This sees if this activity is being opened for the very first time.
-     * @return  true if the app has never been opened before, false if the app has been opened
-     *          before
+     *
+     * @return true if the app has never been opened before, false if the app has been opened
+     * before
      */
-    public boolean isFirstTime(){
+    public boolean isFirstTime() {
         SharedPreferences settings = getSharedPreferences(Files.FILE_BASIC, 0);
         if (settings.getBoolean("my_first_time", true)) {
             settings.edit().putBoolean("my_first_time", false).commit();
@@ -86,6 +88,11 @@ public class SplashActivity extends ActionBarActivity {
         } else {
             return false;
         }
+    }
+
+    private void loadSettings() {
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        Settings.loadSettings(sharedPreferences);
     }
 
 }
