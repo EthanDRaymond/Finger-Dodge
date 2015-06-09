@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.edr.fingerdodge.R;
+import com.edr.fingerdodge.services.AnnouncementService;
 import com.edr.fingerdodge.util.Files;
 import com.edr.fingerdodge.util.Settings;
 
@@ -53,6 +54,7 @@ public class SplashActivity extends StatisticsTrackingActivity {
                 });
             }
         }).start();
+        initializeAnnouncementServer();
     }
 
 
@@ -93,6 +95,11 @@ public class SplashActivity extends StatisticsTrackingActivity {
     private void loadSettings() {
         SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         Settings.loadSettings(sharedPreferences);
+    }
+
+    private void initializeAnnouncementServer() {
+        Intent intent = new Intent(getBaseContext(), AnnouncementService.class);
+        startService(intent);
     }
 
 }
