@@ -15,7 +15,7 @@
         android:id="@+id/timeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp" />
+        android:layout_margin="10sp"/>
 
     <com.edr.fingerdodge.ui.views.HighScoreView
         android:id="@+id/highScoreView"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="10sp" />
+        android:layout_margin="10sp"/>
 
     <RelativeLayout
         android:id="@+id/preGameMessageView"
@@ -40,7 +40,7 @@
             android:layout_centerInParent="true"
             android:text="Touch the Circle"
             android:textSize="20sp"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"/>
 
     </RelativeLayout>
 
@@ -64,7 +64,7 @@
         <com.edr.fingerdodge.ui.views.InfoIconView
             android:id="@+id/infoView"
             android:layout_width="30sp"
-            android:layout_height="30sp" />
+            android:layout_height="30sp"/>
 
         <RelativeLayout
             android:id="@+id/settingsView"
@@ -74,14 +74,14 @@
 
             <com.edr.fingerdodge.ui.views.IconView
                 android:layout_width="30sp"
-                android:layout_height="30sp" />
+                android:layout_height="30sp"/>
 
             <ImageView
                 android:layout_width="28sp"
                 android:layout_height="28sp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_action_settings"
-                android:alpha="10" />
+                android:alpha="10"/>
 
         </RelativeLayout>
 
