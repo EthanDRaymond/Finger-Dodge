@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Finger Dodge</string>
+    <string name="action_settings">सेटिंग</string>
+    <string name="game_touch_my_circle">सर्किल स्पर्श करें</string>
+    <string name="info_main">इस एप्लिकेशन के एतान रेमंड द्वारा विकसित की है । प्रश्न, टिप्पणियाँ , चिंताओं, या कीड़े की रिपोर्ट करने के लिए संपर्क करें</string>
+</resources>

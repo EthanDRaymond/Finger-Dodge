@@ -113,7 +113,7 @@ public class GameActivity extends StatisticsTrackingActivity {
             public void onGameRestarted(Game game) {
                 mainLayout.removeView(endOfGameView);
                 mainLayout.addView(preGameMessageView);
-                gameMessageView.setText("Touch the Circle");
+                gameMessageView.setText(getBaseContext().getResources().getText(R.string.game_touch_my_circle));
             }
         });
         gameView.setGame(game);
