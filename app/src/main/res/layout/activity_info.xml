@@ -23,9 +23,10 @@
 
         <TextView
             android:id="@+id/info_blurb"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:text="@string/info_main"
             android:textSize="15sp"
             android:textColor="#FFFFFF"
@@ -33,11 +34,12 @@
 
         <TextView
             android:id="@+id/info_email"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/info_email"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textColor="#84fff7"
             android:textColorLink="#AAAAAA"/>
 
     </LinearLayout>
