@@ -140,7 +140,7 @@ public class Game {
             rectangles.add(rectangle);
         }
         float topLimit = -gameView.getHeight();
-        Rectangle topRectangle = null;
+        Rectangle topRectangle;
         Random random = new Random();
         while ((topRectangle = getTopRectangle()).top > topLimit) {
             float bottom = topRectangle.top + RECTANGLE_SEPARATION_MIN

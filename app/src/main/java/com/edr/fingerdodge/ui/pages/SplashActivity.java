@@ -27,7 +27,7 @@ public class SplashActivity extends StatisticsTrackingActivity {
         setContentView(R.layout.activity_splash);
         isFirstTime();
         loadSettings();
-        File statFile = new File(getFilesDir(), Files.FILE_STAT_SAVES);
+        //File statFile = new File(getFilesDir(), Files.FILE_STAT_SAVES);
         /*textView = (TextView) findViewById(R.id.splash_textView);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
