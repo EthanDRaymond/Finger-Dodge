@@ -4,6 +4,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "21.1.2"
 
+    //noinspection GroovyAssignabilityCheck
     defaultConfig {
         applicationId "com.edr.fingerdodge"
         minSdkVersion 14
@@ -11,18 +12,21 @@ android {
         versionCode 6
         versionName "1.2.1"
     }
+    //noinspection GroovyAssignabilityCheck
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    //noinspection GroovyAssignabilityCheck
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
     }
 }
 
+//noinspection GroovyAssignabilityCheck
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
