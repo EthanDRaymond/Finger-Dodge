@@ -13,6 +13,11 @@ public class SettingsActivity extends StatisticsTrackingActivity {
 
     private CheckBox settingsUsageStatisticsCheckBox;
 
+    private void findViewsFromID() {
+        settingsUsageStatisticsCheckBox
+                = (CheckBox) findViewById(R.id.settings_usage_statistics_checkbox);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +31,6 @@ public class SettingsActivity extends StatisticsTrackingActivity {
     protected void onStop() {
         super.onStop();
         saveSettings();
-    }
-
-    private void findViewsFromID() {
-        settingsUsageStatisticsCheckBox
-                = (CheckBox) findViewById(R.id.settings_usage_statistics_checkbox);
     }
 
     private void saveSettings() {

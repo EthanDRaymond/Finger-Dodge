@@ -81,11 +81,11 @@ public class EndOfGameView extends LinearLayout {
         this.displayView.setText(message);
     }
 
-    public TextView getScoreView() {
-        return scoreView;
-    }
-
     public Button getRestartGameButton() {
         return restartGameButton;
+    }
+
+    public TextView getScoreView() {
+        return scoreView;
     }
 }

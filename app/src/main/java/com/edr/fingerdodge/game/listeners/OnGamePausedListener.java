@@ -10,15 +10,6 @@ import com.edr.fingerdodge.game.Game;
 public abstract class OnGamePausedListener {
 
     /**
-     * Call this when the game is paused.
-     *
-     * @param game the game that is paused
-     */
-    public void pauseGame(Game game) {
-        onGamePaused(game);
-    }
-
-    /**
      * This is called whenever the game is paused.
      *
      * @param game the game that is paused
@@ -32,5 +23,14 @@ public abstract class OnGamePausedListener {
      */
     @SuppressWarnings("unused")
     public abstract void onGameUnPaused(Game game);
+
+    /**
+     * Call this when the game is paused.
+     *
+     * @param game the game that is paused
+     */
+    public void pauseGame(Game game) {
+        onGamePaused(game);
+    }
 
 }

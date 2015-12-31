@@ -34,7 +34,7 @@ import java.util.Random;
  * <li>Deleting statistics older than one month.</li>
  * <li>Sending statistics to the server when an internet connection is available.</li>
  * </ol>
- *
+ * <p/>
  * The following is the steps this takes to collecting and storing statistics. First statistics are
  * added from bound activities using the addStatistic() method. Those statistics are stored in an
  * ArrayList for later use, and they are written to a json file. Every time the service closes the
@@ -57,6 +57,42 @@ public class StatisticsService extends Service {
      * This is the list of unwritten statistics.
      */
     private ArrayList<Statistic> unwrittenStatistics;
+
+    /**
+     * Calls this when adding a new statistics to the list. This adds the statistics, and saves the
+     * data to both memory and to a file.
+     *
+     * @param statistic the statistics to be added
+     */
+    public void addNewStatistic(Statistic statistic) {
+        if (Settings.doCollectStatistics) {
+            Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
+            unwrittenStatistics.add(statistic);
+            onAddNewStatistic();
+            try {
+                saveStatisticsToFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Called when a new statistic is added.
+     */
+    @SuppressWarnings("EmptyMethod")
+    private void onAddNewStatistic() {
+        /*
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (sendStatisticsToServer()) {
+                    unwrittenStatistics.clear();
+                }
+            }
+        }).start();
+        */
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -108,37 +144,33 @@ public class StatisticsService extends Service {
     }
 
     /**
-     * Called when a new statistic is added.
+     * This reads and imports the statistics from the JSON file.
+     *
+     * @throws IOException   thrown if the file cannot be located or opened
+     * @throws JSONException thrown if the JSON code is incorrect.
      */
-    @SuppressWarnings("EmptyMethod")
-    private void onAddNewStatistic() {
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (sendStatisticsToServer()) {
-                    unwrittenStatistics.clear();
-                }
-            }
-        }).start();
-        */
+    private void readStatisticsFromFile() throws IOException, JSONException {
+        File file = new File(getFilesDir(), FILE_SAVED_STATISTICS);
+        String input = Files.readFile(file);
+        if (input.length() > 0) {
+            setStatisticsFromJSONArray(input);
+            Log.i("STATISTICS", "Reading Statistics From File: " + input);
+        }
     }
 
     /**
-     * Calls this when adding a new statistics to the list. This adds the statistics, and saves the
-     * data to both memory and to a file.
-     *
-     * @param statistic the statistics to be added
+     * If there is more than 1000 statistics, this removes ones more than 60 days old.
      */
-    public void addNewStatistic(Statistic statistic) {
-        if (Settings.doCollectStatistics) {
-            Log.i("STATISTICS", "Adding new Statistic: " + statistic.getJSONObject().toString());
-            unwrittenStatistics.add(statistic);
-            onAddNewStatistic();
-            try {
-                saveStatisticsToFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void removeOldStatistics() {
+        if (unwrittenStatistics.size() > 1000) {
+            final long SECONDS_OLD = 5184000000l;
+            for (int i = 0; i < unwrittenStatistics.size(); ) {
+                long time = unwrittenStatistics.get(i).getTime();
+                if (System.currentTimeMillis() - time > SECONDS_OLD) {
+                    unwrittenStatistics.remove(i);
+                } else {
+                    i++;
+                }
             }
         }
     }
@@ -155,22 +187,6 @@ public class StatisticsService extends Service {
         String output = getJSONArrayOfStatistics().toString();
         Files.writeToFile(output, file);
         Log.i("STATISTICS", "Saving Statistics To File: " + output);
-    }
-
-
-    /**
-     * This reads and imports the statistics from the JSON file.
-     *
-     * @throws IOException   thrown if the file cannot be located or opened
-     * @throws JSONException thrown if the JSON code is incorrect.
-     */
-    private void readStatisticsFromFile() throws IOException, JSONException {
-        File file = new File(getFilesDir(), FILE_SAVED_STATISTICS);
-        String input = Files.readFile(file);
-        if (input.length() > 0) {
-            setStatisticsFromJSONArray(input);
-            Log.i("STATISTICS", "Reading Statistics From File: " + input);
-        }
     }
 
     /**
@@ -206,26 +222,10 @@ public class StatisticsService extends Service {
     }
 
     /**
-     * If there is more than 1000 statistics, this removes ones more than 60 days old.
-     */
-    private void removeOldStatistics() {
-        if (unwrittenStatistics.size() > 1000) {
-            final long SECONDS_OLD = 5184000000l;
-            for (int i = 0; i < unwrittenStatistics.size(); ) {
-                long time = unwrittenStatistics.get(i).getTime();
-                if (System.currentTimeMillis() - time > SECONDS_OLD) {
-                    unwrittenStatistics.remove(i);
-                } else {
-                    i++;
-                }
-            }
-        }
-    }
-
-    /**
      * This takes raw JSON code and builds the array of unwritten statistics out of it.
-     * @param json              this is the raw JSON code
-     * @throws JSONException    thrown if there is a problem with the JSON code
+     *
+     * @param json this is the raw JSON code
+     * @throws JSONException thrown if there is a problem with the JSON code
      */
     private void setStatisticsFromJSONArray(String json) throws JSONException {
         JSONArray array = new JSONArray(json);
@@ -246,20 +246,9 @@ public class StatisticsService extends Service {
     }
 
     /**
-     * This makes a JSON array from the list of unwritten statistics.
-     * @return a JSON array of unwritten statistics
-     */
-    private JSONArray getJSONArrayOfStatistics() {
-        JSONArray array = new JSONArray();
-        for (int i = 0; i < unwrittenStatistics.size(); i++) {
-            array.put(unwrittenStatistics.get(i).getJSONObject());
-        }
-        return array;
-    }
-
-    /**
      * This gets the user's statistics ID. If there is not a statistics ID then it makes a new one
      * and saves it.
+     *
      * @return the users statistics ID
      */
     public long getID() {
@@ -278,6 +267,19 @@ public class StatisticsService extends Service {
         } else {
             return id;
         }
+    }
+
+    /**
+     * This makes a JSON array from the list of unwritten statistics.
+     *
+     * @return a JSON array of unwritten statistics
+     */
+    private JSONArray getJSONArrayOfStatistics() {
+        JSONArray array = new JSONArray();
+        for (int i = 0; i < unwrittenStatistics.size(); i++) {
+            array.put(unwrittenStatistics.get(i).getJSONObject());
+        }
+        return array;
     }
 
     public class LocalBinder extends Binder {

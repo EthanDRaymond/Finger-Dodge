@@ -7,8 +7,8 @@ package com.edr.fingerdodge.math.geo;
  */
 public class Circle {
 
-    private Point center;
     public float radius;
+    private Point center;
 
     /**
      * Creates a new circle.

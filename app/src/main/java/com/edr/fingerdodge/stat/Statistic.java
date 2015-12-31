@@ -9,6 +9,7 @@ import java.util.ArrayList;
 /**
  * This holds the value for a general statistic. This class should not be initialized by itself,
  * but as a inherited form.
+ *
  * @author Ethan Raymond
  */
 public class Statistic {
@@ -36,7 +37,8 @@ public class Statistic {
 
     /**
      * This creates a new statistics using raw JSON code.
-     * @param json      this is the raw JSON code used
+     *
+     * @param json this is the raw JSON code used
      */
     Statistic(JSONObject json) {
         this.type = json.getString(JSONKeys.KEY_TYPE);
@@ -46,24 +48,16 @@ public class Statistic {
     }
 
     /**
-     * Returns the type of statistic.
+     * Used to make a JSON array from the given list of statistics.
+     *
+     * @param statistics the statistics used to make the array
      */
-    private String getType() {
-        return type;
-    }
-
-    /**
-     * Returns the time the statistics is logged.
-     */
-    public long getTime() {
-        return time;
-    }
-
-    /**
-     * Returns the user ID.
-     */
-    private long getUserID() {
-        return userID;
+    public static JSONArray makeJSONArray(ArrayList<Statistic> statistics) {
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < statistics.size(); i++) {
+            jsonArray.put(statistics.get(i).getJSONObject());
+        }
+        return jsonArray;
     }
 
     /**
@@ -84,15 +78,24 @@ public class Statistic {
     }
 
     /**
-     * Used to make a JSON array from the given list of statistics.
-     * @param statistics    the statistics used to make the array
+     * Returns the time the statistics is logged.
      */
-    public static JSONArray makeJSONArray(ArrayList<Statistic> statistics) {
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < statistics.size(); i++) {
-            jsonArray.put(statistics.get(i).getJSONObject());
-        }
-        return jsonArray;
+    public long getTime() {
+        return time;
+    }
+
+    /**
+     * Returns the type of statistic.
+     */
+    private String getType() {
+        return type;
+    }
+
+    /**
+     * Returns the user ID.
+     */
+    private long getUserID() {
+        return userID;
     }
 
 }

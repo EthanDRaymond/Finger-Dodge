@@ -32,8 +32,9 @@ public class GameStatistic extends Statistic {
 
     /**
      * Creates a new game statistic with the given JSON code.
-     * @param json              the raw json code
-     * @throws JSONException    thrown if there is a problem with the JSON code
+     *
+     * @param json the raw json code
+     * @throws JSONException thrown if there is a problem with the JSON code
      */
     public GameStatistic(JSONObject json) throws JSONException {
         super(json);
@@ -48,14 +49,6 @@ public class GameStatistic extends Statistic {
         return duration;
     }
 
-    /**
-     * Returns true if the user beat their own high score in the game, false if the user did not
-     * beat their high score.
-     */
-    private boolean isBeatHighScore() {
-        return beatHighScore;
-    }
-
     @Override
     public JSONObject getJSONObject() {
         try {
@@ -67,5 +60,13 @@ public class GameStatistic extends Statistic {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Returns true if the user beat their own high score in the game, false if the user did not
+     * beat their high score.
+     */
+    private boolean isBeatHighScore() {
+        return beatHighScore;
     }
 }

@@ -20,16 +20,8 @@ public class Packet {
         this.content = content;
     }
 
-    private String getTitle() {
-        return title;
-    }
-
     private int getApi() {
         return api;
-    }
-
-    private long getUserID() {
-        return userID;
     }
 
     private JSONObject getContent() {
@@ -43,6 +35,14 @@ public class Packet {
         jsonObject.put(JSONKeys.KEY_USER_ID, getUserID());
         jsonObject.put(JSONKeys.KEY_CONTENT, getContent());
         return jsonObject;
+    }
+
+    private String getTitle() {
+        return title;
+    }
+
+    private long getUserID() {
+        return userID;
     }
 
 }

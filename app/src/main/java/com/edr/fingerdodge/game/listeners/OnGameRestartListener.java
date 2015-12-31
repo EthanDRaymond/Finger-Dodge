@@ -10,6 +10,13 @@ import com.edr.fingerdodge.game.Game;
 public abstract class OnGameRestartListener {
 
     /**
+     * This is called whenever the game is restarted.
+     *
+     * @param game the game that is restarted
+     */
+    public abstract void onGameRestarted(Game game);
+
+    /**
      * Call this when the game is restarted.
      *
      * @param game the game that is restarted
@@ -17,12 +24,5 @@ public abstract class OnGameRestartListener {
     public void restartGame(Game game) {
         onGameRestarted(game);
     }
-
-    /**
-     * This is called whenever the game is restarted.
-     *
-     * @param game the game that is restarted
-     */
-    public abstract void onGameRestarted(Game game);
 
 }

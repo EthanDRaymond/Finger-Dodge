@@ -35,6 +35,12 @@ public class ScoreView extends RelativeLayout {
         init();
     }
 
+    private String getTimeString(Game game) {
+        String output = "Score: ";
+        output += (int) (game.getScore() * 100);
+        return output;
+    }
+
     private void init() {
         clockView = new TextView(getContext());
         clockView.setPadding(10, 10, 10, 10);
@@ -60,12 +66,6 @@ public class ScoreView extends RelativeLayout {
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    private String getTimeString(Game game) {
-        String output = "Score: ";
-        output += (int) (game.getScore() * 100);
-        return output;
     }
 
     public String getScore() {

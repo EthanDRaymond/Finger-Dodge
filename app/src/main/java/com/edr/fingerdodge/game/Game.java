@@ -27,16 +27,15 @@ public class Game {
     public static final int STATE_PLAYING = 1;
     public static final int STATE_PAUSED = 2;
     public static final int STATE_END = 3;
+    public static final String EXIT_LIFTED_FINGER = "You lifted your finger!";
+    private static final int COLUMN_COUNT = 5;
+    private static final String EXIT_COLLISION = "You Lost!";
     public static float VELOCITY_START = 200.0f;
     public static float ACCELERATION = 18.0f;
     public static float RECTANGLE_SEPARATION_MIN = 25.0f;
     public static float RECTANGLE_SEPARATION_MAX = 50.0f;
     public static float RECTANGLE_LENGTH_MIN = 125;
     public static float RECTANGLE_LENGTH_MAX = 700;
-    private static final int COLUMN_COUNT = 5;
-    private static final String EXIT_COLLISION = "You Lost!";
-    public static final String EXIT_LIFTED_FINGER = "You lifted your finger!";
-
     private ArrayList<Rectangle> rectangles;
     private Circle finger;
     private View gameView;
@@ -70,61 +69,6 @@ public class Game {
         this.onGameEndedListeners = new ArrayList<OnGameEndedListener>();
         this.onGameRestartListeners = new ArrayList<OnGameRestartListener>();
         handleRectangleCount();
-    }
-
-    /**
-     * Updates the game.
-     *
-     * @param elapsedTime the amount of time that has passed since the last update
-     */
-    private void update(float elapsedTime) {
-        if (gameState == STATE_PLAYING) {
-            this.score += elapsedTime * 1000;
-            handleRectangleCount();
-            moveRectangles(elapsedTime);
-            removeTrapRectangles();
-            handleCollisions();
-        }
-    }
-
-    /**
-     * This checks for collisions between the finger and the rectangles. If there is a collision
-     * then the game is ended.
-     */
-    private void handleCollisions() {
-        for (int i = 0; i < rectangles.size(); i++) {
-            Rectangle rectangle = rectangles.get(i);
-            if (isColliding(finger, rectangle)) {
-                endGame(EXIT_COLLISION);
-                return;
-            }
-        }
-    }
-
-    /**
-     * This adjusts the amount of rectangles that are stored in memory. First this removes any
-     * rectangles that have passed the bottom of the screen, then this adds new rectangles above
-     * the top of the screen.
-     */
-    private void handleRectangleCount() {
-        destroyOldRectangles();
-        addNewRectangles();
-    }
-
-    /**
-     * This looks at each rectangle to see if it has passed the bottom of the screen. If it has
-     * passed the bottom of the screen, then it it destroyed and removed from the list.
-     */
-    private void destroyOldRectangles() {
-        float bottom = gameView.getHeight();
-        for (int i = 0; i < rectangles.size(); ) {
-            Rectangle rectangle = rectangles.get(i);
-            if (rectangle.top > bottom) {
-                rectangles.remove(i);
-            } else {
-                i++;
-            }
-        }
     }
 
     /**
@@ -170,78 +114,17 @@ public class Game {
     }
 
     /**
-     * This moves all of the rectangles based on the elapsed time.
-     *
-     * @param elapsedTime the amount of time that has passed since the last update
+     * This looks at each rectangle to see if it has passed the bottom of the screen. If it has
+     * passed the bottom of the screen, then it it destroyed and removed from the list.
      */
-    private void moveRectangles(float elapsedTime) {
-        for (int i = 0; i < rectangles.size(); i++) {
-            rectangles.get(i).shiftRectangle(0, getGameVelocity() * elapsedTime);
-        }
-    }
-
-    /**
-     * This gets rid of rectangles that would trap the user's finger and prevent them from being
-     * forced into a loss.
-     */
-    private void removeTrapRectangles() {
-        for (int i = 1; i < rectangles.size() - 1; ) {
-            int lastRectangleColumn = getRectangleColumn(rectangles.get(i - 1));
-            int thisRectangleColumn = getRectangleColumn(rectangles.get(i));
-            if (thisRectangleColumn == 0) {
-                if (lastRectangleColumn == 1) {
-                    rectangles.remove(i);
-                } else {
-                    i++;
-                }
-            } else if (thisRectangleColumn == COLUMN_COUNT - 1) {
-                if (lastRectangleColumn == COLUMN_COUNT - 2) {
-                    rectangles.remove(i);
-                } else {
-                    i++;
-                }
+    private void destroyOldRectangles() {
+        float bottom = gameView.getHeight();
+        for (int i = 0; i < rectangles.size(); ) {
+            Rectangle rectangle = rectangles.get(i);
+            if (rectangle.top > bottom) {
+                rectangles.remove(i);
             } else {
                 i++;
-            }
-        }
-    }
-
-    /**
-     * This begins the game. The game state is changed and the start timestamp is set.
-     */
-    public void startGame() {
-        Log.i("GAME", "Starting game.");
-        this.gameState = STATE_PLAYING;
-        this.startTime = System.currentTimeMillis();
-        if (onGameStartedListeners.size() > 0) {
-            for (int i = 0; i < onGameStartedListeners.size(); i++) {
-                onGameStartedListeners.get(i).startGame();
-            }
-        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (getGameState() == Game.STATE_PLAYING) {
-                        update(.02f);
-                        Thread.sleep(20);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    /**
-     * This pauses the game and halts any updating processes.
-     */
-    public void pauseGame() {
-        Log.i("GAME", "Pausing game.");
-        this.gameState = STATE_PAUSED;
-        if (onGamePausedListeners.size() > 0) {
-            for (int i = 0; i < onGamePausedListeners.size(); i++) {
-                onGamePausedListeners.get(i).pauseGame(this);
             }
         }
     }
@@ -263,20 +146,47 @@ public class Game {
     }
 
     /**
-     * This resets the game to its initial state.
+     * Returns the column number of the given rectangle.
+     *
+     * @param rectangle the given rectangle
+     * @return the column integer [0, infinity]
      */
-    public void restartGame() {
-        this.gameState = STATE_PRE_GAME;
-        this.startTime = -1;
-        this.finger.getCenter().x = gameView.getWidth() / 2.0f;
-        this.finger.getCenter().y = gameView.getHeight() / 2.0f;
-        this.rectangles.clear();
-        this.score = 0;
-        if (onGameRestartListeners.size() > 0) {
-            for (int i = 0; i < onGameRestartListeners.size(); i++) {
-                onGameRestartListeners.get(i).restartGame(this);
+    private int getRectangleColumn(Rectangle rectangle) {
+        if (rectangle.left == 0.0f) {
+            return 0;
+        } else if (Math.abs(rectangle.left - gameView.getWidth() / COLUMN_COUNT) < 5) {
+            return 1;
+        } else if (Math.abs(rectangle.left - 2.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
+            return 2;
+        } else if (Math.abs(rectangle.left - 3.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
+
+    /**
+     * This checks for collisions between the finger and the rectangles. If there is a collision
+     * then the game is ended.
+     */
+    private void handleCollisions() {
+        for (int i = 0; i < rectangles.size(); i++) {
+            Rectangle rectangle = rectangles.get(i);
+            if (isColliding(finger, rectangle)) {
+                endGame(EXIT_COLLISION);
+                return;
             }
         }
+    }
+
+    /**
+     * This adjusts the amount of rectangles that are stored in memory. First this removes any
+     * rectangles that have passed the bottom of the screen, then this adds new rectangles above
+     * the top of the screen.
+     */
+    private void handleRectangleCount() {
+        destroyOldRectangles();
+        addNewRectangles();
     }
 
     /**
@@ -333,7 +243,7 @@ public class Game {
                     } else if (xSlot == -1 && ySlot == 1) {
                         Point corner = rectangle.getBottomLeftCorner();
                         Point circleCenter = circle.getCenter();
-                        return  (Point.getDistance(corner, circleCenter) < circle.radius);
+                        return (Point.getDistance(corner, circleCenter) < circle.radius);
                     } else if (xSlot == 1 && ySlot == -1) {
                         Point corner = rectangle.getTopRightCorner();
                         Point circleCenter = circle.getCenter();
@@ -353,23 +263,27 @@ public class Game {
     }
 
     /**
-     * Adds the given OnGameStartedListener to the list.
+     * This moves all of the rectangles based on the elapsed time.
      *
-     * @param onGameStartedListener the given OnGameStartedListener
-     * @see OnGameStartedListener
+     * @param elapsedTime the amount of time that has passed since the last update
      */
-    public void registerOnGameStartedListener(OnGameStartedListener onGameStartedListener) {
-        this.onGameStartedListeners.add(onGameStartedListener);
+    private void moveRectangles(float elapsedTime) {
+        for (int i = 0; i < rectangles.size(); i++) {
+            rectangles.get(i).shiftRectangle(0, getGameVelocity() * elapsedTime);
+        }
     }
 
     /**
-     * Adds the given OnGamePausedListener to the list.
-     *
-     * @param onGamePausedListener the given OnGamePausedListener
-     * @see OnGamePausedListener
+     * This pauses the game and halts any updating processes.
      */
-    public void registerOnGamePausedListener(OnGamePausedListener onGamePausedListener) {
-        this.onGamePausedListeners.add(onGamePausedListener);
+    public void pauseGame() {
+        Log.i("GAME", "Pausing game.");
+        this.gameState = STATE_PAUSED;
+        if (onGamePausedListeners.size() > 0) {
+            for (int i = 0; i < onGamePausedListeners.size(); i++) {
+                onGamePausedListeners.get(i).pauseGame(this);
+            }
+        }
     }
 
     /**
@@ -383,6 +297,16 @@ public class Game {
     }
 
     /**
+     * Adds the given OnGamePausedListener to the list.
+     *
+     * @param onGamePausedListener the given OnGamePausedListener
+     * @see OnGamePausedListener
+     */
+    public void registerOnGamePausedListener(OnGamePausedListener onGamePausedListener) {
+        this.onGamePausedListeners.add(onGamePausedListener);
+    }
+
+    /**
      * Adds the given OnGameRestartListener to the list.
      *
      * @param onGameRestartListener the given OnGameRestartListener
@@ -390,6 +314,101 @@ public class Game {
      */
     public void registerOnGameRestartListener(OnGameRestartListener onGameRestartListener) {
         this.onGameRestartListeners.add(onGameRestartListener);
+    }
+
+    /**
+     * Adds the given OnGameStartedListener to the list.
+     *
+     * @param onGameStartedListener the given OnGameStartedListener
+     * @see OnGameStartedListener
+     */
+    public void registerOnGameStartedListener(OnGameStartedListener onGameStartedListener) {
+        this.onGameStartedListeners.add(onGameStartedListener);
+    }
+
+    /**
+     * This gets rid of rectangles that would trap the user's finger and prevent them from being
+     * forced into a loss.
+     */
+    private void removeTrapRectangles() {
+        for (int i = 1; i < rectangles.size() - 1; ) {
+            int lastRectangleColumn = getRectangleColumn(rectangles.get(i - 1));
+            int thisRectangleColumn = getRectangleColumn(rectangles.get(i));
+            if (thisRectangleColumn == 0) {
+                if (lastRectangleColumn == 1) {
+                    rectangles.remove(i);
+                } else {
+                    i++;
+                }
+            } else if (thisRectangleColumn == COLUMN_COUNT - 1) {
+                if (lastRectangleColumn == COLUMN_COUNT - 2) {
+                    rectangles.remove(i);
+                } else {
+                    i++;
+                }
+            } else {
+                i++;
+            }
+        }
+    }
+
+    /**
+     * This resets the game to its initial state.
+     */
+    public void restartGame() {
+        this.gameState = STATE_PRE_GAME;
+        this.startTime = -1;
+        this.finger.getCenter().x = gameView.getWidth() / 2.0f;
+        this.finger.getCenter().y = gameView.getHeight() / 2.0f;
+        this.rectangles.clear();
+        this.score = 0;
+        if (onGameRestartListeners.size() > 0) {
+            for (int i = 0; i < onGameRestartListeners.size(); i++) {
+                onGameRestartListeners.get(i).restartGame(this);
+            }
+        }
+    }
+
+    /**
+     * This begins the game. The game state is changed and the start timestamp is set.
+     */
+    public void startGame() {
+        Log.i("GAME", "Starting game.");
+        this.gameState = STATE_PLAYING;
+        this.startTime = System.currentTimeMillis();
+        if (onGameStartedListeners.size() > 0) {
+            for (int i = 0; i < onGameStartedListeners.size(); i++) {
+                onGameStartedListeners.get(i).startGame();
+            }
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (getGameState() == Game.STATE_PLAYING) {
+                        update(.02f);
+                        Thread.sleep(20);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * Updates the game.
+     *
+     * @param elapsedTime the amount of time that has passed since the last update
+     */
+    private void update(float elapsedTime) {
+        if (gameState == STATE_PLAYING) {
+            this.score += elapsedTime * 1000;
+            handleRectangleCount();
+            moveRectangles(elapsedTime);
+            removeTrapRectangles();
+            handleCollisions();
+        }
     }
 
     /**
@@ -405,10 +424,65 @@ public class Game {
     /**
      * Sets a new settings file.
      *
-     * @param settings  The settings file to set to
+     * @param settings The settings file to set to
      */
     public void setSettingsFile(SharedPreferences settings) {
         this.settings = settings;
+    }
+
+    /**
+     * Get the circle shape of the the finger object.
+     *
+     * @return the finger shape
+     */
+    public Circle getFinger() {
+        return finger;
+    }
+
+    /**
+     * Gets the game state integer
+     *
+     * @return the game state
+     */
+    public int getGameState() {
+        return gameState;
+    }
+
+    /**
+     * Returns the velocity of the rectangles. This uses the formula:
+     * ( Starting Velocity ) + ( ( Acceleration ) * ( Time Since Start of Game ))
+     *
+     * @return the velocity of the rectangles (pixels / second)
+     */
+    private float getGameVelocity() {
+        return VELOCITY_START + ACCELERATION * ((score) / 1000.0f);
+    }
+
+    /**
+     * Returns the player's high score.
+     */
+    public float getHighScore() {
+        if (highScore == -1) {
+            highScore = settings.getFloat(Files.KEY_SETTINGS_HIGHSCORE, 0.0f);
+            setHighScore(highScore);
+        }
+        return highScore;
+    }
+
+    /**
+     * Gets the list of rectangles on the field.
+     *
+     * @return the rectangles
+     */
+    public ArrayList<Rectangle> getRectangles() {
+        return rectangles;
+    }
+
+    /**
+     * Returns the current score of the game.
+     */
+    public float getScore() {
+        return (float) (score) / 1000.0f;
     }
 
     /**
@@ -424,81 +498,6 @@ public class Game {
             }
         }
         return rectangle;
-    }
-
-    /**
-     * Returns the column number of the given rectangle.
-     *
-     * @param rectangle the given rectangle
-     * @return the column integer [0, infinity]
-     */
-    private int getRectangleColumn(Rectangle rectangle) {
-        if (rectangle.left == 0.0f) {
-            return 0;
-        } else if (Math.abs(rectangle.left - gameView.getWidth() / COLUMN_COUNT) < 5) {
-            return 1;
-        } else if (Math.abs(rectangle.left - 2.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
-            return 2;
-        } else if (Math.abs(rectangle.left - 3.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
-            return 3;
-        } else {
-            return 4;
-        }
-    }
-
-    /**
-     * Returns the velocity of the rectangles. This uses the formula:
-     * ( Starting Velocity ) + ( ( Acceleration ) * ( Time Since Start of Game ))
-     *
-     * @return the velocity of the rectangles (pixels / second)
-     */
-    private float getGameVelocity() {
-        return VELOCITY_START + ACCELERATION * ((score) / 1000.0f);
-    }
-
-    /**
-     * Gets the game state integer
-     *
-     * @return the game state
-     */
-    public int getGameState() {
-        return gameState;
-    }
-
-    /**
-     * Gets the list of rectangles on the field.
-     *
-     * @return the rectangles
-     */
-    public ArrayList<Rectangle> getRectangles() {
-        return rectangles;
-    }
-
-    /**
-     * Get the circle shape of the the finger object.
-     *
-     * @return the finger shape
-     */
-    public Circle getFinger() {
-        return finger;
-    }
-
-    /**
-     * Returns the current score of the game.
-     */
-    public float getScore() {
-        return (float) (score) / 1000.0f;
-    }
-
-    /**
-     * Returns the player's high score.
-     */
-    public float getHighScore() {
-        if (highScore == -1) {
-            highScore = settings.getFloat(Files.KEY_SETTINGS_HIGHSCORE, 0.0f);
-            setHighScore(highScore);
-        }
-        return highScore;
     }
 
 }

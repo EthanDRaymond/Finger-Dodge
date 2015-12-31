@@ -59,13 +59,10 @@ SOFTWARE.
  */
 public class JSONWriter {
     private static final int maxdepth = 200;
-
     /**
-     * The comma flag determines if a comma should be output before the next
-     * value.
+     * The object/array stack.
      */
-    private boolean comma;
-
+    private final JSONObject stack[];
     /**
      * The current mode. Values:
      * 'a' (array),
@@ -75,21 +72,19 @@ public class JSONWriter {
      * 'o' (object).
      */
     protected char mode;
-
-    /**
-     * The object/array stack.
-     */
-    private final JSONObject stack[];
-
-    /**
-     * The stack top index. A value of 0 indicates that the stack is empty.
-     */
-    private int top;
-
     /**
      * The writer that will receive the output.
      */
     protected Writer writer;
+    /**
+     * The comma flag determines if a comma should be output before the next
+     * value.
+     */
+    private boolean comma;
+    /**
+     * The stack top index. A value of 0 indicates that the stack is empty.
+     */
+    private int top;
 
     /**
      * Make a fresh JSONWriter. It can be used to build one JSON text.

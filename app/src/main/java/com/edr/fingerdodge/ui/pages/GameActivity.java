@@ -128,6 +128,14 @@ public class GameActivity extends StatisticsTrackingActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (game.getGameState() == Game.STATE_PLAYING) {
+            gameView.getGame().endGame(Game.EXIT_LIFTED_FINGER);
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         game.registerOnGameEndedListener(new OnGameEndedListener() {
@@ -147,14 +155,6 @@ public class GameActivity extends StatisticsTrackingActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (game.getGameState() == Game.STATE_PLAYING) {
-            gameView.getGame().endGame(Game.EXIT_LIFTED_FINGER);
-        }
     }
 
 }

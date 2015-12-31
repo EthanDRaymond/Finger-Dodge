@@ -114,18 +114,10 @@ public class GameView extends View implements View.OnTouchListener {
         invalidate();
     }
 
-    private void onDrawRectangles(Canvas canvas) {
-        ArrayList<Rectangle> rectangles = game.getRectangles();
-        for (int i = 0; i < rectangles.size(); i++) {
-            Rectangle rectangle = rectangles.get(i);
-            float top = rectangle.top;
-            float bottom = rectangle.bottom;
-            float left = rectangle.left;
-            float right = rectangle.right;
-            if (bottom > 0) {
-                onDrawRectangle(canvas, top + 2, bottom - 2, left + 2, right - 2);
-            }
-        }
+    private void onDrawFinger(Canvas canvas) {
+        Point center = game.getFinger().getCenter();
+        float radius = game.getFinger().getRadius();
+        canvas.drawCircle(center.x, center.y, radius, fingerPaint);
     }
 
     private void onDrawRectangle(Canvas canvas, float top, float bottom, float left, float right) {
@@ -143,10 +135,18 @@ public class GameView extends View implements View.OnTouchListener {
                 RECTANGLE_PIN_SIZE / 2.0f, rectanglePaint2);
     }
 
-    private void onDrawFinger(Canvas canvas) {
-        Point center = game.getFinger().getCenter();
-        float radius = game.getFinger().getRadius();
-        canvas.drawCircle(center.x, center.y, radius, fingerPaint);
+    private void onDrawRectangles(Canvas canvas) {
+        ArrayList<Rectangle> rectangles = game.getRectangles();
+        for (int i = 0; i < rectangles.size(); i++) {
+            Rectangle rectangle = rectangles.get(i);
+            float top = rectangle.top;
+            float bottom = rectangle.bottom;
+            float left = rectangle.left;
+            float right = rectangle.right;
+            if (bottom > 0) {
+                onDrawRectangle(canvas, top + 2, bottom - 2, left + 2, right - 2);
+            }
+        }
     }
 
     /*

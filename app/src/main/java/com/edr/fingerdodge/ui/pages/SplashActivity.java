@@ -17,6 +17,11 @@ public class SplashActivity extends StatisticsTrackingActivity {
 
     //private TextView textView;
 
+    private void loadSettings() {
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        Settings.loadSettings(sharedPreferences);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +48,6 @@ public class SplashActivity extends StatisticsTrackingActivity {
         }).start();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -68,11 +72,6 @@ public class SplashActivity extends StatisticsTrackingActivity {
         } else {
             return false;
         }
-    }
-
-    private void loadSettings() {
-        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        Settings.loadSettings(sharedPreferences);
     }
 
 }

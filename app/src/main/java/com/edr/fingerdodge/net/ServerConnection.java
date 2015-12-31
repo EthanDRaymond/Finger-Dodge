@@ -29,12 +29,52 @@ public class ServerConnection extends Thread {
     }
 
     /**
-     * Connects to the server and initializes the threat behind it.
+     * Creates a connection between the client and the server. If the connection already exits then
+     * this does nothing.
+     *
+     * @return true if the connection is successful, false if the connection fails.
      */
-    @SuppressWarnings("EmptyMethod")
-    @Override
-    public synchronized void start() {
-        super.start();
+    @SuppressWarnings("UnusedReturnValue")
+    private boolean connect() {
+        Log.i("SERVER-CONNECTED", "Attempting to connect to a server...");
+        if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT) {
+            try {
+                socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+                out = new PrintWriter(socket.getOutputStream(), true);
+                this.state = STATE_CONNECTED;
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                this.state = STATE_FAILURE_TO_CONNECT;
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Cuts off the connection to the server. If there is no connection than this doesn't do
+     * anything.
+     *
+     * @return true if the connection successfully disconnects, false if there is an error.
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    private boolean disconnect() {
+        Log.i("SERVER-CONNECTED", "Attempting to disconnect to a server...");
+        if (getConnectionState() == STATE_CONNECTED) {
+            try {
+                socket.close();
+                state = STATE_IDLE;
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                state = STATE_IDLE;
+                return false;
+            }
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -107,55 +147,6 @@ public class ServerConnection extends Thread {
     }
 
     /**
-     * Creates a connection between the client and the server. If the connection already exits then
-     * this does nothing.
-     *
-     * @return true if the connection is successful, false if the connection fails.
-     */
-    @SuppressWarnings("UnusedReturnValue")
-    private boolean connect() {
-        Log.i("SERVER-CONNECTED", "Attempting to connect to a server...");
-        if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT) {
-            try {
-                socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-                out = new PrintWriter(socket.getOutputStream(), true);
-                this.state = STATE_CONNECTED;
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                this.state = STATE_FAILURE_TO_CONNECT;
-                return false;
-            }
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Cuts off the connection to the server. If there is no connection than this doesn't do
-     * anything.
-     *
-     * @return true if the connection successfully disconnects, false if there is an error.
-     */
-    @SuppressWarnings("UnusedReturnValue")
-    private boolean disconnect() {
-        Log.i("SERVER-CONNECTED", "Attempting to disconnect to a server...");
-        if (getConnectionState() == STATE_CONNECTED) {
-            try {
-                socket.close();
-                state = STATE_IDLE;
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                state = STATE_IDLE;
-                return false;
-            }
-        } else {
-            return true;
-        }
-    }
-
-    /**
      * Sends the given string of data to the server if there is a connection available.
      *
      * @param data               the date to be sent to the server
@@ -200,6 +191,23 @@ public class ServerConnection extends Thread {
         }
     }
 
+    /**
+     * Connects to the server and initializes the threat behind it.
+     */
+    @SuppressWarnings("EmptyMethod")
+    @Override
+    public synchronized void start() {
+        super.start();
+    }
+
+    /**
+     * Gets the state of the connection. The list of states are static constants within the
+     * ServerConnection.
+     */
+    private int getConnectionState() {
+        return state;
+    }
+
     public boolean isConnected() {
         return getConnectionState() == STATE_CONNECTED;
     }
@@ -214,14 +222,6 @@ public class ServerConnection extends Thread {
 
     private boolean isSocketConnected() {
         return socket.isConnected();
-    }
-
-    /**
-     * Gets the state of the connection. The list of states are static constants within the
-     * ServerConnection.
-     */
-    private int getConnectionState() {
-        return state;
     }
 
 

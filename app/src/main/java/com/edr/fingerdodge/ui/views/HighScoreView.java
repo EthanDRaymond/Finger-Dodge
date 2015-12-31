@@ -36,6 +36,12 @@ public class HighScoreView extends RelativeLayout {
         init();
     }
 
+    private String getTimeString(Game game) {
+        String output = "High Score: ";
+        output += (int) (game.getHighScore() * 100);
+        return output;
+    }
+
     private void init() {
         setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         clockView = new TextView(getContext());
@@ -62,12 +68,6 @@ public class HighScoreView extends RelativeLayout {
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    private String getTimeString(Game game) {
-        String output = "High Score: ";
-        output += (int) (game.getHighScore() * 100);
-        return output;
     }
 
 }
