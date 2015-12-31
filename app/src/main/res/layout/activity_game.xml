@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="10sp"/>
 
     <RelativeLayout
@@ -59,7 +60,8 @@
         android:layout_margin="10sp"
         android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <com.edr.fingerdodge.ui.views.InfoIconView
             android:id="@+id/infoView"
@@ -69,6 +71,7 @@
         <RelativeLayout
             android:id="@+id/settingsView"
             android:layout_marginLeft="10sp"
+            android:layout_marginStart="10sp"
             android:layout_width="30sp"
             android:layout_height="30sp">
 
