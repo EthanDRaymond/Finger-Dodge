@@ -70,7 +70,7 @@ public class Rectangle {
     /**
      * Returns the center point of the rectangle.
      *
-     * @return
+     * @return  the center point of this rectangle.
      */
     public Point getCenterPoint() {
         return new Point((right + left) / 2.0f, (top + bottom) / 2.0f);

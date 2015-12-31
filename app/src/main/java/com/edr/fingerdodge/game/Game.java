@@ -424,7 +424,7 @@ public class Game {
     /**
      * Sets a new settings file.
      *
-     * @param settings
+     * @param settings  The settings file to set to
      */
     public void setSettingsFile(SharedPreferences settings) {
         this.settings = settings;
