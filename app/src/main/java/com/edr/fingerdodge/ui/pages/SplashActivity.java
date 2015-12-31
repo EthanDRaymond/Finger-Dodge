@@ -69,7 +69,7 @@ public class SplashActivity extends StatisticsTrackingActivity {
      * @return true if the app has never been opened before, false if the app has been opened
      * before
      */
-    public boolean isFirstTime() {
+    private boolean isFirstTime() {
         SharedPreferences settings = getSharedPreferences(Files.FILE_BASIC, 0);
         if (settings.getBoolean("my_first_time", true)) {
             settings.edit().putBoolean("my_first_time", false).apply();

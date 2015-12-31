@@ -13,11 +13,11 @@ import java.net.Socket;
  */
 public class ServerConnection extends Thread {
 
-    public static final String SERVER_ADDRESS = /*"10.0.2.2";*/ "104.131.251.167";
-    public static final int SERVER_PORT = 4500;
-    public static final int STATE_CONNECTED = 1;
-    public static final int STATE_FAILURE_TO_CONNECT = 2;
-    public static final int STATE_IDLE = 3;
+    private static final String SERVER_ADDRESS = /*"10.0.2.2";*/ "104.131.251.167";
+    private static final int SERVER_PORT = 4500;
+    private static final int STATE_CONNECTED = 1;
+    private static final int STATE_FAILURE_TO_CONNECT = 2;
+    private static final int STATE_IDLE = 3;
 
     private Socket socket;
     private PrintWriter out;
@@ -119,7 +119,7 @@ public class ServerConnection extends Thread {
      *
      * @return true if the connection is successful, false if the connection fails.
      */
-    public boolean connect() {
+    private boolean connect() {
         Log.i("SERVER-CONNECTED", "Attempting to connect to a server...");
         if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT) {
             try {
@@ -144,7 +144,7 @@ public class ServerConnection extends Thread {
      *
      * @return true if the connection successfully disconnects, false if there is an error.
      */
-    public boolean disconnect() {
+    private boolean disconnect() {
         Log.i("SERVER-CONNECTED", "Attempting to disconnect to a server...");
         if (getConnectionState() == STATE_CONNECTED) {
             try {
@@ -219,15 +219,15 @@ public class ServerConnection extends Thread {
         return getConnectionState() == STATE_CONNECTED;
     }
 
-    public boolean isFailedToConnect() {
+    private boolean isFailedToConnect() {
         return getConnectionState() == STATE_FAILURE_TO_CONNECT;
     }
 
-    public boolean isIdle() {
+    private boolean isIdle() {
         return getConnectionState() == STATE_IDLE;
     }
 
-    public boolean isSocketConnected() {
+    private boolean isSocketConnected() {
         return socket.isConnected();
     }
 
@@ -235,7 +235,7 @@ public class ServerConnection extends Thread {
      * Gets the state of the connection. The list of states are static constants within the
      * ServerConnection.
      */
-    public int getConnectionState() {
+    private int getConnectionState() {
         return state;
     }
 

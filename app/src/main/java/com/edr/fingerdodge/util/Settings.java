@@ -9,9 +9,9 @@ import android.content.SharedPreferences;
  */
 public class Settings {
 
-    public static final String DO_COLLECT_STATISTICS = "do-collect-statistics";
+    private static final String DO_COLLECT_STATISTICS = "do-collect-statistics";
 
-    public static final boolean DEFAULT_DO_COLLECT_STATISTICS = true;
+    private static final boolean DEFAULT_DO_COLLECT_STATISTICS = true;
 
     /**
      * This is for if the user has elected to send usage statistics to the server or not.

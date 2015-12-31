@@ -44,7 +44,7 @@ public class GameStatistic extends Statistic {
     /**
      * Returns the duration of the game.
      */
-    public long getDuration() {
+    private long getDuration() {
         return duration;
     }
 
@@ -52,7 +52,7 @@ public class GameStatistic extends Statistic {
      * Returns true if the user beat their own high score in the game, false if the user did not
      * beat their high score.
      */
-    public boolean isBeatHighScore() {
+    private boolean isBeatHighScore() {
         return beatHighScore;
     }
 

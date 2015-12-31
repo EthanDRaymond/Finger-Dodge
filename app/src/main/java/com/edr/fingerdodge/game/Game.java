@@ -33,8 +33,8 @@ public class Game {
     public static float RECTANGLE_SEPARATION_MAX = 50.0f;
     public static float RECTANGLE_LENGTH_MIN = 125;
     public static float RECTANGLE_LEGNTH_MAX = 700;
-    public static final int COLUMN_COUNT = 5;
-    public static final String EXIT_COLLISION = "You Lost!";
+    private static final int COLUMN_COUNT = 5;
+    private static final String EXIT_COLLISION = "You Lost!";
     public static final String EXIT_LIFTED_FINGER = "You lifted your finger!";
 
     private ArrayList<Rectangle> rectangles;
@@ -79,7 +79,7 @@ public class Game {
      *
      * @param elapsedTime the amount of time that has passed since the last update
      */
-    public void update(float elapsedTime) {
+    private void update(float elapsedTime) {
         if (gameState == STATE_PLAYING) {
             this.score += elapsedTime * 1000;
             handleRectangleCount();
@@ -93,7 +93,7 @@ public class Game {
      * This checks for collisions between the finger and the rectangles. If there is a collision
      * then the game is ended.
      */
-    public void handleCollisions() {
+    private void handleCollisions() {
         for (int i = 0; i < rectangles.size(); i++) {
             Rectangle rectangle = rectangles.get(i);
             if (isColliding(finger, rectangle)) {
@@ -108,7 +108,7 @@ public class Game {
      * rectangles that have passed the bottom of the screen, then this adds new rectangles above
      * the top of the screen.
      */
-    public void handleRectangleCount() {
+    private void handleRectangleCount() {
         destoryOldRectangles();
         addNewRectangles();
     }
@@ -117,7 +117,7 @@ public class Game {
      * This looks at each rectangle to see if it has passed the bottom of the screen. If it has
      * passed the bottom of the screen, then it it destroyed and removed from the list.
      */
-    public void destoryOldRectangles() {
+    private void destoryOldRectangles() {
         float bottom = gameView.getHeight();
         for (int i = 0; i < rectangles.size(); ) {
             Rectangle rectangle = rectangles.get(i);
@@ -134,7 +134,7 @@ public class Game {
      * exactly one screen height above the top of the screen. If the highest rectangle is below
      * this limit, then new rectangles are created until the highest rectangle is above the line.
      */
-    public void addNewRectangles() {
+    private void addNewRectangles() {
         if (rectangles.size() == 0) {
             Rectangle rectangle = new Rectangle(-500, -100, 0, gameView.getWidth() / COLUMN_COUNT);
             rectangles.add(rectangle);
@@ -176,7 +176,7 @@ public class Game {
      *
      * @param elapsedTime the amount of time that has passed since the last update
      */
-    public void moveRectangles(float elapsedTime) {
+    private void moveRectangles(float elapsedTime) {
         for (int i = 0; i < rectangles.size(); i++) {
             rectangles.get(i).shiftRectangle(0, getGameVelocity() * elapsedTime);
         }
@@ -186,7 +186,7 @@ public class Game {
      * This gets rid of rectangles that would trap the user's finger and prevent them from being
      * forced into a loss.
      */
-    public void removeTrapRectangles() {
+    private void removeTrapRectangles() {
         for (int i = 1; i < rectangles.size() - 1; ) {
             int lastRectangleColumn = getRectangleColumn(rectangles.get(i - 1));
             int thisRectangleColumn = getRectangleColumn(rectangles.get(i));
@@ -308,7 +308,7 @@ public class Game {
      * @param rectangle the rectangle shape
      * @return true if the shapes overlap, false if they do not
      */
-    public boolean isColliding(Circle circle, Rectangle rectangle) {
+    private boolean isColliding(Circle circle, Rectangle rectangle) {
         float actualDistance = Point.getDistance(circle.getCenter(), rectangle.getCenterPoint());
         float minimumDistance = circle.getRadius() + rectangle.getRadius();
         if (actualDistance < minimumDistance) {
@@ -427,7 +427,7 @@ public class Game {
      *
      * @param highScore the new high score
      */
-    public void setHighScore(float highScore) {
+    private void setHighScore(float highScore) {
         this.highScore = highScore;
         settings.edit().putFloat(Files.KEY_SETTINGS_HIGHSCORE, highScore).apply();
     }
@@ -462,7 +462,7 @@ public class Game {
      * @param rectangle the given rectangle
      * @return the column integer [0, infinity]
      */
-    public int getRectangleColumn(Rectangle rectangle) {
+    private int getRectangleColumn(Rectangle rectangle) {
         if (rectangle.left == 0.0f) {
             return 0;
         } else if (Math.abs(rectangle.left - gameView.getWidth() / COLUMN_COUNT) < 5) {
@@ -482,7 +482,7 @@ public class Game {
      *
      * @return the velocity of the rectangles (pixels / second)
      */
-    public float getGameVelocity() {
+    private float getGameVelocity() {
         return VELOCITY_START + ACCELERATION * ((System.currentTimeMillis() - startTime) / 1000.0f);
     }
 

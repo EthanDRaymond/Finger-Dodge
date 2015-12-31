@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class StatisticPacket extends Packet {
 
-    public static final String TITLE = "StatisticPacket";
+    private static final String TITLE = "StatisticPacket";
 
     private ArrayList<Statistic> statistics;
 

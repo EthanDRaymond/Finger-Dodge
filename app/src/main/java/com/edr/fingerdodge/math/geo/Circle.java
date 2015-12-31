@@ -7,7 +7,7 @@ package com.edr.fingerdodge.math.geo;
  */
 public class Circle {
 
-    public Point center;
+    private Point center;
     public float radius;
 
     /**

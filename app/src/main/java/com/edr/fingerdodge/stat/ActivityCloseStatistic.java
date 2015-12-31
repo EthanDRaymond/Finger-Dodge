@@ -23,7 +23,7 @@ public class ActivityCloseStatistic extends Statistic {
         this.activityName = json.getString(JSONKeys.KEY_ACTIVITY_NAME);
     }
 
-    public String getActivityName() {
+    private String getActivityName() {
         return activityName;
     }
 

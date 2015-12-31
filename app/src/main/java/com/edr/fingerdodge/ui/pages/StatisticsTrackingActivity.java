@@ -19,9 +19,9 @@ import com.edr.fingerdodge.util.Version;
  */
 public class StatisticsTrackingActivity extends Activity {
 
-    protected StatisticsService statisticsService;
-    protected ServiceConnection statisticsServiceConnection;
-    protected boolean isBound;
+    StatisticsService statisticsService;
+    private ServiceConnection statisticsServiceConnection;
+    boolean isBound;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class StatisticsTrackingActivity extends Activity {
         }*/
     }
 
-    public StatisticsService getStatisticsService() {
+    StatisticsService getStatisticsService() {
         return statisticsService;
     }
 
@@ -112,7 +112,7 @@ public class StatisticsTrackingActivity extends Activity {
         return isBound;
     }
 
-    public Activity getThisActivity() {
+    private Activity getThisActivity() {
         return this;
     }
 

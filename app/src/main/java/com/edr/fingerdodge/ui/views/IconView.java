@@ -32,7 +32,7 @@ public class IconView extends View {
         init();
     }
 
-    protected void init() {
+    private void init() {
         bgPaint = new Paint();
         bgPaint.setColor(Color.BLACK);
         bgPaint.setAntiAlias(true);
@@ -50,7 +50,7 @@ public class IconView extends View {
         onDrawDesign(canvas);
     }
 
-    protected void onDrawBG(Canvas canvas) {
+    private void onDrawBG(Canvas canvas) {
         float x, y, radius;
         if (getWidth() < getHeight()) {
             x = getWidth() / 2.0f;
@@ -64,7 +64,7 @@ public class IconView extends View {
         canvas.drawCircle(x, y, radius, bgPaint);
     }
 
-    protected void onDrawDesign(Canvas canvas) {
+    void onDrawDesign(Canvas canvas) {
 
     }
 
@@ -80,7 +80,7 @@ public class IconView extends View {
         return bgPaint;
     }
 
-    public Paint getDesignPaint() {
+    Paint getDesignPaint() {
         return designPaint;
     }
 }

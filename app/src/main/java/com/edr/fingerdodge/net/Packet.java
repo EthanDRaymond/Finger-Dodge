@@ -9,19 +9,19 @@ import com.edr.fingerdodge.json.JSONObject;
  */
 public class Packet {
 
-    protected String title;
-    protected int api;
-    protected long userID;
-    protected JSONObject content;
+    private String title;
+    private int api;
+    private long userID;
+    private JSONObject content;
 
-    public Packet(String title, int api, long userID, JSONObject content) {
+    protected Packet(String title, int api, long userID, JSONObject content) {
         this.title = title;
         this.api = api;
         this.userID = userID;
         this.content = content;
     }
 
-    public Packet(String json) throws JSONException {
+    protected Packet(String json) throws JSONException {
         JSONObject jsonObject = new JSONObject(json);
         this.title = jsonObject.getString(JSONKeys.KEY_TITLE);
         this.api = jsonObject.getInt(JSONKeys.KEY_API);
@@ -29,19 +29,19 @@ public class Packet {
         this.content = jsonObject.getJSONObject(JSONKeys.KEY_CONTENT);
     }
 
-    public String getTitle() {
+    private String getTitle() {
         return title;
     }
 
-    public int getApi() {
+    private int getApi() {
         return api;
     }
 
-    public long getUserID() {
+    private long getUserID() {
         return userID;
     }
 
-    public JSONObject getContent() {
+    protected JSONObject getContent() {
         return content;
     }
 

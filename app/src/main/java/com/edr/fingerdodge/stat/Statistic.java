@@ -27,7 +27,7 @@ public class Statistic {
      * @param time   this is the time the statistics is collected
      * @param api    this is the API of the user's current app
      */
-    public Statistic(String type, long userID, long time, int api) {
+    Statistic(String type, long userID, long time, int api) {
         this.type = type;
         this.userID = userID;
         this.time = time;
@@ -38,7 +38,7 @@ public class Statistic {
      * This creates a new statistics using raw JSON code.
      * @param json      this is the raw JSON code used
      */
-    public Statistic(JSONObject json) {
+    Statistic(JSONObject json) {
         this.type = json.getString(JSONKeys.KEY_TYPE);
         this.userID = json.getLong(JSONKeys.KEY_USER_ID);
         this.time = json.getLong(JSONKeys.KEY_TIME);
@@ -48,7 +48,7 @@ public class Statistic {
     /**
      * Returns the type of statistic.
      */
-    public String getType() {
+    private String getType() {
         return type;
     }
 
@@ -69,7 +69,7 @@ public class Statistic {
     /**
      * Returns the user ID.
      */
-    public long getUserID() {
+    private long getUserID() {
         return userID;
     }
 
