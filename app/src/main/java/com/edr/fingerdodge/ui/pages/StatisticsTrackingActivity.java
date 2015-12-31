@@ -17,7 +17,7 @@ import com.edr.fingerdodge.util.Version;
 /**
  * @author Ethan Raymond
  */
-public class StatisticsTrackingActivity extends ActionBarActivity {
+public class StatisticsTrackingActivity extends Activity {
 
     protected StatisticsService statisticsService;
     protected ServiceConnection statisticsServiceConnection;

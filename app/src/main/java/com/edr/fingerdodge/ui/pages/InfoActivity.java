@@ -25,7 +25,6 @@ public class InfoActivity extends StatisticsTrackingActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-        getSupportActionBar().setTitle("App Information");
         email = (TextView) findViewById(R.id.info_email);
         email.setOnClickListener(new View.OnClickListener() {
             @Override
