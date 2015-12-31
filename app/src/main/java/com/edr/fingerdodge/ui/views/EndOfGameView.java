@@ -47,7 +47,7 @@ public class EndOfGameView extends LinearLayout {
 
     private void init() {
         displayView = new TextView(getContext());
-        displayView.setText("You Lost!");
+        displayView.setText(getResources().getText(R.string.misc_you_lost));
         displayView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         displayView.setGravity(Gravity.CENTER);
         displayView.setPadding(20, 20, 20, 20);
@@ -58,7 +58,7 @@ public class EndOfGameView extends LinearLayout {
         scoreView.setTextColor(Color.BLACK);
         scoreView.setGravity(Gravity.CENTER);
         restartGameButton = new Button(getContext());
-        restartGameButton.setText("Play Again");
+        restartGameButton.setText(getResources().getText(R.string.misc_play_again));
         restartGameButton.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));

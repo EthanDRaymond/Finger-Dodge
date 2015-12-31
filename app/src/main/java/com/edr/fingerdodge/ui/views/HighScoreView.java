@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.game.Game;
 
 /**
@@ -40,7 +41,7 @@ public class HighScoreView extends RelativeLayout {
         setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         clockView = new TextView(getContext());
         clockView.setPadding(10, 10, 10, 10);
-        clockView.setText("00:00");
+        clockView.setText(getResources().getText(R.string.misc_00_00));
         clockView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         clockView.setTextColor(Color.WHITE);
         addView(clockView);
@@ -51,7 +52,7 @@ public class HighScoreView extends RelativeLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (game == null) {
-            clockView.setText("High Score: 0");
+            clockView.setText(getResources().getText(R.string.misc_high_score_0));
         } else if (game.getGameState() == Game.STATE_PRE_GAME) {
             clockView.setText(getTimeString(game));
         } else {

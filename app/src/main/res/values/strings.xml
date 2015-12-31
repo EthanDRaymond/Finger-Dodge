@@ -16,8 +16,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_item_collect_statistics">Collect Usage Statistics</string>
     <string name="menu_title_statistics">Statistics</string>
+
     <string name="misc_statistics_are_collected_anonymously">Statistics are collected anonymously.</string>
     <string name="misc_touch_the_circle">Touch the Circle</string>
+    <string name="misc_you_lost">You Lost!</string>
+    <string name="misc_play_again">Play Again</string>
+    <string name="misc_paused">Paused.</string>
+    <string name="misc_00_00">00:00</string>
+    <string name="misc_high_score_0">High Score: 0</string>
 
     <string name="image_content_description_splash_icon">Splash Icon</string>
     <string name="image_content_description_settings_icon">Settings Icon</string>

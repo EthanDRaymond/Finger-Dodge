@@ -87,7 +87,7 @@ public class GameActivity extends StatisticsTrackingActivity {
             @Override
             public void onGamePaused(Game game) {
                 mainLayout.addView(preGameMessageView);
-                gameMessageView.setText("Paused.");
+                gameMessageView.setText(getText(R.string.misc_paused));
             }
 
             @Override
