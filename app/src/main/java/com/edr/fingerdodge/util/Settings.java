@@ -37,7 +37,7 @@ public class Settings {
     public static void saveSettings(SharedPreferences sharedPreferences) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(DO_COLLECT_STATISTICS, doCollectStatistics);
-        editor.commit();
+        editor.apply();
     }
 
 }

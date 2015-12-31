@@ -453,7 +453,7 @@ public class Game {
      */
     public void setHighScore(float highScore) {
         this.highScore = highScore;
-        settings.edit().putFloat(Files.KEY_SETTINGS_HIGHSCORE, highScore).commit();
+        settings.edit().putFloat(Files.KEY_SETTINGS_HIGHSCORE, highScore).apply();
     }
 
     /**

@@ -286,7 +286,7 @@ public class StatisticsService extends Service {
                 newID *= -1;
             }
             editor.putLong("stat-id", newID);
-            editor.commit();
+            editor.apply();
             return newID;
         } else {
             return id;

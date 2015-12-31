@@ -81,9 +81,9 @@ public class SplashActivity extends StatisticsTrackingActivity {
     public boolean isFirstTime() {
         SharedPreferences settings = getSharedPreferences(Files.FILE_BASIC, 0);
         if (settings.getBoolean("my_first_time", true)) {
-            settings.edit().putBoolean("my_first_time", false).commit();
-            settings.edit().putFloat(Files.KEY_SETTINGS_HIGHSCORE, 0.0f).commit();
-            settings.edit().putBoolean("stat_onoff", true).commit();
+            settings.edit().putBoolean("my_first_time", false).apply();
+            settings.edit().putFloat(Files.KEY_SETTINGS_HIGHSCORE, 0.0f).apply();
+            settings.edit().putBoolean("stat_onoff", true).apply();
             return true;
         } else {
             return false;
