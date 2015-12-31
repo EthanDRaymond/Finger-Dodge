@@ -313,8 +313,8 @@ public class Game {
         float minimumDistance = circle.getRadius() + rectangle.getRadius();
         if (actualDistance < minimumDistance) {
             Rectangle aabb1 = circle.getAABB();
-            Rectangle aabb2 = rectangle;
-            if (Rectangle.isColliding(aabb1, aabb2)) {
+            //Rectangle aabb2 = rectangle;
+            if (Rectangle.isColliding(aabb1, rectangle)) {
                 Point centerPoint = circle.getCenter();
                 byte xSlot, ySlot;
                 if (centerPoint.y > rectangle.bottom) {
