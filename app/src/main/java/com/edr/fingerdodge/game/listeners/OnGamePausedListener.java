@@ -23,9 +23,9 @@ public abstract class OnGamePausedListener {
      *
      * @param game the game that is un-paused
      */
-    public void unPauseGame(Game game) {
-        onGameUnPaused(game);
-    }
+//    public void unPauseGame(Game game) {
+//        onGameUnPaused(game);
+//    }
 
     /**
      * This is called whenever the game is paused.
@@ -39,6 +39,7 @@ public abstract class OnGamePausedListener {
      *
      * @param game the game that is un-paused
      */
+    @SuppressWarnings("unused")
     public abstract void onGameUnPaused(Game game);
 
 }

@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.edr.fingerdodge.R;
-import com.edr.fingerdodge.game.Game;
 
 /**
  * This view appears when a game is complete. It displays the score from the game and a button

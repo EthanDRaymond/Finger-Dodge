@@ -14,7 +14,6 @@ import java.io.IOException;
 public class Files {
 
     public static final String FILE_BASIC = "basic.sav";
-    public static final String FILE_STAT_SAVES = "stat_saves.sav";
 
     public static final String KEY_SETTINGS_HIGHSCORE = "highscore";
 

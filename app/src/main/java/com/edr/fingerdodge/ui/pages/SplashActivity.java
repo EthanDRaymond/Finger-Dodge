@@ -5,14 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.edr.fingerdodge.R;
 import com.edr.fingerdodge.util.Files;
 import com.edr.fingerdodge.util.Settings;
-
-import java.io.File;
 
 /**
  * @author Ethan Raymond

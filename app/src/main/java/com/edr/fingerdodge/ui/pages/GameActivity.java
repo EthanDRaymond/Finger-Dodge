@@ -3,7 +3,6 @@ package com.edr.fingerdodge.ui.pages;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -135,7 +134,7 @@ public class GameActivity extends StatisticsTrackingActivity {
             @Override
             public void onGameEnded(String message, long endTime) {
                 if (isBound) {
-                    long startTime = endTime - (long) game.getScore();
+//                    long startTime = endTime - (long) game.getScore();
                     boolean beatHighScore;
                     beatHighScore = game.getScore() >= game.getHighScore();
                     statisticsService.addNewStatistic(

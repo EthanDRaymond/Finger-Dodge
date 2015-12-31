@@ -1,6 +1,5 @@
 package com.edr.fingerdodge.net;
 
-import com.edr.fingerdodge.json.JSONException;
 import com.edr.fingerdodge.json.JSONKeys;
 import com.edr.fingerdodge.json.JSONObject;
 
@@ -21,13 +20,13 @@ public class Packet {
         this.content = content;
     }
 
-    protected Packet(String json) throws JSONException {
-        JSONObject jsonObject = new JSONObject(json);
-        this.title = jsonObject.getString(JSONKeys.KEY_TITLE);
-        this.api = jsonObject.getInt(JSONKeys.KEY_API);
-        this.userID = jsonObject.getLong(JSONKeys.KEY_USER_ID);
-        this.content = jsonObject.getJSONObject(JSONKeys.KEY_CONTENT);
-    }
+//    protected Packet(String json) throws JSONException {
+//        JSONObject jsonObject = new JSONObject(json);
+//        this.title = jsonObject.getString(JSONKeys.KEY_TITLE);
+//        this.api = jsonObject.getInt(JSONKeys.KEY_API);
+//        this.userID = jsonObject.getLong(JSONKeys.KEY_USER_ID);
+//        this.content = jsonObject.getJSONObject(JSONKeys.KEY_CONTENT);
+//    }
 
     private String getTitle() {
         return title;
@@ -41,7 +40,7 @@ public class Packet {
         return userID;
     }
 
-    protected JSONObject getContent() {
+    private JSONObject getContent() {
         return content;
     }
 
