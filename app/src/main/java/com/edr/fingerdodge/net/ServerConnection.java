@@ -120,6 +120,7 @@ public class ServerConnection extends Thread {
      *
      * @return true if the connection is successful, false if the connection fails.
      */
+    @SuppressWarnings("UnusedReturnValue")
     private boolean connect() {
         Log.i("SERVER-CONNECTED", "Attempting to connect to a server...");
         if (getConnectionState() == STATE_IDLE || getConnectionState() == STATE_FAILURE_TO_CONNECT) {
@@ -145,6 +146,7 @@ public class ServerConnection extends Thread {
      *
      * @return true if the connection successfully disconnects, false if there is an error.
      */
+    @SuppressWarnings("UnusedReturnValue")
     private boolean disconnect() {
         Log.i("SERVER-CONNECTED", "Attempting to disconnect to a server...");
         if (getConnectionState() == STATE_CONNECTED) {
@@ -169,6 +171,7 @@ public class ServerConnection extends Thread {
      * @param onRecievedResponse this runnable is run if there is a response from the server
      * @return true if the data is send successfully, false if the data is not
      */
+    @SuppressWarnings("UnusedReturnValue")
     public boolean sendData(String data, Runnable onRecievedResponse) {
         Log.i("SERVER-CONNECTED", "Attempting to send Data: \"" + data + "\"");
         try {
