@@ -43,6 +43,12 @@
             android:name=".ui.pages.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+
+        <activity
+            android:name=".ui.pages.StatisticsTrackingActivity"
+            android:label="@string/title_activity_statistics_tracking_activity" >
+        </activity>
+
     </application>
 
 </manifest>

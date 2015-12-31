@@ -12,6 +12,7 @@
     <string name="title_activity_game" translatable="false">GameActivity</string>
     <string name="title_activity_settings" translatable="false">SettingsActivity</string>
     <string name="title_activity_info" translatable="false">InfoActivity</string>
+    <string name="title_activity_statistics_tracking_activity" translatable="false">StatisticsTrackingActivity</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>
