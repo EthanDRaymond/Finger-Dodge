@@ -24,7 +24,7 @@ public class GameStatistic extends Statistic {
      * @param duration      The duration the game lasted (milliseconds)
      * @param beatHighScore Whether this game beat the user's high score
      */
-    public GameStatistic(String type, long id, long time, int api, long duration, boolean beatHighScore) {
+    public GameStatistic(@SuppressWarnings("UnusedParameters") String type, long id, long time, int api, long duration, boolean beatHighScore) {
         super(TYPE, id, time, api);
         this.duration = duration;
         this.beatHighScore = beatHighScore;

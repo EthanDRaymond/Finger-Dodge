@@ -229,6 +229,7 @@ public class Game {
                         Thread.sleep(20);
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
