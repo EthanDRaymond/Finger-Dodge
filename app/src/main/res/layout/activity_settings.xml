@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8sp"
         android:layout_marginBottom="8sp"
-        android:text="Statistics"
+        android:text="@string/menu_title_statistics"
         android:textSize="20sp"/>
 
     <View
@@ -37,14 +37,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Collect Usage Statistics"
+                android:text="@string/menu_item_collect_statistics"
                 android:textSize="16sp"
                 android:gravity="center_vertical"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Statistics are collected anonymously."
+                android:text="@string/misc_statistics_are_collected_anonymously"
                 android:textSize="12sp"
                 android:textStyle="italic"/>
 

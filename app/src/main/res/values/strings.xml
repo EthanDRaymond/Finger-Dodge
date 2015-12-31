@@ -14,5 +14,9 @@
     <string name="title_activity_info" translatable="false">InfoActivity</string>
     <string name="title_activity_statistics_tracking_activity" translatable="false">StatisticsTrackingActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="menu_item_collect_statistics">Collect Usage Statistics</string>
+    <string name="menu_title_statistics">Statistics</string>
+    <string name="misc_statistics_are_collected_anonymously">Statistics are collected anonymously.</string>
+    <string name="misc_touch_the_circle">Touch the Circle</string>
 
 </resources>
