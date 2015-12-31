@@ -20,10 +20,10 @@ public class StatisticPacket extends Packet {
         super(TITLE, api, userID, content);
     }
 
-    public StatisticPacket(String json) {
-        super(json);
-        setStatisticsFromContent();
-    }
+//    public StatisticPacket(String json) {
+//        super(json);
+//        setStatisticsFromContent();
+//    }
 
     private void setStatisticsFromContent() {
         statistics = new ArrayList<Statistic>();
@@ -44,7 +44,7 @@ public class StatisticPacket extends Packet {
         }
     }
 
-    public ArrayList<Statistic> getStatistics() {
-        return statistics;
-    }
+//    public ArrayList<Statistic> getStatistics() {
+//        return statistics;
+//    }
 }

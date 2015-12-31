@@ -20,7 +20,7 @@ public class HighScoreView extends RelativeLayout {
 
     private TextView clockView;
     private Game game;
-    private float highScore;
+    //private float highScore;
 
     public HighScoreView(Context context) {
         super(context);

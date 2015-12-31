@@ -13,9 +13,9 @@ public abstract class OnGameStartedListener {
      *
      * @param startTime the time when the game starts
      */
-    public void startGame(long startTime) {
-        onGameStarted(startTime);
-    }
+    //public void startGame(long startTime) {
+    //    onGameStarted(startTime);
+    //}
 
     /**
      * Call when the game starts. The timestamp sent through is the current time when this method

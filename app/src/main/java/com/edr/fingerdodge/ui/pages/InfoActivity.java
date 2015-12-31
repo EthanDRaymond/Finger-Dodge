@@ -15,7 +15,7 @@ public class InfoActivity extends StatisticsTrackingActivity {
     /**
      * This text view contains the information blurb.
      */
-    private TextView blurb;
+    //private TextView blurb;
     /**
      * This text view contains the contact email address.
      */

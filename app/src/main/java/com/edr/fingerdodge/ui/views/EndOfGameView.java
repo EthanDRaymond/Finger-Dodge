@@ -24,8 +24,6 @@ import com.edr.fingerdodge.game.Game;
  */
 public class EndOfGameView extends LinearLayout {
 
-    private Game game;
-
     private TextView displayView, scoreView;
     private Button restartGameButton;
     private RelativeLayout.LayoutParams layoutParams;
@@ -82,14 +80,6 @@ public class EndOfGameView extends LinearLayout {
 
     public void setMessage(String message) {
         this.displayView.setText(message);
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public TextView getDisplayView() {
-        return displayView;
     }
 
     public TextView getScoreView() {

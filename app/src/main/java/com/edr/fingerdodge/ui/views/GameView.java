@@ -25,12 +25,12 @@ import java.util.ArrayList;
 public class GameView extends View implements View.OnTouchListener {
 
     private static final float SHADOW_OFFSET = 10.0f;
-    private static final float BG_VELOCITY_1 = 10.0f;
-    private static final float BG_VELOCITY_2 = 10.0f;
-    private static final float BG_ACCELERATION_1 = 1.25f;
-    private static final float BG_ACCELERATION_2 = 1.25f;
-    private static float BG_CIRCLE1_RADIUS = 150.0f;
-    private static float BG_CIRCLE2_RADIUS = 400.0f;
+    //private static final float BG_VELOCITY_1 = 10.0f;
+    //private static final float BG_VELOCITY_2 = 10.0f;
+    //private static final float BG_ACCELERATION_1 = 1.25f;
+    //private static final float BG_ACCELERATION_2 = 1.25f;
+    //private static float BG_CIRCLE1_RADIUS = 150.0f;
+    //private static float BG_CIRCLE2_RADIUS = 400.0f;
     private static float RECTANGLE_PIN_SIZE = 5.0f;
 
     private Game game;
@@ -43,7 +43,7 @@ public class GameView extends View implements View.OnTouchListener {
     private Paint bg2Paint;
     private Paint messagePaint;
 
-    private long lastTouchEventTime = 0;
+    //private long lastTouchEventTime = 0;
 
     public GameView(Context context) {
         super(context);
@@ -180,9 +180,9 @@ public class GameView extends View implements View.OnTouchListener {
     }
     */
 
-    private void printRenderTime() {
-        Log.i("RENDER TIME", Long.toString(System.currentTimeMillis()));
-    }
+    //private void printRenderTime() {
+    //    Log.i("RENDER TIME", Long.toString(System.currentTimeMillis()));
+    //}
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -198,13 +198,13 @@ public class GameView extends View implements View.OnTouchListener {
         Game.RECTANGLE_LENGTH_MIN = getHeight() / 7.0f;
         Game.RECTANGLE_LEGNTH_MAX = getHeight();
         if (w < h) {
-            BG_CIRCLE1_RADIUS = h / 6.0f;
-            BG_CIRCLE2_RADIUS = h / 3.0f;
+            //BG_CIRCLE1_RADIUS = h / 6.0f;
+            //BG_CIRCLE2_RADIUS = h / 3.0f;
             RECTANGLE_PIN_SIZE = h / 225.f;
             shadowPaint.setMaskFilter(new BlurMaskFilter(h / 175.0f, BlurMaskFilter.Blur.NORMAL));
         } else {
-            BG_CIRCLE1_RADIUS = w / 6.0f;
-            BG_CIRCLE2_RADIUS = w / 3.0f;
+            //BG_CIRCLE1_RADIUS = w / 6.0f;
+            //BG_CIRCLE2_RADIUS = w / 3.0f;
             RECTANGLE_PIN_SIZE = w / 225.f;
             shadowPaint.setMaskFilter(new BlurMaskFilter(w / 175.0f, BlurMaskFilter.Blur.NORMAL));
         }

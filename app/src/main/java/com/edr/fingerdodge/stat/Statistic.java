@@ -62,9 +62,9 @@ public class Statistic {
     /**
      * Return the user's app's API.
      */
-    public int getApi() {
-        return api;
-    }
+    //public int getApi() {
+    //    return api;
+    //}
 
     /**
      * Returns the user ID.
@@ -106,12 +106,12 @@ public class Statistic {
      * Used to make a JSON array from the given list of statistics.
      * @param statistics    the statistics used to make the array
      */
-    public static JSONArray makeJSONArray(Statistic[] statistics) {
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < statistics.length; i++) {
-            jsonArray.put(statistics[i].getJSONObject());
-        }
-        return jsonArray;
-    }
+//    public static JSONArray makeJSONArray(Statistic[] statistics) {
+//        JSONArray jsonArray = new JSONArray();
+//        for (int i = 0; i < statistics.length; i++) {
+//            jsonArray.put(statistics[i].getJSONObject());
+//        }
+//        return jsonArray;
+//    }
 
 }

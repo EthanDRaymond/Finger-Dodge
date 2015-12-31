@@ -21,7 +21,7 @@ public class ServerConnection extends Thread {
 
     private Socket socket;
     private PrintWriter out;
-    private BufferedReader in;
+    //private BufferedReader in;
     private int state;
     //private ArrayList<Runnable> onRecievedResponseRunnables;
     //private ArrayList<Integer> onRecievedResponseIDs;
@@ -127,7 +127,7 @@ public class ServerConnection extends Thread {
             try {
                 socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
                 out = new PrintWriter(socket.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                //in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.state = STATE_CONNECTED;
                 return true;
             } catch (IOException e) {

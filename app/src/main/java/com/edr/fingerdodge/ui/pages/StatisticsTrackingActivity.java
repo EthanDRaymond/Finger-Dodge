@@ -104,13 +104,13 @@ public class StatisticsTrackingActivity extends Activity {
         return statisticsService;
     }
 
-    public ServiceConnection getStatisticsServiceConnection() {
-        return statisticsServiceConnection;
-    }
+//    public ServiceConnection getStatisticsServiceConnection() {
+//        return statisticsServiceConnection;
+//    }
 
-    public boolean isBound() {
-        return isBound;
-    }
+//    public boolean isBound() {
+//        return isBound;
+//    }
 
     private Activity getThisActivity() {
         return this;

@@ -43,7 +43,7 @@ public class Game {
 
     private int gameState;
     private long startTime;
-    private long endTime;
+    //private long endTime;
     private float highScore;
     private long score;
     private ArrayList<OnGameStartedListener> onGameStartedListeners;
@@ -64,7 +64,7 @@ public class Game {
         this.finger = new Circle(new Point(50, 50), 25);
         this.gameState = STATE_PRE_GAME;
         this.startTime = 0;
-        this.endTime = 0;
+        //this.endTime = 0;
         this.highScore = -1;
         this.score = 0;
         this.onGameStartedListeners = new ArrayList<OnGameStartedListener>();
@@ -248,24 +248,12 @@ public class Game {
     }
 
     /**
-     * This unpauses the game and restarts any updating processes.
-     */
-    public void unPauseGame() {
-        if (onGamePausedListeners.size() > 0) {
-            for (int i = 0; i < onGamePausedListeners.size(); i++) {
-                onGamePausedListeners.get(i).unPauseGame(this);
-            }
-        }
-        startGame();
-    }
-
-    /**
      * This ends the game.
      */
     public void endGame(String message) {
         Log.i("GAME", "Ending game.");
         this.gameState = STATE_END;
-        this.endTime = System.currentTimeMillis();
+        // this.endTime = System.currentTimeMillis();
         if (getScore() > getHighScore()) {
             setHighScore(getScore());
         }
@@ -282,7 +270,7 @@ public class Game {
     public void restartGame() {
         this.gameState = STATE_PRE_GAME;
         this.startTime = -1;
-        this.endTime = -1;
+        // this.endTime = -1;
         this.finger.getCenter().x = gameView.getWidth() / 2.0f;
         this.finger.getCenter().y = gameView.getHeight() / 2.0f;
         this.rectangles.clear();

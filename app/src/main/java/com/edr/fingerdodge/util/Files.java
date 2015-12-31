@@ -14,7 +14,6 @@ import java.io.IOException;
 public class Files {
 
     public static final String FILE_BASIC = "basic.sav";
-    public static final String FILE_HIGHSCORE = "highscore.sav";
     public static final String FILE_STAT_SAVES = "stat_saves.sav";
 
     public static final String KEY_SETTINGS_HIGHSCORE = "highscore";
@@ -44,19 +43,6 @@ public class Files {
     public static void writeToFile(String data, File file) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         fileOutputStream.write(data.getBytes());
-    }
-
-    /**
-     * This appends the given string of data to the given file. It does this by reading the existing
-     * data from the file and concatenates the new data to that string and rewrites it back out to
-     * the file.
-     *
-     * @param data the new data to be appended
-     * @param file the file to append the data to
-     * @throws IOException thrown if the file cannot be opened or the data cannot be written to it
-     */
-    public static void appendToFile(String data, File file) throws IOException {
-        writeToFile(readFile(file) + data, file);
     }
 
 }

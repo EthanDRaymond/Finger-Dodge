@@ -19,7 +19,7 @@ import java.io.File;
  */
 public class SplashActivity extends StatisticsTrackingActivity {
 
-    private TextView textView;
+    //private TextView textView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
