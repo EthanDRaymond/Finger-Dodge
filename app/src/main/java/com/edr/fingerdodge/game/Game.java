@@ -336,52 +336,28 @@ public class Game {
                 } else if (xSlot == 0 && ySlot != 0) {
                     float yMin = rectangle.top - circle.radius;
                     float yMax = rectangle.bottom + circle.radius;
-                    if (circle.getCenter().y > yMin && circle.getCenter().y < yMax) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return (circle.getCenter().y > yMin && circle.getCenter().y < yMax);
                 } else if (xSlot != 0 && ySlot == 0) {
                     float xMin = rectangle.left - circle.radius;
                     float xMax = rectangle.right + circle.radius;
-                    if (circle.getCenter().x > xMin && circle.getCenter().x < xMax) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return (circle.getCenter().x > xMin && circle.getCenter().x < xMax);
                 } else {
                     if (xSlot == -1 && ySlot == -1) {
                         Point corner = rectangle.getTopLeftCorner();
                         Point circleCenter = circle.getCenter();
-                        if (Point.getDistance(corner, circleCenter) < circle.radius) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return (Point.getDistance(corner, circleCenter) < circle.radius);
                     } else if (xSlot == -1 && ySlot == 1) {
                         Point corner = rectangle.getBottomLeftCorner();
                         Point circleCenter = circle.getCenter();
-                        if (Point.getDistance(corner, circleCenter) < circle.radius) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return  (Point.getDistance(corner, circleCenter) < circle.radius);
                     } else if (xSlot == 1 && ySlot == -1) {
                         Point corner = rectangle.getTopRightCorner();
                         Point circleCenter = circle.getCenter();
-                        if (Point.getDistance(corner, circleCenter) < circle.radius) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return (Point.getDistance(corner, circleCenter) < circle.radius);
                     } else {
                         Point corner = rectangle.getBottomRightCorner();
                         Point circleCenter = circle.getCenter();
-                        if (Point.getDistance(corner, circleCenter) < circle.radius) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return (Point.getDistance(corner, circleCenter) < circle.radius);
                     }
                 }
             } else {

@@ -137,11 +137,7 @@ public class GameActivity extends StatisticsTrackingActivity {
                 if (isBound) {
                     long startTime = endTime - (long) game.getScore();
                     boolean beatHighScore;
-                    if (game.getScore() >= game.getHighScore()) {
-                        beatHighScore = true;
-                    } else {
-                        beatHighScore = false;
-                    }
+                    beatHighScore = game.getScore() >= game.getHighScore();
                     statisticsService.addNewStatistic(
                             new GameStatistic(
                                     GameStatistic.TYPE,
