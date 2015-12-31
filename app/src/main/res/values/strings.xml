@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Finger Dodge</string>
-    <string name="app_version" translatable="false">0.2.0</string>
     <string name="action_settings">Settings</string>
     <string name="info_main">This application is developed by Ethan Raymond. For questions, comments, concerns, or to report bugs, contact</string>
     <string name="info_email" translatable="false">
