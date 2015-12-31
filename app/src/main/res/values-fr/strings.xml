@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Finger Dodge</string>
-    <string name="action_settings">Paramètres</string>
-    <string name="game_touch_my_circle">Touchez le Cercle</string>
-    <string name="hello_world">Bonjour Le Monde</string>
-    <string name="info_main">Cette application est développée par Ethan Raymond . Pour des questions , commentaires , préoccupations , ou pour signaler des bugs , le contact</string>
-</resources>

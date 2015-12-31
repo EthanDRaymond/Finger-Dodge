@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Finger Dodge</string>
-    <string name="info_main">Diese Anwendung wird von Ethan Raymond entwickelt. Für Fragen, Kommentare , Anliegen oder um Fehler zu melden , wenden Sie sich</string>
-    <string name="game_touch_my_circle">Berühren Sie den Kreis</string>
-    <string name="action_settings">Einstellungen</string>
-</resources>
