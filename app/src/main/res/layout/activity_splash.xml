@@ -18,6 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/image_content_description_splash_icon"
             android:src="@drawable/logo_splash"/>
 
     </LinearLayout>

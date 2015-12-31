@@ -19,6 +19,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/image_content_description_splash_icon"
             android:src="@drawable/logo_splash"/>
 
         <TextView

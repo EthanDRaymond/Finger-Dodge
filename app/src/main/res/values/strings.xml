@@ -19,4 +19,7 @@
     <string name="misc_statistics_are_collected_anonymously">Statistics are collected anonymously.</string>
     <string name="misc_touch_the_circle">Touch the Circle</string>
 
+    <string name="image_content_description_splash_icon">Splash Icon</string>
+    <string name="image_content_description_settings_icon">Settings Icon</string>
+
 </resources>
