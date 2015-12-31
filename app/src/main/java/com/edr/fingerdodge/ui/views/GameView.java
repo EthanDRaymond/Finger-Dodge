@@ -196,7 +196,7 @@ public class GameView extends View implements View.OnTouchListener {
         Game.RECTANGLE_SEPARATION_MIN = getHeight() / 28.0f;
         Game.RECTANGLE_SEPARATION_MAX = getHeight() / 14.0f;
         Game.RECTANGLE_LENGTH_MIN = getHeight() / 7.0f;
-        Game.RECTANGLE_LEGNTH_MAX = getHeight();
+        Game.RECTANGLE_LENGTH_MAX = getHeight();
         if (w < h) {
             //BG_CIRCLE1_RADIUS = h / 6.0f;
             //BG_CIRCLE2_RADIUS = h / 3.0f;

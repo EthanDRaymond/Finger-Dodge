@@ -32,7 +32,7 @@ public class Game {
     public static float RECTANGLE_SEPARATION_MIN = 25.0f;
     public static float RECTANGLE_SEPARATION_MAX = 50.0f;
     public static float RECTANGLE_LENGTH_MIN = 125;
-    public static float RECTANGLE_LEGNTH_MAX = 700;
+    public static float RECTANGLE_LENGTH_MAX = 700;
     private static final int COLUMN_COUNT = 5;
     private static final String EXIT_COLLISION = "You Lost!";
     public static final String EXIT_LIFTED_FINGER = "You lifted your finger!";
@@ -109,7 +109,7 @@ public class Game {
      * the top of the screen.
      */
     private void handleRectangleCount() {
-        destoryOldRectangles();
+        destroyOldRectangles();
         addNewRectangles();
     }
 
@@ -117,7 +117,7 @@ public class Game {
      * This looks at each rectangle to see if it has passed the bottom of the screen. If it has
      * passed the bottom of the screen, then it it destroyed and removed from the list.
      */
-    private void destoryOldRectangles() {
+    private void destroyOldRectangles() {
         float bottom = gameView.getHeight();
         for (int i = 0; i < rectangles.size(); ) {
             Rectangle rectangle = rectangles.get(i);
@@ -146,7 +146,7 @@ public class Game {
             float bottom = topRectangle.top + RECTANGLE_SEPARATION_MIN
                     + random.nextInt((int) (RECTANGLE_SEPARATION_MAX - RECTANGLE_SEPARATION_MIN));
             float top = bottom - (RECTANGLE_LENGTH_MIN
-                    + random.nextInt((int) (RECTANGLE_LEGNTH_MAX - RECTANGLE_LENGTH_MIN)));
+                    + random.nextInt((int) (RECTANGLE_LENGTH_MAX - RECTANGLE_LENGTH_MIN)));
             int lastColumn = getRectangleColumn(topRectangle);
             int newColumn;
             do {
@@ -287,7 +287,7 @@ public class Game {
      * This checks to see if the finger has collided with a given rectangle. There are three steps taken to determine whether the objects are colliding. This is to minimise computing power required.
      * <p/>
      * <ol>
-     * <li>This checks the with both objects' radii to see if they are close enought to each
+     * <li>This checks the with both objects' radii to see if they are close enough to each
      * other to collide.</li>
      * <li>Gets AABBs from both of the objects and sees if they overlap.</li>
      * <li>Checks if the shapes do truly overlap.</li>

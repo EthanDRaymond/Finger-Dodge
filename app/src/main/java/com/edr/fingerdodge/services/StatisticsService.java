@@ -34,12 +34,12 @@ import java.util.Random;
  * <ol>
  * <li>Collecting and Saving statistics to a file.</li>
  * <li>Deleting statistics older than one month.</li>
- * <li>Sending statistics to the server when an internet connection is availible.</li>
+ * <li>Sending statistics to the server when an internet connection is available.</li>
  * </ol>
  *
  * The following is the steps this takes to collecting and storing statistics. First statistics are
  * added from bound activities using the addStatistic() method. Those statistics are stored in an
- * ArrayList for later use, and they are written to a json file. Everytime the service closes the
+ * ArrayList for later use, and they are written to a json file. Every time the service closes the
  * existing unwritten statistics are written to the same json file. When the service opens, that
  * file is read and those statistics are either sent to the server or placed in memory for next
  * time. The service will only attempt to send statistics to the server on starting.

@@ -23,15 +23,15 @@ public class ServerConnection extends Thread {
     private PrintWriter out;
     //private BufferedReader in;
     private int state;
-    //private ArrayList<Runnable> onRecievedResponseRunnables;
-    //private ArrayList<Integer> onRecievedResponseIDs;
+    //private ArrayList<Runnable> onReceivedResponseRunnables;
+    //private ArrayList<Integer> onReceivedResponseIDs;
     private boolean isRunning;
 
     public ServerConnection() {
         super("ServerConnection");
         this.isRunning = true;
-        //onRecievedResponseRunnables = new ArrayList<Runnable>();
-        //onRecievedResponseIDs = new ArrayList<Integer>();
+        //onReceivedResponseRunnables = new ArrayList<Runnable>();
+        //onReceivedResponseIDs = new ArrayList<Integer>();
         this.state = STATE_IDLE;
     }
 
@@ -168,26 +168,26 @@ public class ServerConnection extends Thread {
      * Sends the given string of data to the server if there is a connection available.
      *
      * @param data               the date to be sent to the server
-     * @param onRecievedResponse this runnable is run if there is a response from the server
+     * @param onReceivedResponse this runnable is run if there is a response from the server
      * @return true if the data is send successfully, false if the data is not
      */
     @SuppressWarnings("UnusedReturnValue")
-    public boolean sendData(String data, Runnable onRecievedResponse) {
+    public boolean sendData(String data, Runnable onReceivedResponse) {
         Log.i("SERVER-CONNECTED", "Attempting to send Data: \"" + data + "\"");
         try {
             if (isConnected() && isSocketConnected()) {
                 /*
                 JSONObject message = new JSONObject();
-                if (onRecievedResponse != null) {
+                if (onReceivedResponse != null) {
                     //int conversationID = getNewConversationID();
-                    // onRecievedResponseIDs.add(conversationID);
-                    // onRecievedResponseRunnables.add(onRecievedResponse);
+                    // onReceivedResponseIDs.add(conversationID);
+                    // onReceivedResponseRunnables.add(onReceivedResponse);
                     // message.put("CONVERSATION_ID", conversationID);
                 }
                 message.put("CONTENT", data);
                 */
                 out.println(data);
-                Log.i("SERVER-CONNECTED", "Succesfully sent data: \"" + data + "\"");
+                Log.i("SERVER-CONNECTED", "Successfully sent data: \"" + data + "\"");
                 return true;
             } else {
                 disconnect();
@@ -207,10 +207,10 @@ public class ServerConnection extends Thread {
              * @param conversationID    the conversation id used to find the appropriate runnable.
              */
     /*
-    private void onRecievedData(String data, int conversationID){
-        for (int i = 0; i < onRecievedResponseIDs.size(); i++){
-            if (conversationID == onRecievedResponseIDs.get(i)){
-                onRecievedResponseRunnables.get(i).run();
+    private void onReceivedData(String data, int conversationID){
+        for (int i = 0; i < onReceivedResponseIDs.size(); i++){
+            if (conversationID == onReceivedResponseIDs.get(i)){
+                onReceivedResponseRunnables.get(i).run();
                 return;
             }
         }
@@ -253,8 +253,8 @@ public class ServerConnection extends Thread {
         Random r = new Random();
         do {
             id = r.nextInt();
-            for (int i = 0; i < onRecievedResponseIDs.size(); i++){
-                if (id == onRecievedResponseIDs.get(i)){
+            for (int i = 0; i < onReceivedResponseIDs.size(); i++){
+                if (id == onReceivedResponseIDs.get(i)){
                     continue;
                 }
             }
