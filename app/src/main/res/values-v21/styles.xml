@@ -1,10 +1,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light"></style>
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar"></style>
 
-    <style name="NoActionBarAppTheme" parent="android:Theme.Material.Light">
-        <item name="windowActionBar">false</item>
+    <style name="NoActionBarAppTheme" parent="android:Theme.Material.Light.NoActionBar">
     </style>
 
 </resources>
