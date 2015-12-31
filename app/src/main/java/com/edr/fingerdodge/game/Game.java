@@ -453,7 +453,7 @@ public class Game {
      * @return the velocity of the rectangles (pixels / second)
      */
     private float getGameVelocity() {
-        return VELOCITY_START + ACCELERATION * ((System.currentTimeMillis() - startTime) / 1000.0f);
+        return VELOCITY_START + ACCELERATION * ((score) / 1000.0f);
     }
 
     /**
