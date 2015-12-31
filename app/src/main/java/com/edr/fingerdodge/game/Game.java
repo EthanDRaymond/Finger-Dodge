@@ -43,7 +43,6 @@ public class Game {
 
     private int gameState;
     private long startTime;
-    //private long endTime;
     private float highScore;
     private long score;
     private ArrayList<OnGameStartedListener> onGameStartedListeners;
@@ -64,7 +63,6 @@ public class Game {
         this.finger = new Circle(new Point(50, 50), 25);
         this.gameState = STATE_PRE_GAME;
         this.startTime = 0;
-        //this.endTime = 0;
         this.highScore = -1;
         this.score = 0;
         this.onGameStartedListeners = new ArrayList<OnGameStartedListener>();
@@ -254,7 +252,6 @@ public class Game {
     public void endGame(String message) {
         Log.i("GAME", "Ending game.");
         this.gameState = STATE_END;
-        // this.endTime = System.currentTimeMillis();
         if (getScore() > getHighScore()) {
             setHighScore(getScore());
         }
@@ -271,7 +268,6 @@ public class Game {
     public void restartGame() {
         this.gameState = STATE_PRE_GAME;
         this.startTime = -1;
-        // this.endTime = -1;
         this.finger.getCenter().x = gameView.getWidth() / 2.0f;
         this.finger.getCenter().y = gameView.getHeight() / 2.0f;
         this.rectangles.clear();
@@ -302,7 +298,6 @@ public class Game {
         float minimumDistance = circle.getRadius() + rectangle.getRadius();
         if (actualDistance < minimumDistance) {
             Rectangle aabb1 = circle.getAABB();
-            //Rectangle aabb2 = rectangle;
             if (Rectangle.isColliding(aabb1, rectangle)) {
                 Point centerPoint = circle.getCenter();
                 byte xSlot, ySlot;
@@ -356,20 +351,6 @@ public class Game {
             return false;
         }
     }
-
-    /*
-    public void writeHighScoreToFile(float highScore){
-        try {
-            FileOutputStream outputStream = new FileOutputStream(
-                    new File(gameView.getContext().getFilesDir(), Files.FILE_HIGHSCORE));
-            outputStream.write(Float.toString(highScore).getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 
     /**
      * Adds the given OnGameStartedListener to the list.

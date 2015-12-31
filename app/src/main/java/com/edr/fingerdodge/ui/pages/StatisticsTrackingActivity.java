@@ -93,23 +93,11 @@ public class StatisticsTrackingActivity extends Activity {
                 getStatisticsService().addNewStatistic(activityOpenStatistic);
             }
         }).start();
-        /*if (isBound) {
-            stopService(new Intent(this, StatisticsService.class));
-            unbindService(statisticsServiceConnection);
-        }*/
     }
 
     StatisticsService getStatisticsService() {
         return statisticsService;
     }
-
-//    public ServiceConnection getStatisticsServiceConnection() {
-//        return statisticsServiceConnection;
-//    }
-
-//    public boolean isBound() {
-//        return isBound;
-//    }
 
     private Activity getThisActivity() {
         return this;

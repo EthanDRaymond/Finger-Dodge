@@ -68,18 +68,6 @@ public class IconView extends View {
 
     }
 
-    //public void setBgColor(int color) {
-    //    bgPaint.setColor(color);
-    //}
-
-    //public void setDesignColor(int color) {
-    //    designPaint.setColor(color);
-    //}
-
-    //public Paint getBgPaint() {
-    //    return bgPaint;
-    //}
-
     Paint getDesignPaint() {
         return designPaint;
     }

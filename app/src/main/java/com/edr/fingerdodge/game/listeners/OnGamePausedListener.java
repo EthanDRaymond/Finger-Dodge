@@ -19,15 +19,6 @@ public abstract class OnGamePausedListener {
     }
 
     /**
-     * Call this when the game is un-paused.
-     *
-     * @param game the game that is un-paused
-     */
-//    public void unPauseGame(Game game) {
-//        onGameUnPaused(game);
-//    }
-
-    /**
      * This is called whenever the game is paused.
      *
      * @param game the game that is paused

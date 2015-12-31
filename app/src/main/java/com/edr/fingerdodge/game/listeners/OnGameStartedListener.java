@@ -9,15 +9,6 @@ package com.edr.fingerdodge.game.listeners;
 public abstract class OnGameStartedListener {
 
     /**
-     * Call when the game starts.
-     *
-     * @param startTime the time when the game starts
-     */
-    //public void startGame(long startTime) {
-    //    onGameStarted(startTime);
-    //}
-
-    /**
      * Call when the game starts. The timestamp sent through is the current time when this method
      * is called.
      */

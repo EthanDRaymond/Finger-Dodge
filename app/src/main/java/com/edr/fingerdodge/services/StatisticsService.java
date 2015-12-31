@@ -223,18 +223,6 @@ public class StatisticsService extends Service {
     }
 
     /**
-     * Checks to see if there is an internet connection.
-     *
-     * @return true if there is a network connection, false if there is not.
-     */
-//    private boolean isNetworkAvailable() {
-//        ConnectivityManager connectivityManager
-//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-//        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-//    }
-
-    /**
      * This takes raw JSON code and builds the array of unwritten statistics out of it.
      * @param json              this is the raw JSON code
      * @throws JSONException    thrown if there is a problem with the JSON code

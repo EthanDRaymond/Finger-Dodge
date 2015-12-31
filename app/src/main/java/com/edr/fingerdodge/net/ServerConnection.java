@@ -19,17 +19,12 @@ public class ServerConnection extends Thread {
 
     private Socket socket;
     private PrintWriter out;
-    //private BufferedReader in;
     private int state;
-    //private ArrayList<Runnable> onReceivedResponseRunnables;
-    //private ArrayList<Integer> onReceivedResponseIDs;
     private boolean isRunning;
 
     public ServerConnection() {
         super("ServerConnection");
         this.isRunning = true;
-        //onReceivedResponseRunnables = new ArrayList<Runnable>();
-        //onReceivedResponseIDs = new ArrayList<Integer>();
         this.state = STATE_IDLE;
     }
 
@@ -40,7 +35,6 @@ public class ServerConnection extends Thread {
     @Override
     public synchronized void start() {
         super.start();
-        // connect();
     }
 
     /**
@@ -125,7 +119,6 @@ public class ServerConnection extends Thread {
             try {
                 socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
                 out = new PrintWriter(socket.getOutputStream(), true);
-                //in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.state = STATE_CONNECTED;
                 return true;
             } catch (IOException e) {
@@ -174,16 +167,6 @@ public class ServerConnection extends Thread {
         Log.i("SERVER-CONNECTED", "Attempting to send Data: \"" + data + "\"");
         try {
             if (isConnected() && isSocketConnected()) {
-                /*
-                JSONObject message = new JSONObject();
-                if (onReceivedResponse != null) {
-                    //int conversationID = getNewConversationID();
-                    // onReceivedResponseIDs.add(conversationID);
-                    // onReceivedResponseRunnables.add(onReceivedResponse);
-                    // message.put("CONVERSATION_ID", conversationID);
-                }
-                message.put("CONTENT", data);
-                */
                 out.println(data);
                 Log.i("SERVER-CONNECTED", "Successfully sent data: \"" + data + "\"");
                 return true;

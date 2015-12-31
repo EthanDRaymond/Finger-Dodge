@@ -17,7 +17,7 @@ public class GameStatistic extends Statistic {
     /**
      * Creates a new game statistic with the given values.
      *
-     * @param type          Not needed anymore // TODO: Remove the type parameter.
+     * @param type          Not needed anymore
      * @param id            The user ID
      * @param time          The time the statistic was logged
      * @param api           The app's API

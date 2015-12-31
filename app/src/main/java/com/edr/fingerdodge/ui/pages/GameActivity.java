@@ -134,7 +134,6 @@ public class GameActivity extends StatisticsTrackingActivity {
             @Override
             public void onGameEnded(String message, long endTime) {
                 if (isBound) {
-//                    long startTime = endTime - (long) game.getScore();
                     boolean beatHighScore;
                     beatHighScore = game.getScore() >= game.getHighScore();
                     statisticsService.addNewStatistic(
