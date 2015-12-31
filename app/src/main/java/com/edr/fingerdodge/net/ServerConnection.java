@@ -38,6 +38,7 @@ public class ServerConnection extends Thread {
     /**
      * Connects to the server and initializes the threat behind it.
      */
+    @SuppressWarnings("EmptyMethod")
     @Override
     public synchronized void start() {
         super.start();

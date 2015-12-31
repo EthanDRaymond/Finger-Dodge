@@ -159,14 +159,4 @@ public class GameActivity extends StatisticsTrackingActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
 }

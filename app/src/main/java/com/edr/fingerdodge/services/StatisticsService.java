@@ -112,6 +112,7 @@ public class StatisticsService extends Service {
     /**
      * Called when a new statistic is added.
      */
+    @SuppressWarnings("EmptyMethod")
     private void onAddNewStatistic() {
         /*
         new Thread(new Runnable() {
