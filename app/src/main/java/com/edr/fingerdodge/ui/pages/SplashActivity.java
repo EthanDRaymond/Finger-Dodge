@@ -63,15 +63,6 @@ public class SplashActivity extends StatisticsTrackingActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * This sees if this activity is being opened for the very first time.
      *

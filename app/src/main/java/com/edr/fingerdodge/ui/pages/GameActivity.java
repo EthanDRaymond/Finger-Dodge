@@ -75,6 +75,7 @@ public class GameActivity extends StatisticsTrackingActivity {
         gameMessageView = (TextView) findViewById(R.id.gameMessageView);
         mainLayout.removeView(endOfGameView);
         game = new Game(gameView);
+        //noinspection deprecation
         game.setSettingsFile(getSharedPreferences(Files.FILE_BASIC, MODE_MULTI_PROCESS));
         game.registerOnGameStartedListener(new OnGameStartedListener() {
             @Override
@@ -170,15 +171,6 @@ public class GameActivity extends StatisticsTrackingActivity {
     @Override
     protected void onStop() {
         super.onStop();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }
