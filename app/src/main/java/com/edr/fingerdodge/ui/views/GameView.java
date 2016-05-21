@@ -54,8 +54,8 @@ public class GameView extends View implements View.OnTouchListener {
     private void init() {
         setOnTouchListener(this);
         game = new Game(this);
-        game.getFinger().getCenter().x = getWidth() / 2.0f;
-        game.getFinger().getCenter().y = getHeight() / 2.0f;
+        game.getFinger().getCenter().setX(getWidth() / 2.0f);
+        game.getFinger().getCenter().setY(getHeight() / 2.0f);
         rectanglePaint1 = new Paint();
         rectanglePaint1.setColor(Color.DKGRAY);
         rectanglePaint1.setAntiAlias(true);
@@ -117,7 +117,12 @@ public class GameView extends View implements View.OnTouchListener {
     private void onDrawFinger(Canvas canvas) {
         Point center = game.getFinger().getCenter();
         float radius = game.getFinger().getRadius();
-        canvas.drawCircle(center.x, center.y, radius, fingerPaint);
+        canvas.drawCircle(
+                center.getX(),
+                center.getY(),
+                radius,
+                fingerPaint
+        );
     }
 
     private void onDrawRectangle(Canvas canvas, float top, float bottom, float left, float right) {
@@ -175,8 +180,8 @@ public class GameView extends View implements View.OnTouchListener {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         game.getRectangles().clear();
-        game.getFinger().getCenter().x = w / 2.0f;
-        game.getFinger().getCenter().y = h / 2.0f;
+        game.getFinger().getCenter().setX(w / 2.0f);
+        game.getFinger().getCenter().setY(h / 2.0f);
         game.getFinger().radius = w / 28.0f;
         Game.VELOCITY_START = h / 2.5f;
         Game.ACCELERATION = Game.VELOCITY_START / 8.0f;
@@ -250,8 +255,8 @@ public class GameView extends View implements View.OnTouchListener {
                         && y < getHeight() / 2.0f + fingerRadius && y > getHeight() / 2.0f - fingerRadius) {
                     float distance = (float) Math.sqrt(Math.pow(x - getWidth() / 2.0f, 2) + Math.pow(y - getHeight() / 2.0f, 2));
                     if (distance < fingerRadius) {
-                        game.getFinger().getCenter().x = x;
-                        game.getFinger().getCenter().y = y /*- 2 * fingerRadius*/;
+                        game.getFinger().getCenter().setX(x);
+                        game.getFinger().getCenter().setY(y) /*- 2 * fingerRadius*/;
                         game.startGame();
                     }
                 }
@@ -267,8 +272,8 @@ public class GameView extends View implements View.OnTouchListener {
                     game.endGame(Game.EXIT_LIFTED_FINGER);
                     return true;
                 }*/
-                game.getFinger().getCenter().x = x;
-                game.getFinger().getCenter().y = y /*- 2 * fingerRadius*/;
+                game.getFinger().getCenter().setX(x);
+                game.getFinger().getCenter().setY(y) /*- 2 * fingerRadius*/;
             } else if (action == MotionEvent.ACTION_UP) {
                 game.pauseGame();
             } else if (action == MotionEvent.ACTION_POINTER_DOWN || action == MotionEvent.ACTION_POINTER_UP) {
@@ -278,14 +283,14 @@ public class GameView extends View implements View.OnTouchListener {
             if (action == MotionEvent.ACTION_DOWN) {
                 float x = event.getX();
                 float y = event.getY();
-                float fingerX = game.getFinger().getCenter().x;
-                float fingerY = game.getFinger().getCenter().y;
+                float fingerX = game.getFinger().getCenter().getX();
+                float fingerY = game.getFinger().getCenter().getY();
                 if (x < fingerX + fingerRadius && x > fingerX - fingerRadius
                         && y < fingerY + fingerRadius && y > fingerY - fingerRadius) {
                     float distance = (float) Math.sqrt(Math.pow(x - fingerX, 2) + Math.pow(y - fingerY, 2));
                     if (distance < fingerRadius) {
-                        game.getFinger().getCenter().x = x;
-                        game.getFinger().getCenter().y = y /*- 2 * fingerRadius*/;
+                        game.getFinger().getCenter().setX(x);
+                        game.getFinger().getCenter().setY(y) /*- 2 * fingerRadius*/;
                         game.startGame();
                     }
                 }

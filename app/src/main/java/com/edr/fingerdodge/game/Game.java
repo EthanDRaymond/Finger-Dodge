@@ -211,16 +211,16 @@ public class Game {
             if (Rectangle.isColliding(aabb1, rectangle)) {
                 Point centerPoint = circle.getCenter();
                 byte xSlot, ySlot;
-                if (centerPoint.y > rectangle.bottom) {
+                if (centerPoint.getY() > rectangle.bottom) {
                     ySlot = 1;
-                } else if (centerPoint.y < rectangle.top) {
+                } else if (centerPoint.getY() < rectangle.top) {
                     ySlot = -1;
                 } else {
                     ySlot = 0;
                 }
-                if (centerPoint.x > rectangle.right) {
+                if (centerPoint.getX() > rectangle.right) {
                     xSlot = 1;
-                } else if (centerPoint.x < rectangle.left) {
+                } else if (centerPoint.getX() < rectangle.left) {
                     xSlot = -1;
                 } else {
                     xSlot = 0;
@@ -230,11 +230,11 @@ public class Game {
                 } else if (xSlot == 0 && ySlot != 0) {
                     float yMin = rectangle.top - circle.radius;
                     float yMax = rectangle.bottom + circle.radius;
-                    return (circle.getCenter().y > yMin && circle.getCenter().y < yMax);
+                    return (circle.getCenter().getY() > yMin && circle.getCenter().getY() < yMax);
                 } else if (xSlot != 0 && ySlot == 0) {
                     float xMin = rectangle.left - circle.radius;
                     float xMax = rectangle.right + circle.radius;
-                    return (circle.getCenter().x > xMin && circle.getCenter().x < xMax);
+                    return (circle.getCenter().getX() > xMin && circle.getCenter().getX() < xMax);
                 } else {
                     if (xSlot == -1 && ySlot == -1) {
                         Point corner = rectangle.getTopLeftCorner();
@@ -358,8 +358,8 @@ public class Game {
     public void restartGame() {
         this.gameState = STATE_PRE_GAME;
         this.startTime = -1;
-        this.finger.getCenter().x = gameView.getWidth() / 2.0f;
-        this.finger.getCenter().y = gameView.getHeight() / 2.0f;
+        this.finger.getCenter().setX(gameView.getWidth() / 2.0f);
+        this.finger.getCenter().setY(gameView.getHeight() / 2.0f);
         this.rectangles.clear();
         this.score = 0;
         if (onGameRestartListeners.size() > 0) {
