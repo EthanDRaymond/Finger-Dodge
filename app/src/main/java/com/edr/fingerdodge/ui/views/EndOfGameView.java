@@ -1,5 +1,6 @@
 package com.edr.fingerdodge.ui.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -42,6 +43,7 @@ public class EndOfGameView extends LinearLayout {
         init();
     }
 
+    @SuppressLint("SetTextI18n")
     private void init() {
         displayView = new TextView(getContext());
         displayView.setText(getResources().getText(R.string.misc_you_lost));

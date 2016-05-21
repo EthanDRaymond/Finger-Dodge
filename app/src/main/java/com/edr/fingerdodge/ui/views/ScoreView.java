@@ -1,5 +1,6 @@
 package com.edr.fingerdodge.ui.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -41,6 +42,7 @@ public class ScoreView extends RelativeLayout {
         return output;
     }
 
+    @SuppressLint("SetTextI18n")
     private void init() {
         clockView = new TextView(getContext());
         clockView.setPadding(10, 10, 10, 10);
@@ -51,6 +53,7 @@ public class ScoreView extends RelativeLayout {
         setBackgroundColor(Color.parseColor("#55222222"));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
