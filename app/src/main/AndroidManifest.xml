@@ -30,8 +30,7 @@
         </activity>
         <activity
             android:name=".ui.pages.InfoActivity"
-            android:label="@string/title_activity_info"
-            android:parentActivityName=".ui.pages.GameActivity" >
+            android:label="@string/title_activity_info">
         </activity>
 
         <service
