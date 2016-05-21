@@ -228,30 +228,30 @@ public class Game {
                 if (xSlot == 0 && ySlot == 0) {
                     return true;
                 } else if (xSlot == 0 && ySlot != 0) {
-                    float yMin = rectangle.top - circle.radius;
-                    float yMax = rectangle.bottom + circle.radius;
+                    float yMin = rectangle.top - circle.getRadius();
+                    float yMax = rectangle.bottom + circle.getRadius();
                     return (circle.getCenter().getY() > yMin && circle.getCenter().getY() < yMax);
                 } else if (xSlot != 0 && ySlot == 0) {
-                    float xMin = rectangle.left - circle.radius;
-                    float xMax = rectangle.right + circle.radius;
+                    float xMin = rectangle.left - circle.getRadius();
+                    float xMax = rectangle.right + circle.getRadius();
                     return (circle.getCenter().getX() > xMin && circle.getCenter().getX() < xMax);
                 } else {
                     if (xSlot == -1 && ySlot == -1) {
                         Point corner = rectangle.getTopLeftCorner();
                         Point circleCenter = circle.getCenter();
-                        return (Point.getDistance(corner, circleCenter) < circle.radius);
+                        return (Point.getDistance(corner, circleCenter) < circle.getRadius());
                     } else if (xSlot == -1 && ySlot == 1) {
                         Point corner = rectangle.getBottomLeftCorner();
                         Point circleCenter = circle.getCenter();
-                        return (Point.getDistance(corner, circleCenter) < circle.radius);
+                        return (Point.getDistance(corner, circleCenter) < circle.getRadius());
                     } else if (xSlot == 1 && ySlot == -1) {
                         Point corner = rectangle.getTopRightCorner();
                         Point circleCenter = circle.getCenter();
-                        return (Point.getDistance(corner, circleCenter) < circle.radius);
+                        return (Point.getDistance(corner, circleCenter) < circle.getRadius());
                     } else {
                         Point corner = rectangle.getBottomRightCorner();
                         Point circleCenter = circle.getCenter();
-                        return (Point.getDistance(corner, circleCenter) < circle.radius);
+                        return (Point.getDistance(corner, circleCenter) < circle.getRadius());
                     }
                 }
             } else {

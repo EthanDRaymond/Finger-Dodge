@@ -7,7 +7,7 @@ package com.edr.fingerdodge.math.geo;
  */
 public class Circle {
 
-    public float radius;
+    private float radius;
     private Point center;
 
     /**
@@ -33,6 +33,14 @@ public class Circle {
                 center.getX() - radius,
                 center.getX() + radius
         );
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public void setCenter(Point center) {
+        this.center = center;
     }
 
     /**

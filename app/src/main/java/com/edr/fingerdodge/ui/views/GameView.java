@@ -182,7 +182,7 @@ public class GameView extends View implements View.OnTouchListener {
         game.getRectangles().clear();
         game.getFinger().getCenter().setX(w / 2.0f);
         game.getFinger().getCenter().setY(h / 2.0f);
-        game.getFinger().radius = w / 28.0f;
+        game.getFinger().setRadius(w / 28.0f);
         Game.VELOCITY_START = h / 2.5f;
         Game.ACCELERATION = Game.VELOCITY_START / 8.0f;
         Game.RECTANGLE_SEPARATION_MIN = getHeight() / 28.0f;
