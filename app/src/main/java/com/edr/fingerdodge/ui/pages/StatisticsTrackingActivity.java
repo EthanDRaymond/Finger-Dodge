@@ -93,6 +93,7 @@ public class StatisticsTrackingActivity extends Activity {
                 getStatisticsService().addNewStatistic(activityOpenStatistic);
             }
         }).start();
+        unbindService(statisticsServiceConnection);
     }
 
     StatisticsService getStatisticsService() {
