@@ -3,6 +3,7 @@ package com.edr.fingerdodge.json;
 /**
  * @author Ethan Raymond
  */
+@SuppressWarnings("all")
 public class JSONKeys {
 
     public static final String KEY_TYPE = "type";

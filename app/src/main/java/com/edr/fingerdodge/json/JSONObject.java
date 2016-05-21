@@ -93,6 +93,7 @@ import java.util.Set;
  * @author JSON.org
  * @version 2015-05-05
  */
+@SuppressWarnings("all")
 public class JSONObject {
     /**
      * It is sometimes more convenient and less ambiguous to have a

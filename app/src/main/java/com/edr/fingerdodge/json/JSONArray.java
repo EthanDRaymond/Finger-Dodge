@@ -77,6 +77,7 @@ import java.util.Map;
  * @author JSON.org
  * @version 2014-05-03
  */
+@SuppressWarnings("all")
 public class JSONArray {
 
     /**

@@ -44,6 +44,7 @@ SOFTWARE.
  * @author JSON.org
  * @version 2015-05-01
  */
+@SuppressWarnings("all")
 public class CDL {
 
     /**
