@@ -84,8 +84,8 @@ public class Game {
         float topLimit = -gameView.getHeight();
         Rectangle topRectangle;
         Random random = new Random();
-        while ((topRectangle = getTopRectangle()).top > topLimit) {
-            float bottom = topRectangle.top + RECTANGLE_SEPARATION_MIN
+        while ((topRectangle = getTopRectangle()).getTop() > topLimit) {
+            float bottom = topRectangle.getTop() + RECTANGLE_SEPARATION_MIN
                     + random.nextInt((int) (RECTANGLE_SEPARATION_MAX - RECTANGLE_SEPARATION_MIN));
             float top = bottom - (RECTANGLE_LENGTH_MIN
                     + random.nextInt((int) (RECTANGLE_LENGTH_MAX - RECTANGLE_LENGTH_MIN)));
@@ -121,7 +121,7 @@ public class Game {
         float bottom = gameView.getHeight();
         for (int i = 0; i < rectangles.size(); ) {
             Rectangle rectangle = rectangles.get(i);
-            if (rectangle.top > bottom) {
+            if (rectangle.getTop() > bottom) {
                 rectangles.remove(i);
             } else {
                 i++;
@@ -152,13 +152,13 @@ public class Game {
      * @return the column integer [0, infinity]
      */
     private int getRectangleColumn(Rectangle rectangle) {
-        if (rectangle.left == 0.0f) {
+        if (rectangle.getLeft() == 0.0f) {
             return 0;
-        } else if (Math.abs(rectangle.left - gameView.getWidth() / COLUMN_COUNT) < 5) {
+        } else if (Math.abs(rectangle.getLeft() - gameView.getWidth() / COLUMN_COUNT) < 5) {
             return 1;
-        } else if (Math.abs(rectangle.left - 2.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
+        } else if (Math.abs(rectangle.getLeft() - 2.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
             return 2;
-        } else if (Math.abs(rectangle.left - 3.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
+        } else if (Math.abs(rectangle.getLeft() - 3.0f * gameView.getWidth() / COLUMN_COUNT) < 5) {
             return 3;
         } else {
             return 4;
@@ -211,16 +211,16 @@ public class Game {
             if (Rectangle.isColliding(aabb1, rectangle)) {
                 Point centerPoint = circle.getCenter();
                 byte xSlot, ySlot;
-                if (centerPoint.getY() > rectangle.bottom) {
+                if (centerPoint.getY() > rectangle.getBottom()) {
                     ySlot = 1;
-                } else if (centerPoint.getY() < rectangle.top) {
+                } else if (centerPoint.getY() < rectangle.getTop()) {
                     ySlot = -1;
                 } else {
                     ySlot = 0;
                 }
-                if (centerPoint.getX() > rectangle.right) {
+                if (centerPoint.getX() > rectangle.getRadius()) {
                     xSlot = 1;
-                } else if (centerPoint.getX() < rectangle.left) {
+                } else if (centerPoint.getX() < rectangle.getLeft()) {
                     xSlot = -1;
                 } else {
                     xSlot = 0;
@@ -228,12 +228,12 @@ public class Game {
                 if (xSlot == 0 && ySlot == 0) {
                     return true;
                 } else if (xSlot == 0 && ySlot != 0) {
-                    float yMin = rectangle.top - circle.getRadius();
-                    float yMax = rectangle.bottom + circle.getRadius();
+                    float yMin = rectangle.getTop() - circle.getRadius();
+                    float yMax = rectangle.getBottom() + circle.getRadius();
                     return (circle.getCenter().getY() > yMin && circle.getCenter().getY() < yMax);
                 } else if (xSlot != 0 && ySlot == 0) {
-                    float xMin = rectangle.left - circle.getRadius();
-                    float xMax = rectangle.right + circle.getRadius();
+                    float xMin = rectangle.getLeft() - circle.getRadius();
+                    float xMax = rectangle.getRight() + circle.getRadius();
                     return (circle.getCenter().getX() > xMin && circle.getCenter().getX() < xMax);
                 } else {
                     if (xSlot == -1 && ySlot == -1) {
@@ -493,7 +493,7 @@ public class Game {
     private Rectangle getTopRectangle() {
         Rectangle rectangle = rectangles.get(0);
         for (int i = 0; i < rectangles.size(); i++) {
-            if (rectangles.get(i).top < rectangle.top) {
+            if (rectangles.get(i).getTop() < rectangle.getTop()) {
                 rectangle = rectangles.get(i);
             }
         }

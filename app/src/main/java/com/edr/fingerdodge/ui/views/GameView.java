@@ -144,10 +144,10 @@ public class GameView extends View implements View.OnTouchListener {
         ArrayList<Rectangle> rectangles = game.getRectangles();
         for (int i = 0; i < rectangles.size(); i++) {
             Rectangle rectangle = rectangles.get(i);
-            float top = rectangle.top;
-            float bottom = rectangle.bottom;
-            float left = rectangle.left;
-            float right = rectangle.right;
+            float top = rectangle.getTop();
+            float bottom = rectangle.getBottom();
+            float left = rectangle.getLeft();
+            float right = rectangle.getRight();
             if (bottom > 0) {
                 onDrawRectangle(canvas, top + 2, bottom - 2, left + 2, right - 2);
             }
