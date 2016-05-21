@@ -7,13 +7,21 @@ package com.edr.fingerdodge.math.geo;
  */
 public class Point {
 
-    public float x, y;
+    private float x, y;
 
     /**
      * Initializes a point with the given x and y values.
      */
     public Point(float x, float y) {
         this.x = x;
+        this.y = y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -28,4 +36,11 @@ public class Point {
         return (float) Math.sqrt(Math.pow(two.x - one.x, 2) + Math.pow(two.y - one.y, 2));
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
 }

@@ -7,7 +7,7 @@ package com.edr.fingerdodge.math.geo;
  */
 public class Rectangle {
 
-    public float top, bottom, left, right;
+    private float top, bottom, left, right;
 
     /**
      * Initializes a new rectangle with the locations of the four edges.
@@ -44,6 +44,22 @@ public class Rectangle {
         bottom += dy;
         left += dx;
         right += dx;
+    }
+
+    public void setTop(float top) {
+        this.top = top;
+    }
+
+    public void setBottom(float bottom) {
+        this.bottom = bottom;
+    }
+
+    public void setLeft(float left) {
+        this.left = left;
+    }
+
+    public void setRight(float right) {
+        this.right = right;
     }
 
     /**
@@ -90,4 +106,19 @@ public class Rectangle {
         return new Point(right, top);
     }
 
+    public float getTop() {
+        return top;
+    }
+
+    public float getBottom() {
+        return bottom;
+    }
+
+    public float getLeft() {
+        return left;
+    }
+
+    public float getRight() {
+        return right;
+    }
 }

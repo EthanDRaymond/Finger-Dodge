@@ -19,7 +19,7 @@ import com.edr.fingerdodge.util.Version;
 public class StatisticsTrackingActivity extends Activity {
 
     StatisticsService statisticsService;
-    boolean isBound;
+    private boolean isBound;
     private ServiceConnection statisticsServiceConnection;
 
     @Override
@@ -94,6 +94,10 @@ public class StatisticsTrackingActivity extends Activity {
             }
         }).start();
         unbindService(statisticsServiceConnection);
+    }
+
+    public boolean isBound() {
+        return isBound;
     }
 
     StatisticsService getStatisticsService() {

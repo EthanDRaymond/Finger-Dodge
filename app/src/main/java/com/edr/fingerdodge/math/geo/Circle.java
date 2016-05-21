@@ -7,7 +7,7 @@ package com.edr.fingerdodge.math.geo;
  */
 public class Circle {
 
-    public float radius;
+    private float radius;
     private Point center;
 
     /**
@@ -27,8 +27,20 @@ public class Circle {
      * @return a rectangle AABB
      */
     public Rectangle getAABB() {
-        return new Rectangle(center.y - radius, center.y + radius,
-                center.x - radius, center.x + radius);
+        return new Rectangle(
+                center.getY() - radius,
+                center.getY() + radius,
+                center.getX() - radius,
+                center.getX() + radius
+        );
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public void setCenter(Point center) {
+        this.center = center;
     }
 
     /**
