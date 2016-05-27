@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Finger Dodge</string>
+	<string name="action_settings">Settings</string>
+	<string name="info_main">This application is developed by Ethan Raymond. For questions, comments, concerns, or to report bugs, contact</string>
+    <string name="info_email" translatable="false">
+        <a href="fingerdodgeapp@gmail.com">fingerdodgeapp@gmail.com</a>
+    </string>
+	<string name="game_touch_my_circle">Touch the Circle</string>
+	<string name="title_activity_game" translatable="false">GameActivity</string>
+	<string name="title_activity_settings" translatable="false">SettingsActivity</string>
+	<string name="title_activity_info" translatable="false">InfoActivity</string>
+	<string name="title_activity_statistics_tracking_activity" translatable="false">StatisticsTrackingActivity</string>
+	<string name="menu_item_collect_statistics">Collect Usage Statistics</string>
+	<string name="menu_title_statistics">Statistics</string>
+
+	<string name="misc_statistics_are_collected_anonymously">Statistics are collected anonymously.</string>
+	<string name="misc_touch_the_circle">Touch the Circle</string>
+	<string name="misc_you_lost">You Lost!</string>
+	<string name="misc_play_again">Play Again</string>
+	<string name="misc_paused">Paused.</string>
+	<string name="misc_00_00">00:00</string>
+	<string name="misc_high_score_0">High Score: 0</string>
+
+	<string name="image_content_description_splash_icon">Splash Icon</string>
+	<string name="image_content_description_settings_icon">Settings Icon</string>
+
+</resources>

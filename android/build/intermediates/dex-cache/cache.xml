@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_57bec70bd9bb56594101d124f3c792dbfb4a2d70\classes.dex" />
+    </item>
+    <item
+        jar="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="6193efb3f23bd4fffe1548903fac37d10ad75e45">
+        <dex dex="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_d8cc969046126bcb36693f244a8bfeee3a8f266c\classes.dex" />
+    </item>
+    <item
+        jar="E:\ProgramFiles\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_f13ba8b95c894caeb5965eda82a355abb18ca882\classes.dex" />
+    </item>
+    <item
+        jar="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_118cd25b8eeb693fc8bc103855e72182c5799056\classes.dex" />
+    </item>
+    <item
+        jar="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="fd042590975860d55566d385b03ff71bd628a427">
+        <dex dex="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_cd5d0e6caeda47bead49b3441c90c3a990ea09e0\classes.dex" />
+    </item>
+    <item
+        jar="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="E:\Software Programming\Projects\Apps\Finger Dodge\Android\dev\finger-dodge\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.1_81c74c626291a1cd5b76c73ad5de312353088619\classes.dex" />
+    </item>
+
+</items>

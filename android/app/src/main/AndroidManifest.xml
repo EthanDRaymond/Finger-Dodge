@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.edr.fingerdodge" >
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
+
+        <activity
+            android:name=".ui.pages.SplashActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/NoActionBarAppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.pages.GameActivity"
+            android:label="@string/title_activity_game"
+            android:theme="@style/NoActionBarAppTheme" >
+        </activity>
+        <activity
+            android:name=".ui.pages.InfoActivity"
+            android:label="@string/title_activity_info">
+        </activity>
+
+        <service
+            android:name=".services.StatisticsService"
+            android:label="StatisticsService" >
+        </service>
+
+        <activity
+            android:name=".ui.pages.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+
+        <activity
+            android:name=".ui.pages.StatisticsTrackingActivity"
+            android:label="@string/title_activity_statistics_tracking_activity" >
+        </activity>
+
+    </application>
+
+</manifest>
