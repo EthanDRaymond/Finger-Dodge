@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="finger-dodge-server.jar">
+    <output-path>$PROJECT_DIR$/../test-builds</output-path>
+    <root id="archive" name="finger-dodge-server.jar">
+      <element id="module-output" name="finger-dodge-server" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/mysql-connector-java-5.1.35/mysql-connector-java-5.1.35-bin.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
