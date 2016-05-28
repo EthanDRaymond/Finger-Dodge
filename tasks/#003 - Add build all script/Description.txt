@@ -1,0 +1,1 @@
+Add a bash script to the main directory that allows the server to build all of the projects.
