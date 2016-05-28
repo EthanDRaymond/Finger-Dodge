@@ -1,0 +1,11 @@
+com.edr.fingerdodge
+com.edr.fingerdodge.game
+com.edr.fingerdodge.game.listeners
+com.edr.fingerdodge.json
+com.edr.fingerdodge.math.geo
+com.edr.fingerdodge.net
+com.edr.fingerdodge.services
+com.edr.fingerdodge.stat
+com.edr.fingerdodge.ui.pages
+com.edr.fingerdodge.ui.views
+com.edr.fingerdodge.util
