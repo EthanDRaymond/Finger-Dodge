@@ -1,0 +1,1 @@
+The project structure is has got a problem where it points to the main directory as well as the android directory.
