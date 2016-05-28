@@ -1,7 +1,9 @@
 package com.edr.fingerdodge.net;
 
 import com.edr.fingerdodge.json.JSONKeys;
-import com.edr.fingerdodge.json.JSONObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @author Ethan Raymond
@@ -28,7 +30,7 @@ public class Packet {
         return content;
     }
 
-    public JSONObject getJSONObject() {
+    public JSONObject getJSONObject() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(JSONKeys.KEY_TITLE, getTitle());
         jsonObject.put(JSONKeys.KEY_API, getApi());

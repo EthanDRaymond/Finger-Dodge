@@ -1,1 +1,2 @@
 Remove the embedded json libraries in the code for the ones built into java.
+Dont remove the one in the server project because there is no json library built into java, only android.

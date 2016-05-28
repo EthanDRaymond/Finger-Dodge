@@ -1,8 +1,9 @@
 package com.edr.fingerdodge.stat;
 
-import com.edr.fingerdodge.json.JSONException;
 import com.edr.fingerdodge.json.JSONKeys;
-import com.edr.fingerdodge.json.JSONObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @author Ethan Raymond

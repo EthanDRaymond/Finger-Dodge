@@ -8,10 +8,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.edr.fingerdodge.json.JSONArray;
-import com.edr.fingerdodge.json.JSONException;
 import com.edr.fingerdodge.json.JSONKeys;
-import com.edr.fingerdodge.json.JSONObject;
 import com.edr.fingerdodge.net.ServerConnection;
 import com.edr.fingerdodge.stat.ActivityCloseStatistic;
 import com.edr.fingerdodge.stat.ActivityOpenStatistic;
@@ -21,6 +18,10 @@ import com.edr.fingerdodge.stat.StatisticPacket;
 import com.edr.fingerdodge.util.Files;
 import com.edr.fingerdodge.util.Settings;
 import com.edr.fingerdodge.util.Version;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,6 +74,8 @@ public class StatisticsService extends Service {
                 saveStatisticsToFile();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -112,13 +115,19 @@ public class StatisticsService extends Service {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    if (sendStatisticsToServer()) {
-                        unwrittenStatistics.clear();
-                        try {
-                            saveStatisticsToFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    try {
+                        if (sendStatisticsToServer()) {
+                            unwrittenStatistics.clear();
+                            try {
+                                saveStatisticsToFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
             }).start();
@@ -195,7 +204,7 @@ public class StatisticsService extends Service {
      *
      * @return true if the data is successfully send, false if the data is not.e
      */
-    private boolean sendStatisticsToServer() {
+    private boolean sendStatisticsToServer() throws JSONException {
         Log.i("STATISTICS", "Sending Statistics To Server.");
         if (unwrittenStatistics.size() > 0) {
             ServerConnection serverConnection = new ServerConnection();

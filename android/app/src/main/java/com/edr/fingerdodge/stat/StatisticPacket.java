@@ -1,7 +1,8 @@
 package com.edr.fingerdodge.stat;
 
-import com.edr.fingerdodge.json.JSONObject;
 import com.edr.fingerdodge.net.Packet;
+
+import org.json.JSONObject;
 
 /**
  * @author Ethan Raymond

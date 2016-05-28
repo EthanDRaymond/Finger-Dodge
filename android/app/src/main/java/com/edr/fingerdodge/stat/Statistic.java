@@ -1,8 +1,10 @@
 package com.edr.fingerdodge.stat;
 
-import com.edr.fingerdodge.json.JSONArray;
 import com.edr.fingerdodge.json.JSONKeys;
-import com.edr.fingerdodge.json.JSONObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -40,7 +42,7 @@ public class Statistic {
      *
      * @param json this is the raw JSON code used
      */
-    Statistic(JSONObject json) {
+    Statistic(JSONObject json) throws JSONException {
         this.type = json.getString(JSONKeys.KEY_TYPE);
         this.userID = json.getLong(JSONKeys.KEY_USER_ID);
         this.time = json.getLong(JSONKeys.KEY_TIME);
