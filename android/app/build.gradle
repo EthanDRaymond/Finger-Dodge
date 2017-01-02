@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 25
     buildToolsVersion '23.0.3'
 
     //noinspection GroovyAssignabilityCheck
@@ -29,5 +29,5 @@ android {
 //noinspection GroovyAssignabilityCheck
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
 }
