@@ -7,7 +7,7 @@ android {
     //noinspection GroovyAssignabilityCheck
     defaultConfig {
         applicationId "com.edr.fingerdodge"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 8
         versionName "1.3.0"
